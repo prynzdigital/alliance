@@ -1,0 +1,254 @@
+@import "tailwindcss";
+
+/*
+  Brand colors derived by sampling the client-supplied logo (soc-logo.png /
+  SOC_logo.png), replacing the placeholder palette proposed in
+  docs/discovery/11_Design_System.md now that real brand assets are
+  available (resolves docs/discovery/20_Client_Input_Required.md, item 11).
+  Every pairing below is verified WCAG AA (>=4.5:1 for text) — see the
+  component usage notes for which text color each background expects.
+  The logo has no red or green; --color-success/--color-error stay
+  conventional semantic colors since they're form-validation states, not
+  brand identity.
+*/
+@theme {
+  --color-primary: #5657c1; /* logo blue */
+  --color-primary-dark: #404190; /* hover/pressed state */
+  --color-secondary: #d1a542; /* logo gold — decorative/celebratory (Mardi Gras), pair with navy text */
+  --color-secondary-dark: #b08428; /* solid gold fills carrying text — pair with --color-text (navy) */
+  --color-accent: #0d6e78; /* logo teal — action color (Donate, primary CTAs), pair with white text */
+  --color-accent-dark: #0a5860; /* hover/pressed state */
+  --color-background: #ffffff;
+  --color-surface: #effafb; /* faint teal tint for section alternation */
+  --color-text: #081c2e; /* navy ink, matches the logo wordmark */
+  --color-text-muted: #5a6470;
+  --color-success: #2e7d4f;
+  --color-error: #b3261e;
+
+  --color-pillar-scholarship: #5657c1; /* blue */
+  --color-pillar-economic: #d1a542; /* gold */
+  --color-pillar-community: #483c9c; /* violet-blue, distinct from primary */
+  --color-pillar-health: #0d6e78; /* teal */
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-button: 8px;
+  --radius-card: 16px;
+
+  --container-content: 1280px;
+
+  --text-h1: 3rem;
+  --text-h1--line-height: 1.1;
+  --text-h1--font-weight: 700;
+  --text-h2: 2.125rem;
+  --text-h2--line-height: 1.2;
+  --text-h2--font-weight: 700;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.3;
+  --text-h3--font-weight: 600;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-background);
+    /* Faded, irregularly-scattered hairlines (not a repeating grid) — hand
+       placed at varied length/thickness/opacity to read as loose texture
+       rather than a pattern. Only two colors, matching design tokens:
+       ash (--color-text-muted, #5a6470) and gold (--color-secondary,
+       #d1a542). Baked in as hex since SVG data URIs can't read CSS vars —
+       keep in sync if those tokens change. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='560' viewBox='0 0 900 560'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cline x1='30' y1='520' x2='260' y2='300' stroke='%235a6470' stroke-width='2.5' stroke-opacity='0.12'/%3E%3Cline x1='10' y1='80' x2='120' y2='-20' stroke='%235a6470' stroke-width='1' stroke-opacity='0.06'/%3E%3Cline x1='150' y1='120' x2='340' y2='-60' stroke='%235a6470' stroke-width='1.5' stroke-opacity='0.09'/%3E%3Cline x1='120' y1='260' x2='230' y2='150' stroke='%235a6470' stroke-width='1' stroke-opacity='0.05'/%3E%3Cline x1='300' y1='80' x2='420' y2='-40' stroke='%235a6470' stroke-width='1' stroke-opacity='0.07'/%3E%3Cline x1='250' y1='340' x2='420' y2='180' stroke='%235a6470' stroke-width='1.5' stroke-opacity='0.08'/%3E%3Cline x1='400' y1='300' x2='520' y2='190' stroke='%235a6470' stroke-width='1' stroke-opacity='0.05'/%3E%3Cline x1='380' y1='450' x2='600' y2='240' stroke='%235a6470' stroke-width='2' stroke-opacity='0.1'/%3E%3Cline x1='520' y1='120' x2='600' y2='40' stroke='%23d1a542' stroke-width='1' stroke-opacity='0.08'/%3E%3Cline x1='560' y1='260' x2='680' y2='150' stroke='%235a6470' stroke-width='1' stroke-opacity='0.06'/%3E%3Cline x1='600' y1='400' x2='760' y2='250' stroke='%235a6470' stroke-width='1.5' stroke-opacity='0.09'/%3E%3Cline x1='650' y1='180' x2='760' y2='80' stroke='%23d1a542' stroke-width='1.5' stroke-opacity='0.08'/%3E%3Cline x1='700' y1='340' x2='880' y2='170' stroke='%235a6470' stroke-width='1' stroke-opacity='0.06'/%3E%3Cline x1='750' y1='60' x2='830' y2='-10' stroke='%235a6470' stroke-width='1' stroke-opacity='0.05'/%3E%3Cline x1='50' y1='200' x2='100' y2='155' stroke='%235a6470' stroke-width='1' stroke-opacity='0.04'/%3E%3Cline x1='200' y1='420' x2='260' y2='365' stroke='%23d1a542' stroke-width='1' stroke-opacity='0.06'/%3E%3Cline x1='450' y1='520' x2='560' y2='420' stroke='%235a6470' stroke-width='1.5' stroke-opacity='0.07'/%3E%3Cline x1='820' y1='420' x2='900' y2='340' stroke='%235a6470' stroke-width='1' stroke-opacity='0.06'/%3E%3Cline x1='330' y1='220' x2='380' y2='175' stroke='%235a6470' stroke-width='1' stroke-opacity='0.04'/%3E%3Cline x1='30' y1='350' x2='80' y2='305' stroke='%23d1a542' stroke-width='1' stroke-opacity='0.05'/%3E%3Cline x1='480' y1='20' x2='560' y2='-50' stroke='%235a6470' stroke-width='1' stroke-opacity='0.05'/%3E%3Cline x1='700' y1='500' x2='820' y2='390' stroke='%235a6470' stroke-width='1.5' stroke-opacity='0.08'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: repeat;
+    color: var(--color-text);
+  }
+
+  h1 {
+    font-size: var(--text-h1);
+    line-height: var(--text-h1--line-height);
+    font-weight: var(--text-h1--font-weight);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  h2 {
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+    font-weight: var(--text-h2--font-weight);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  h3 {
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    font-weight: var(--text-h3--font-weight);
+  }
+
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 2rem;
+    }
+    h2 {
+      font-size: 1.625rem;
+    }
+    h3 {
+      font-size: 1.25rem;
+    }
+  }
+
+  /* Visible focus state for keyboard users (WCAG 2.1 AA — docs/discovery/13_Accessibility.md) */
+  :focus-visible {
+    outline: 3px solid var(--color-secondary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100%;
+    z-index: 100;
+    background: var(--color-primary);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-button);
+    font-weight: 600;
+    transition: top 0.15s ease;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  .dropdown-in {
+    animation: dropdown-in 0.15s ease-out;
+  }
+
+  @keyframes dropdown-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-content-fade-in {
+    animation: hero-content-fade-in 0.9s ease-out both;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes hero-content-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card-neon-bottom {
+    border-bottom: 3px solid color-mix(in srgb, var(--card-accent) 40%, transparent);
+    transition:
+      border-color 0.2s ease-out,
+      box-shadow 0.2s ease-out,
+      transform 0.2s ease-out;
+  }
+
+  .card-neon-bottom:hover {
+    border-bottom-color: var(--card-accent);
+    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.25), 0 6px 16px -4px var(--card-accent);
+  }
+
+  .hero-slide-zoom {
+    animation: hero-slide-zoom 7s ease-out forwards;
+  }
+
+  @keyframes hero-slide-zoom {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.1);
+    }
+  }
+
+  /* Subtle layered gradient mesh for the hero — calm, not flashy, per
+     docs/discovery/10_Design_Direction.md's restraint requirement. */
+  .hero-mesh {
+    background-color: var(--color-primary);
+    background-image:
+      radial-gradient(60% 80% at 15% 20%, color-mix(in srgb, var(--color-accent) 35%, transparent), transparent),
+      radial-gradient(50% 70% at 85% 15%, color-mix(in srgb, var(--color-secondary) 30%, transparent), transparent),
+      radial-gradient(70% 90% at 90% 90%, color-mix(in srgb, var(--color-primary-dark) 60%, transparent), transparent);
+  }
+
+  /* Homepage-only soft gradient mesh backdrop for the glassmorphism redesign
+     — a light, mostly-white base with faint blooms of the brand colors,
+     fixed so glass panels read as floating over a consistent atmosphere as
+     the page scrolls. */
+  .mesh-bg-soft {
+    background-color: #f6f7fb;
+    background-image:
+      radial-gradient(55% 45% at 8% -5%, color-mix(in srgb, var(--color-primary) 20%, transparent), transparent),
+      radial-gradient(45% 40% at 95% 8%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent),
+      radial-gradient(50% 45% at 90% 95%, color-mix(in srgb, var(--color-secondary) 20%, transparent), transparent),
+      radial-gradient(45% 40% at 5% 90%, color-mix(in srgb, var(--color-primary-dark) 14%, transparent), transparent);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+
+  /* Frosted glass panel for cards/sections sitting on .mesh-bg-soft. */
+  .glass-panel {
+    background-color: color-mix(in srgb, white 32%, transparent);
+    border: 1px solid color-mix(in srgb, white 50%, transparent);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 40px -20px rgba(15, 23, 42, 0.18);
+    transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out;
+  }
+
+  .glass-panel:hover {
+    background-color: color-mix(in srgb, white 45%, transparent);
+  }
+
+  /* Same glass treatment, tinted navy-dark for legibility over photos. */
+  .glass-panel-dark {
+    background-color: color-mix(in srgb, var(--color-text) 30%, transparent);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 20px 45px -18px rgba(0, 0, 0, 0.55);
+    transition: background-color 0.2s ease-out;
+  }
+
+  .glass-panel-dark:hover {
+    background-color: color-mix(in srgb, var(--color-text) 40%, transparent);
+  }
+}
