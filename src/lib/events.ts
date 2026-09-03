@@ -35,21 +35,33 @@ const SCHOLARSHIP_ALT = "A graduate in a cap and gown embracing a loved one";
 const SCHOLARSHIP_FUND_ALT = "A graduate in a cap and gown, representing the scholarships this event funds";
 const COMMUNITY_ALT = "Community members gathered together at a neighborhood event";
 const IMPACT_ALT = "Community members joining hands together";
+const OMEGA_GRAS_ALT = "A gold Mardi Gras mask surrounded by festive confetti and ribbon";
 
 // Facts trace to docs/discovery/02_Organization_Research.md, Section 7 and its
 // 2026-08-30/2026-08-31 live-site verification addenda (pulled from
 // socalliance.org/blog) — do not add an entry without a source.
 export const events: SocEvent[] = [
   {
-    title: "Omega Mardi Gras Scholarship Fundraiser — 21st Annual",
+    title: "Happy Labor Day",
+    date: "2026-09-07",
+    description:
+      "SOC Alliance joins the nation in celebrating Labor Day, honoring the contributions of American workers.",
+    href: "/news-events",
+    cta: "Learn More",
+    image: "/labor-day.png",
+    imageAlt: "An American flag beside a chalkboard sign reading \"Happy Labor Day\"",
+    color: NEON.impact,
+  },
+  {
+    title: "21st Annual Omega Mardi Gras Scholarship Fundraiser",
     date: "2026-03-14",
     location: "Rate Field, Chicago",
     description:
       "SOC Alliance's flagship annual gala, co-hosted with the Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc.",
     href: "/donate/mardi-gras-fundraiser",
     cta: "Learn More",
-    image: IMG.scholarship,
-    imageAlt: SCHOLARSHIP_FUND_ALT,
+    image: "/omega-gras.jpg",
+    imageAlt: OMEGA_GRAS_ALT,
     color: NEON.scholarship,
   },
   {
@@ -58,8 +70,8 @@ export const events: SocEvent[] = [
     description: "SOC Alliance's recurring year-end campaign, with a $10,000 goal across all four pillars.",
     href: "/donate",
     cta: "Learn More",
-    image: IMG.impact,
-    imageAlt: IMPACT_ALT,
+    image: "/giving.png",
+    imageAlt: "A hand offering a purple heart to another open hand, with a \"Giving Tuesday\" wordmark",
     color: NEON.impact,
   },
   {
@@ -75,7 +87,7 @@ export const events: SocEvent[] = [
     color: NEON.community,
   },
   {
-    title: "Strengthening Violence Prevention Initiative — Hiring",
+    title: "Strengthening Violence Prevention Initiative Is Hiring",
     date: "2025-04-08",
     description:
       "SOC Alliance opened applications for Area Violence Interrupter, Area Field Manager, Case Manager, and Victim Services Facilitator roles.",
@@ -98,7 +110,7 @@ export const events: SocEvent[] = [
     color: NEON.scholarship,
   },
   {
-    title: "Omega Mardi Gras Scholarship Fundraiser — 20th Annual",
+    title: "20th Annual Omega Mardi Gras Scholarship Fundraiser",
     date: "2025-03-08",
     description: "The 20th-anniversary edition of SOC Alliance's flagship scholarship gala.",
     href: "/donate/mardi-gras-fundraiser",
@@ -204,7 +216,7 @@ export const events: SocEvent[] = [
     color: NEON.community,
   },
   {
-    title: "Know Your Rights — Seminar on Property Taxes",
+    title: "Know Your Rights: A Seminar on Property Taxes",
     date: "2017-10-04",
     description:
       "A free public seminar with Attorney Tanya Woods of the Westside Justice Center on home ownership and property taxes, alongside SOC Alliance's quarterly food drive.",

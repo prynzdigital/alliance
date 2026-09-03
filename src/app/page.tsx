@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AboutAlliance } from "@/components/AboutAlliance";
 import { SupportCarousel } from "@/components/SupportCarousel";
+import { PictureCarousel } from "@/components/PictureCarousel";
 import { HeroSlider } from "@/components/HeroSlider";
 import { PillarBand } from "@/components/PillarBand";
 import { NewsletterForm } from "@/components/NewsletterForm";
@@ -12,7 +13,7 @@ import { formatEventDate, getPastEvents, getUpcomingEvents } from "@/lib/events"
 
 const namedPartners = [
   "Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc.",
-  "Chicago Park District — Fuller Park Fieldhouse",
+  "Chicago Park District's Fuller Park Fieldhouse",
   "Fuller Park Advisory Council",
   "Illinois Department of Human Services",
   "Cook County Government",
@@ -27,7 +28,7 @@ const communityStories = [
       "SOC Alliance staff and Fuller Park Advisory Council members posing together at the Fuller Park Fieldhouse",
     title: "Strengthening Violence Prevention Initiative Partners With Fuller Park Advisory Council",
     dateLocation: "August 20, 2025 · Fuller Park Fieldhouse, Chicago",
-    body: "SOC Alliance’s Strengthening Violence Prevention Initiative held a kickoff meeting with the Chicago Park District’s Fuller Park Fieldhouse and the Fuller Park Advisory Council — one more way the Alliance brings residents and local partners together. The idea is the same one behind all of SOC Alliance’s community-safety work: shared priorities, from traffic safety to youth engagement, are stronger when neighbors help set them.",
+    body: "SOC Alliance’s Strengthening Violence Prevention Initiative held a kickoff meeting with the Chicago Park District’s Fuller Park Fieldhouse and the Fuller Park Advisory Council. It’s one more way the Alliance brings residents and local partners together, working from the same idea behind all of SOC Alliance’s community safety work: shared priorities, from traffic safety to youth engagement, are stronger when neighbors help set them.",
     href: "/programs/community",
   },
   {
@@ -36,7 +37,7 @@ const communityStories = [
       "Community members and Chicago Police Department officers gathered together at the SOC Alliance facility in Woodlawn",
     title: "SOC Alliance Promotes Positive Loitering",
     dateLocation: "November 15, 2021 · Woodlawn, Chicago",
-    body: "SOC Alliance opened its Woodlawn facility to neighbors and officers from the Chicago Police Department for a “positive loitering” gathering — one of the ways the Alliance brings residents and law enforcement together face to face. The idea behind it is straightforward: familiarity builds trust, and trust between neighbors and police is one more tool for reducing violence in the community.",
+    body: "SOC Alliance opened its Woodlawn facility to neighbors and officers from the Chicago Police Department for a “positive loitering” gathering, one of the ways the Alliance brings residents and law enforcement together face to face. The idea behind it is simple: familiarity builds trust, and trust between neighbors and police helps reduce violence in the community.",
     href: "/programs/community",
   },
 ];
@@ -80,10 +81,20 @@ export default function Home() {
     href: event.href,
     color: event.color,
   }));
+  const blogPostSlides = latestNews.map((post) => ({
+    image: post.image,
+    imageAlt: post.imageAlt,
+    eyebrow: formatEventDate(post.date),
+    title: post.title,
+    body: post.description,
+    cta: "Read More",
+    href: post.href,
+    color: post.color,
+  }));
 
   return (
     <div className="mesh-bg-soft">
-      <h1 className="sr-only">SOC Alliance — Strengthening Our Community Alliance</h1>
+      <h1 className="sr-only">Strengthening Our Community Alliance (SOC Alliance)</h1>
 
       <HeroSlider />
 
@@ -91,48 +102,60 @@ export default function Home() {
 
       <AboutAlliance />
 
-      {/* Upcoming Events — moved up to sit directly under About the
-          Alliance, using the same image/content carousel card as Support
-          Our Work below. */}
+      {/* Upcoming Events + Blog Post — two Support-Our-Work-style carousel
+          cards side by side, moved up to sit directly under About the
+          Alliance. */}
       <section>
         <div className="mx-auto max-w-(--container-content) px-6 py-16 md:py-24">
-          <Reveal>
-            <div className="flex flex-wrap items-baseline justify-between gap-4">
-              <h2>Upcoming Events</h2>
-              <Link href="/news-events" className="text-sm font-semibold text-primary hover:underline">
-                View all news &amp; events &rarr;
-              </Link>
-            </div>
-          </Reveal>
-          {upcomingEvents.length > 0 ? (
-            <div className="mt-8">
-              <SupportCarousel slides={upcomingEventSlides} />
-            </div>
-          ) : (
-            <Reveal>
-              <div className="glass-panel mt-8 flex flex-col items-center gap-4 rounded-card px-8 py-12 text-center sm:flex-row sm:text-left">
-                <div className="relative h-20 w-20 shrink-0">
-                  <Image
-                    src="/upcoming.png"
-                    alt="Upcoming events"
-                    fill
-                    unoptimized
-                    className="object-contain"
-                  />
+          <div className="grid items-stretch gap-10 md:grid-cols-[40%_1fr]">
+            <Reveal className="flex h-full flex-col">
+              <div className="flex flex-wrap items-baseline justify-between gap-4">
+                <h2>Upcoming Events</h2>
+                <Link href="/news-events" className="text-sm font-semibold text-primary hover:underline">
+                  View all &rarr;
+                </Link>
+              </div>
+              {upcomingEvents.length > 0 ? (
+                <div className="mt-8 flex-1">
+                  <PictureCarousel slides={upcomingEventSlides} />
                 </div>
-                <div>
-                  <p className="font-semibold text-text">No upcoming events on the calendar right now</p>
-                  <p className="mt-1 text-sm text-text-muted">
-                    New dates are added as they&rsquo;re confirmed — check{" "}
-                    <Link href="/news-events" className="font-semibold text-primary hover:underline">
-                      News &amp; Events
-                    </Link>{" "}
-                    for the latest, or browse highlights from recent SOC Alliance events below.
-                  </p>
+              ) : (
+                <div className="glass-panel mt-8 flex flex-1 flex-col items-center justify-center gap-4 rounded-card px-6 py-10 text-center">
+                  <div className="relative h-20 w-20 shrink-0">
+                    <Image
+                      src="/upcoming.png"
+                      alt="Upcoming events"
+                      fill
+                      unoptimized
+                      className="object-contain"
+                    />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-text">No upcoming events on the calendar right now</p>
+                    <p className="mt-1 text-sm text-text-muted">
+                      New dates are added as they&rsquo;re confirmed, so check{" "}
+                      <Link href="/news-events" className="font-semibold text-primary hover:underline">
+                        News &amp; Events
+                      </Link>{" "}
+                      for the latest.
+                    </p>
+                  </div>
                 </div>
+              )}
+            </Reveal>
+
+            <Reveal delay={75} className="flex h-full flex-col">
+              <div className="flex flex-wrap items-baseline justify-between gap-4">
+                <h2>Blog Post</h2>
+                <Link href="/news-events" className="text-sm font-semibold text-primary hover:underline">
+                  View full archive &rarr;
+                </Link>
+              </div>
+              <div className="mt-8 flex-1">
+                <SupportCarousel slides={blogPostSlides} />
               </div>
             </Reveal>
-          )}
+          </div>
         </div>
       </section>
 
@@ -157,8 +180,8 @@ export default function Home() {
                 is written to be honest about that without inventing numbers —
                 replace once more figures are confirmed. */}
             <p className="mt-4 text-sm text-white/60">
-              More of our impact story — students mentored, families supported, and more — is on
-              its way as we confirm the numbers.
+              More of our impact story, like students mentored and families supported, is on its
+              way as we confirm the numbers.
             </p>
             <div className="mt-8">
               <Button href="/donate" variant="outlineInverse" size="lg" pill>

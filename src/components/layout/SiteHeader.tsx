@@ -5,11 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { primaryNav } from "@/lib/navigation";
-import { Button } from "@/components/ui/Button";
-import { FacebookIcon, LinkedInIcon } from "@/components/icons/SocialIcons";
-
-const FACEBOOK_URL = "https://www.facebook.com/socommunityalliance";
-const LINKEDIN_URL = "https://www.linkedin.com/company/strengthening-our-community-alliance/";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -73,13 +68,13 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 h-24 border-b backdrop-blur-[2px] transition-colors duration-300 ${
+      className={`fixed inset-x-0 top-9 z-40 h-20 border-b backdrop-blur-[2px] transition-colors duration-300 ${
         transparent
           ? "border-white/30 bg-gradient-to-b from-black/40 via-black/15 to-transparent"
           : "border-slate-200 bg-slate-50/80 shadow-md supports-[backdrop-filter]:bg-slate-50/70"
       }`}
     >
-      <div className="mx-auto flex h-full max-w-(--container-content) items-center justify-between gap-4 px-6 py-3">
+      <div className="mx-auto flex h-full max-w-(--container-content) items-center justify-between gap-4 px-6 py-2">
         <Link href="/" className="flex items-center gap-2.5">
           <Image
             src={transparent ? "/soc-logo-mark-white.png" : "/soc-logo-mark.png"}
@@ -87,12 +82,12 @@ export function SiteHeader() {
             width={764}
             height={446}
             priority
-            className="h-9 w-auto sm:h-10"
+            className="h-7 w-auto sm:h-8"
           />
           <span className="flex flex-col justify-center leading-tight">
             <span
               aria-hidden="true"
-              className={`block text-base font-bold uppercase sm:text-lg ${
+              className={`block text-sm font-bold uppercase sm:text-base ${
                 transparent ? "text-white" : "text-primary"
               }`}
               style={{ textAlign: "justify", textAlignLast: "justify" }}
@@ -101,7 +96,7 @@ export function SiteHeader() {
             </span>
             <span className="sr-only">Alliance</span>
             <span
-              className={`whitespace-nowrap text-[10px] font-semibold uppercase tracking-wide sm:text-xs ${
+              className={`whitespace-nowrap text-[9px] font-semibold uppercase tracking-wide sm:text-[10px] ${
                 transparent ? "text-white/75" : "text-text-muted"
               }`}
             >
@@ -123,7 +118,7 @@ export function SiteHeader() {
                 <>
                   <button
                     type="button"
-                    className={`flex items-center gap-1 rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-wide transition-colors ${
+                    className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                       transparent ? "text-white hover:text-white/70" : "text-text hover:text-primary"
                     }`}
                     aria-expanded={openDesktopMenu === item.label}
@@ -163,7 +158,7 @@ export function SiteHeader() {
               ) : (
                 <Link
                   href={item.href}
-                  className={`block rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-wide transition-colors ${
+                  className={`block rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                     transparent ? "text-white hover:text-white/70" : "text-text hover:text-primary"
                   }`}
                 >
@@ -175,36 +170,27 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-4">
-          <div className="hidden items-center gap-1 lg:flex">
-            <a
-              href={FACEBOOK_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="SOC Alliance on Facebook"
-              className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
-                transparent ? "text-white hover:bg-white/15" : "text-text hover:bg-slate-200/70 hover:text-primary"
+          <a
+            href="tel:+17736932222"
+            className={`hidden items-center gap-2.5 xl:flex ${transparent ? "text-white" : "text-text"}`}
+          >
+            <span
+              className={`flex h-9 w-9 items-center justify-center rounded-full ${
+                transparent ? "bg-white/15" : "bg-surface"
               }`}
             >
-              <FacebookIcon className="h-5 w-5" aria-hidden="true" />
-            </a>
-            <a
-              href={LINKEDIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="SOC Alliance on LinkedIn"
-              className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
-                transparent ? "text-white hover:bg-white/15" : "text-text hover:bg-slate-200/70 hover:text-primary"
-              }`}
-            >
-              <LinkedInIcon className="h-5 w-5" aria-hidden="true" />
-            </a>
-          </div>
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.75} aria-hidden>
+                <path d="M4.5 4.5h3.2l1.6 4-2 1.5a11 11 0 0 0 5.7 5.7l1.5-2 4 1.6v3.2c0 1-.9 1.8-1.9 1.6C9.9 19.3 4.7 14.1 3 7.4 2.8 6.4 3.6 5.5 4.5 4.5Z" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+            <span className="leading-tight">
+              <span className={`block text-[11px] font-medium ${transparent ? "text-white/70" : "text-text-muted"}`}>
+                Contact Us
+              </span>
+              <span className="block text-sm font-bold">773-693-2222</span>
+            </span>
+          </a>
 
-          <div className="hidden sm:block">
-            <Button href="/donate" variant={transparent ? "light" : "accent"} size="sm" pill>
-              Donate
-            </Button>
-          </div>
           <button
             ref={menuButtonRef}
             type="button"
@@ -278,15 +264,6 @@ export function SiteHeader() {
                 </li>
               ))}
             </ul>
-            <Button
-              href="/donate"
-              variant="accent"
-              pill
-              className="mt-3 w-full"
-              onClick={() => setMobileOpen(false)}
-            >
-              Donate
-            </Button>
           </nav>
         </div>
       )}

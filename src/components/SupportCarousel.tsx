@@ -27,7 +27,7 @@ const DEFAULT_SLIDES: CarouselSlide[] = [
     imageAlt: "Two people shaking hands, with a third person smiling in the background",
     eyebrow: "Get Involved",
     title: "Lend a Hand",
-    body: "Give your time across scholarship, economic development, community, and health programs — every volunteer hour reaches a neighbor directly.",
+    body: "Give your time across scholarship, economic development, community, and health programs. Every volunteer hour reaches a neighbor directly.",
     cta: "Volunteer",
     href: "/get-involved/volunteer",
     color: "var(--color-accent)",
@@ -37,7 +37,7 @@ const DEFAULT_SLIDES: CarouselSlide[] = [
     imageAlt: "A raised fist held by another hand, among a group of people with arms raised together",
     eyebrow: "Support Our Work",
     title: "Fuel Our Mission",
-    body: "Every gift funds scholarships, economic development, community safety, and health programs across Chicago’s South Side — and since SOC Alliance runs entirely on volunteers, more of it reaches the community directly.",
+    body: "Every gift funds scholarships, economic development, community safety, and health programs across Chicago’s South Side. Since SOC Alliance runs entirely on volunteers, more of it reaches the community directly.",
     cta: "Donate Now",
     href: "/donate",
     color: "var(--color-secondary-dark)",
@@ -65,7 +65,7 @@ export function SupportCarousel({ slides = DEFAULT_SLIDES }: { slides?: Carousel
 
   return (
     <div
-      className="relative w-full rounded-card bg-background p-5 shadow-md sm:p-6 md:py-7 md:px-12"
+      className="relative flex h-full w-full flex-col justify-center rounded-card bg-background p-5 shadow-md sm:p-6 md:py-7 md:px-12"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
@@ -96,8 +96,10 @@ export function SupportCarousel({ slides = DEFAULT_SLIDES }: { slides?: Carousel
           >
             {slide.eyebrow}
           </p>
-          <h3 className="text-2xl font-bold text-text">{slide.title}</h3>
-          <p className="text-text-muted">{slide.body}</p>
+          <h3 className="line-clamp-2 min-h-[3.5rem] text-2xl font-bold text-text sm:min-h-[4rem]">
+            {slide.title}
+          </h3>
+          <p className="line-clamp-3 min-h-[4.5rem] text-text-muted">{slide.body}</p>
           <Link
             href={slide.href}
             className="mt-2 inline-flex items-center rounded-full border-2 bg-transparent px-6 py-2.5 text-sm font-bold uppercase tracking-wide transition-all hover:-translate-y-0.5"

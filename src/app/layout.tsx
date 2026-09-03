@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { TopBar } from "@/components/layout/TopBar";
 import "./globals.css";
 
 const inter = Inter({
@@ -62,8 +63,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
+        <TopBar />
         <SiteHeader />
-        <main id="main-content" className="flex-1 pt-24">
+        <main id="main-content" className="flex-1 pt-[7.25rem]">
           {children}
         </main>
         <SiteFooter />
