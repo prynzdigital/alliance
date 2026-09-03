@@ -46,7 +46,15 @@ const DEFAULT_SLIDES: CarouselSlide[] = [
 
 const AUTO_ADVANCE_MS = 7000;
 
-export function SupportCarousel({ slides = DEFAULT_SLIDES }: { slides?: CarouselSlide[] }) {
+export function SupportCarousel({
+  slides = DEFAULT_SLIDES,
+  imageSize = "md",
+}: {
+  slides?: CarouselSlide[];
+  /** "lg" makes the image panel wider and taller — for columns with room to
+      spare, without changing the default Support Our Work sizing. */
+  imageSize?: "md" | "lg";
+}) {
   const [index, setIndex] = useState(0);
   const [hovering, setHovering] = useState(false);
   const [reducedMotion] = useState(
@@ -70,7 +78,11 @@ export function SupportCarousel({ slides = DEFAULT_SLIDES }: { slides?: Carousel
       onMouseLeave={() => setHovering(false)}
     >
       <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-center sm:gap-12 sm:pr-8">
-        <div className="relative -mt-12 h-36 w-36 shrink-0 sm:mt-0 sm:h-auto sm:w-[40%] sm:-ml-[10%] sm:aspect-[4/3]">
+        <div
+          className={`relative -mt-12 h-36 w-36 shrink-0 sm:mt-0 sm:h-auto sm:-ml-[10%] ${
+            imageSize === "lg" ? "sm:w-[54%] sm:aspect-[5/4]" : "sm:w-[40%] sm:aspect-[4/3]"
+          }`}
+        >
           <div
             aria-hidden
             className="absolute -inset-2 rounded-2xl opacity-25 blur-lg transition-colors duration-500"
@@ -80,7 +92,13 @@ export function SupportCarousel({ slides = DEFAULT_SLIDES }: { slides?: Carousel
             key={slide.image}
             className="hero-content-fade-in relative h-full w-full overflow-hidden rounded-2xl shadow-sm"
           >
-            <Image src={slide.image} alt={slide.imageAlt} fill sizes="240px" className="object-cover" />
+            <Image
+              src={slide.image}
+              alt={slide.imageAlt}
+              fill
+              sizes={imageSize === "lg" ? "320px" : "240px"}
+              className="object-cover"
+            />
             <div
               aria-hidden
               className="absolute inset-0 mix-blend-multiply transition-colors duration-500"

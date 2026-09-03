@@ -152,7 +152,7 @@ export default function Home() {
                 </Link>
               </div>
               <div className="mt-8 flex-1">
-                <SupportCarousel slides={blogPostSlides} />
+                <SupportCarousel slides={blogPostSlides} imageSize="lg" />
               </div>
             </Reveal>
           </div>

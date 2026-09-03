@@ -19,8 +19,12 @@ const ORG = {
 
 export function SiteFooter() {
   return (
-    <footer className="bg-text">
-      <div className="mx-auto max-w-(--container-content) px-6 py-14">
+    <footer
+      className="relative bg-text bg-cover bg-center bg-no-repeat bg-fixed"
+      style={{ backgroundImage: "url('/community-work.png')" }}
+    >
+      <div aria-hidden className="absolute inset-0 bg-text/92" />
+      <div className="relative mx-auto max-w-(--container-content) px-6 py-14">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5">
