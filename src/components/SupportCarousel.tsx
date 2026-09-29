@@ -120,6 +120,8 @@ export function SupportCarousel({
           <p className="line-clamp-3 min-h-[4.5rem] text-text-muted">{slide.body}</p>
           <Link
             href={slide.href}
+            target={slide.href.startsWith("http") ? "_blank" : undefined}
+            rel={slide.href.startsWith("http") ? "noopener noreferrer" : undefined}
             className="mt-2 inline-flex items-center rounded-full border-2 bg-transparent px-6 py-2.5 text-sm font-bold uppercase tracking-wide transition-all hover:-translate-y-0.5"
             style={{
               borderColor: slide.color,

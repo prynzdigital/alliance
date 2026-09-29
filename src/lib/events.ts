@@ -32,15 +32,41 @@ const NEON = {
 };
 
 const SCHOLARSHIP_ALT = "A graduate in a cap and gown embracing a loved one";
-const SCHOLARSHIP_FUND_ALT = "A graduate in a cap and gown, representing the scholarships this event funds";
 const COMMUNITY_ALT = "Community members gathered together at a neighborhood event";
-const IMPACT_ALT = "Community members joining hands together";
 const OMEGA_GRAS_ALT = "A gold Mardi Gras mask surrounded by festive confetti and ribbon";
+
+// The following real event photos/flyers (Fuller Park meeting, grant award,
+// law enforcement session, blood drive, Talent Hunt, 20th Annual Mardi Gras,
+// Giving Tuesday 2024, mentoring flyer) were pulled from the org's own CDN
+// (irp.cdn-website.com — the live site's asset host) on 2026-09-29, replacing
+// generic thematic stand-ins with the organization's real photography.
 
 // Facts trace to docs/discovery/02_Organization_Research.md, Section 7 and its
 // 2026-08-30/2026-08-31 live-site verification addenda (pulled from
 // socalliance.org/blog) — do not add an entry without a source.
 export const events: SocEvent[] = [
+  {
+    title: "SOC Alliance Board Member Mark Campbell, PhD, Named to Marquis Who's Who",
+    date: "2026-09-24",
+    description:
+      "Mark Campbell, PhD — a SOC Alliance board member and vice president of information technology for the Houston Rockets — has been included in Marquis Who's Who for his three decades of leadership in information technology.",
+    href: "https://www.24-7pressrelease.com/press-release/538921/marquis-whos-who-honors-mark-campbell-phd-for-expertise-in-information-technology-leadership-and-innovation",
+    cta: "Read the Press Release",
+    image: "/mark-campbell.jpg",
+    imageAlt: "Portrait of Mark Campbell, PhD, smiling in a suit and tie",
+    color: NEON.impact,
+  },
+  {
+    title: "Apply for Mentoring & Life Coaching",
+    date: "2026-06-18",
+    description:
+      "SOC Alliance's Strengthening Violence Prevention Initiative offers free, trauma-informed mentoring and life coaching for survivors of violence ages 18-35 in Fuller Park, South Chicago, and South Deering.",
+    href: "/get-involved/mentoring-life-coaching",
+    cta: "Learn More",
+    image: "/mentoring-flyer.png",
+    imageAlt: "Flyer for the SOC Alliance Mentoring & Life Coaching Program, serving Fuller Park, South Chicago, and South Deering",
+    color: NEON.community,
+  },
   {
     title: "Happy Labor Day",
     date: "2026-09-07",
@@ -82,8 +108,8 @@ export const events: SocEvent[] = [
       "A joint kickoff meeting between the Strengthening Violence Prevention Initiative, the Chicago Park District's Fuller Park Fieldhouse, and the Fuller Park Advisory Council.",
     href: "/programs/community",
     cta: "Learn More",
-    image: IMG.community,
-    imageAlt: COMMUNITY_ALT,
+    image: "/svpi-fuller-park.webp",
+    imageAlt: "Community members and SVPI staff gathered inside the Fuller Park Fieldhouse for the Advisory Council kickoff",
     color: NEON.community,
   },
   {
@@ -105,18 +131,19 @@ export const events: SocEvent[] = [
       "The annual scholarship competition for Chicagoland high school students. 2025 winner: Tiffany Tyus, piano (\"Spain\" by Chick Corea).",
     href: "/programs/scholarship",
     cta: "Learn More",
-    image: IMG.scholarship,
-    imageAlt: SCHOLARSHIP_ALT,
+    image: "/talent-hunt.png",
+    imageAlt: "A collage of student performers at the 2025 Talent Hunt Competition, playing violin, piano, and trumpet",
     color: NEON.scholarship,
   },
   {
     title: "20th Annual Omega Mardi Gras Scholarship Fundraiser",
     date: "2025-03-08",
+    location: "Huntington Bank Stadium Club, Chicago White Sox",
     description: "The 20th-anniversary edition of SOC Alliance's flagship scholarship gala.",
     href: "/donate/mardi-gras-fundraiser",
     cta: "Learn More",
-    image: IMG.scholarship,
-    imageAlt: SCHOLARSHIP_FUND_ALT,
+    image: "/omega-gras-20th.jpg",
+    imageAlt: "Save-the-date graphic for the 20th Annual Omega Mardi Gras Scholarship Fundraiser, featuring a jeweled masquerade mask",
     color: NEON.scholarship,
   },
   {
@@ -125,8 +152,8 @@ export const events: SocEvent[] = [
     description: "SOC Alliance's year-end giving campaign.",
     href: "/donate",
     cta: "Learn More",
-    image: IMG.impact,
-    imageAlt: IMPACT_ALT,
+    image: "/giving-tuesday-2024.png",
+    imageAlt: "A wooden desk calendar reading December 3, Tuesday, next to a handwritten \"Giving Tuesday\" note",
     color: NEON.impact,
   },
   {
@@ -136,19 +163,24 @@ export const events: SocEvent[] = [
       "SOC Alliance was awarded a Cook County Starting Block Grant, supporting capacity-building for community-based organizations.",
     href: "/about/financials-transparency",
     cta: "Learn More",
-    image: IMG.impact,
-    imageAlt: IMPACT_ALT,
+    image: "/grant-award.png",
+    imageAlt: "A \"We Received a Grant!\" graphic for the Cook County Starting Block Grants program",
     color: NEON.impact,
   },
   {
+    // Flyer found on the org's own CDN gives this event's date as July 22,
+    // 2023 — conflicting with the November 15, 2023 date recorded during
+    // discovery (docs/discovery/02_Organization_Research.md, Addendum). Left
+    // as-is pending client confirmation on whether these are the same event;
+    // see conversation note to the user.
     title: "Kroc Center Blood Drive",
     date: "2023-11-15",
     location: "Kroc Center",
     description: "SOC Alliance hosted a community blood drive at the Kroc Center.",
     href: "/programs/health",
     cta: "Learn More",
-    image: IMG.health,
-    imageAlt: "A healthcare provider speaking warmly with a patient",
+    image: "/blood-drive.jpg",
+    imageAlt: "A \"Striking Out Blood Shortages\" flyer for the SOC Alliance community blood drive at the Kroc Center",
     color: NEON.health,
   },
   {
@@ -158,8 +190,8 @@ export const events: SocEvent[] = [
       "A legal-rights workshop with the Westside Justice Center, presented by criminal law attorney April Preyer, Esq.",
     href: "/programs/community",
     cta: "Learn More",
-    image: IMG.community,
-    imageAlt: COMMUNITY_ALT,
+    image: "/law-enforcement.jpg",
+    imageAlt: "Flyer for the \"Interacting with Law Enforcement\" session with attorney April Preyer, Esq., and the Westside Justice Center",
     color: NEON.community,
   },
   {

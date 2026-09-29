@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { MentoringForm } from "@/components/MentoringForm";
@@ -27,7 +28,30 @@ export default function MentoringPage() {
         ]}
       />
       <Container className="py-16 md:py-24">
-      <div className="max-w-2xl rounded-card border border-black/10 bg-surface p-6">
+      <div className="grid max-w-4xl grid-cols-1 items-center gap-8 sm:grid-cols-[1fr_1.2fr]">
+        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-card shadow-md">
+          <Image
+            src="/mentoring-flyer.png"
+            alt="Flyer for the SOC Alliance Mentoring & Life Coaching Program, in partnership with IDHS and the Strengthening Violence Prevention Initiative"
+            fill
+            sizes="(min-width: 640px) 35vw, 90vw"
+            className="object-cover object-top"
+          />
+        </div>
+        <div>
+          <h2 className="text-lg">Who this program serves</h2>
+          <p className="mt-2 text-text-muted">
+            Free, trauma-informed mentoring and life coaching for survivors of violence ages 18
+            to 35, offered through SOC Alliance&rsquo;s Strengthening Violence Prevention
+            Initiative in partnership with the Illinois Department of Human Services (IDHS).
+          </p>
+          <p className="mt-3 text-sm font-semibold text-text">
+            Serving Fuller Park, South Chicago, and South Deering
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-10 max-w-2xl rounded-card border border-black/10 bg-surface p-6">
         <h2 className="text-lg">What happens after you reach out</h2>
         <p className="mt-2 text-text">
           A member of our team will follow up directly, using whatever contact method you tell

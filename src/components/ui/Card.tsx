@@ -44,8 +44,15 @@ export function Card({ children, href, accentColor, neonAccent, glass = false, c
   const interactive = glass ? glassInteractive : solidInteractive;
 
   if (href) {
+    const external = href.startsWith("http");
     return (
-      <Link href={href} className={`group ${base} ${interactive} ${neonClass} ${className}`} style={style}>
+      <Link
+        href={href}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
+        className={`group ${base} ${interactive} ${neonClass} ${className}`}
+        style={style}
+      >
         {children}
       </Link>
     );

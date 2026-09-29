@@ -39,6 +39,8 @@ export function PictureCarousel({ slides }: { slides: Slide[] }) {
   return (
     <Link
       href={slide.href}
+      target={slide.href.startsWith("http") ? "_blank" : undefined}
+      rel={slide.href.startsWith("http") ? "noopener noreferrer" : undefined}
       className="group relative block aspect-[4/5] w-full overflow-hidden rounded-card shadow-lg md:aspect-auto md:h-full md:min-h-[320px]"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
