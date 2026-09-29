@@ -35,7 +35,7 @@ This is the consolidated punch list of everything in this document set that coul
 
 15. **Domain registrar/DNS access** for socalliance.org.
 16. **Confirmation of current CMS/hosting platform** and a handoff conversation with the current agency (Olive + Ash / Olive Street Design). *(`03_Current_Website_Audit.md`, Weakness #15; `14_Technical_Architecture.md`)*
-17. **Donorbox account access** to configure an embedded donation widget. *(`14_Technical_Architecture.md`)*
+17. ~~**Donorbox account access**~~ **RESOLVED (2026-09-29, client-supplied):** live campaign link (`donorbox.org/general-donation-36`) provided and embedded on-page at `/donate` and `/donate/give`. *(`14_Technical_Architecture.md`)*
 18. ~~**Existing brand guidelines, logo files, or color preferences**~~ **RESOLVED (2026-08-30):** logo files were supplied directly and verified against the live site — they match exactly. Brand colors have been derived from the logo by pixel sampling (see `11_Design_System.md` implementation). *(`10_Design_Direction.md`)*
 
 ## Content Production

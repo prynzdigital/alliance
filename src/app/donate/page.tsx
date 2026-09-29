@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { DonateEmbedPlaceholder } from "@/components/DonateEmbedPlaceholder";
+import { DonorboxEmbed } from "@/components/DonorboxEmbed";
 import { Card } from "@/components/ui/Card";
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export default function DonatePage() {
       />
       <Container className="py-16 md:py-24">
       <div className="max-w-xl">
-        <DonateEmbedPlaceholder />
+        <DonorboxEmbed />
       </div>
 
       <div className="mt-12 grid max-w-3xl grid-cols-1 gap-6 border-t border-black/10 pt-8 sm:grid-cols-2">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { DonateEmbedPlaceholder } from "@/components/DonateEmbedPlaceholder";
+import { DonorboxEmbed } from "@/components/DonorboxEmbed";
 
 export const metadata: Metadata = {
   title: "Give Once / Monthly",
@@ -22,7 +22,7 @@ export default function GivePage() {
       />
       <Container className="py-16 md:py-24">
       <div className="max-w-xl">
-        <DonateEmbedPlaceholder />
+        <DonorboxEmbed />
       </div>
       </Container>
     </>
