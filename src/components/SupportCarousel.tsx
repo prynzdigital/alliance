@@ -79,8 +79,10 @@ export function SupportCarousel({
     >
       <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-center sm:gap-12 sm:pr-8">
         <div
-          className={`relative -mt-12 h-36 w-36 shrink-0 sm:mt-0 sm:h-auto sm:-ml-[10%] ${
-            imageSize === "lg" ? "sm:w-[54%] sm:aspect-[5/4]" : "sm:w-[40%] sm:aspect-[4/3]"
+          className={`relative -mt-12 shrink-0 sm:mt-0 sm:h-auto sm:-ml-[10%] ${
+            imageSize === "lg"
+              ? "h-48 w-64 sm:w-[54%] sm:aspect-[5/4]"
+              : "h-36 w-36 sm:w-[40%] sm:aspect-[4/3]"
           }`}
         >
           <div
