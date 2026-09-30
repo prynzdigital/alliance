@@ -26,7 +26,7 @@ export function PillarBand() {
               <Icon className="h-6 w-6 shrink-0 text-text" />
               <h2 className="text-lg font-bold text-text md:text-xl">{pillar.name}</h2>
             </div>
-            <p className="relative mt-3 max-w-xs italic text-text/85">{pillar.summary}</p>
+            <p className="relative mt-3 max-w-xs text-sm italic text-text/85">{pillar.summary}</p>
             <span className="relative mt-6 inline-block w-fit border-b-2 border-text/70 pb-1 text-xs font-bold uppercase tracking-wide text-text transition-colors group-hover:border-text">
               Learn More
             </span>

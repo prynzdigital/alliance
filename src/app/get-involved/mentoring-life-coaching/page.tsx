@@ -40,7 +40,7 @@ export default function MentoringPage() {
         </div>
         <div>
           <h2 className="text-lg">Who this program serves</h2>
-          <p className="mt-2 text-text-muted">
+          <p className="mt-2 text-sm text-text-muted">
             Free, trauma-informed mentoring and life coaching for survivors of violence ages 18
             to 35, offered through SOC Alliance&rsquo;s Strengthening Violence Prevention
             Initiative in partnership with the Illinois Department of Human Services (IDHS).
@@ -53,7 +53,7 @@ export default function MentoringPage() {
 
       <div className="mt-10 max-w-2xl rounded-card border border-black/10 bg-surface p-6">
         <h2 className="text-lg">What happens after you reach out</h2>
-        <p className="mt-2 text-text">
+        <p className="mt-2 text-sm text-text">
           A member of our team will follow up directly, using whatever contact method you tell
           us works best. There&rsquo;s no obligation and no judgment — we&rsquo;ll talk through
           what kind of support makes sense for your situation.
@@ -61,7 +61,7 @@ export default function MentoringPage() {
       </div>
 
       <div className="mt-6 max-w-2xl">
-        <p className="text-text-muted">
+        <p className="text-sm text-text-muted">
           What you share with us is kept in confidence and used only to connect you with the
           right support.
         </p>
@@ -77,7 +77,7 @@ export default function MentoringPage() {
 
         <div>
           <h2 className="text-lg">Reach Out by Phone</h2>
-          <p className="mt-2 text-text-muted">Prefer to talk to someone directly right now?</p>
+          <p className="mt-2 text-sm text-text-muted">Prefer to talk to someone directly right now?</p>
           <Button href="tel:+17736932222" variant="accent" className="mt-4">
             Call 773-693-2222
           </Button>

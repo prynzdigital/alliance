@@ -159,7 +159,7 @@ export default function OurStoryPage() {
                       <Icon className="h-7 w-7 text-secondary" />
                     </span>
                     <h3 className="mt-5 text-xl font-bold text-text">{value.title}</h3>
-                    <p className="mt-2 text-text-muted">{value.body}</p>
+                    <p className="mt-2 text-sm text-text-muted">{value.body}</p>
                   </div>
                 );
               })}
@@ -173,7 +173,7 @@ export default function OurStoryPage() {
       <div id="pillars" className="scroll-mt-24">
         <Reveal>
           <SectionHeading eyebrow="How We Work" title="Our Four Pillars" className="max-w-2xl" />
-          <p className="mt-3 max-w-2xl text-text-muted">
+          <p className="mt-3 max-w-2xl text-sm text-text-muted">
             SOC Alliance organizes its work around four pillars, each with its own named programs.
           </p>
         </Reveal>
@@ -214,7 +214,7 @@ export default function OurStoryPage() {
           <div className="relative mx-auto flex max-w-(--container-content) flex-col gap-8 px-6 md:flex-row md:items-center md:justify-between">
             <div className="max-w-xl">
               <SectionHeading eyebrow="Where We Work" title="Woodlawn, Chicago — and Beyond" light />
-              <p className="mt-4 text-white/85">
+              <p className="mt-4 text-sm text-white/85">
                 SOC Alliance is based in Woodlawn on Chicago&rsquo;s South Side, where it holds
                 meetings and runs community service programs out of its own facility, while
                 collaborating with partners across greater Chicago.
@@ -242,7 +242,7 @@ export default function OurStoryPage() {
       <div id="leadership" className="mt-20 scroll-mt-24 border-t border-black/10 pt-16">
         <Reveal>
           <SectionHeading eyebrow="Who Leads Us" title="Leadership & Board" className="max-w-2xl" />
-          <p className="mt-3 max-w-2xl text-text-muted">
+          <p className="mt-3 max-w-2xl text-sm text-text-muted">
             SOC Alliance is led entirely by a volunteer Board of Directors &mdash; every officer
             reports $0 compensation.
           </p>
@@ -270,7 +270,7 @@ export default function OurStoryPage() {
       </div>
 
       <Reveal className="mt-16 flex max-w-3xl flex-wrap items-center justify-between gap-4 border-t border-black/10 pt-8">
-        <p className="text-text-muted">See our financial summary and tax-exempt status.</p>
+        <p className="text-sm text-text-muted">See our financial summary and tax-exempt status.</p>
         <Button href="/about/financials-transparency" variant="outline">
           Financials &amp; Transparency
         </Button>

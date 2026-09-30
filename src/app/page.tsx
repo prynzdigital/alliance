@@ -173,7 +173,7 @@ export default function Home() {
             <h2 className="text-white">Our Impact</h2>
             <div className="mt-8 flex flex-col items-center gap-2">
               <p className="text-6xl font-bold text-white sm:text-7xl">$100,000+</p>
-              <p className="max-w-md text-white/85">
+              <p className="max-w-md text-sm text-white/85">
                 in scholarships awarded, cumulatively, through the Omega Mardi Gras Scholarship
                 Fundraiser <span className="whitespace-nowrap">(as of March 2026)</span>
               </p>
@@ -229,7 +229,7 @@ export default function Home() {
                   >
                     <p className="text-sm font-medium text-text-muted">{story.dateLocation}</p>
                     <h3 className="mt-2 text-2xl">{story.title}</h3>
-                    <p className="mt-4 text-text-muted">{story.body}</p>
+                    <p className="mt-4 text-sm text-text-muted">{story.body}</p>
                     <div className="mt-6">
                       <Button href={story.href} variant="outline" size="md" pill>
                         Learn More
@@ -280,7 +280,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-(--container-content) px-6">
           <Reveal className="text-center">
             <h2 className="text-white">Working Alongside Our Community</h2>
-            <p className="mx-auto mt-3 max-w-xl text-white/80">
+            <p className="mx-auto mt-3 max-w-xl text-sm text-white/80">
               SOC Alliance programs are made possible in partnership with these organizations.
             </p>
             {/* Partner logos are pending client confirmation on which
@@ -332,7 +332,7 @@ export default function Home() {
         <div className="mx-auto max-w-(--container-content) px-6">
           <Reveal>
             <h2 className="text-center">Support Our Work</h2>
-            <p className="mx-auto mt-3 max-w-xl text-center text-text-muted">
+            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-text-muted">
               SOC Alliance is a 501(c)(3) public charity, EIN 36-4047035. Every gift and every
               volunteer hour is tax-deductible and reaches the community directly.
             </p>

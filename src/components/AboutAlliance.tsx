@@ -110,10 +110,10 @@ export function AboutAlliance() {
 
           <div className="mt-4 flex items-start gap-3">
             <ActiveIcon className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-            <p className="text-text-muted">{activeTab.body}</p>
+            <p className="text-sm text-text-muted">{activeTab.body}</p>
           </div>
 
-          <p className="mt-4 max-w-lg text-text-muted">
+          <p className="mt-4 max-w-lg text-sm text-text-muted">
             Strengthening Our Community Alliance is a 501(c)(3) organization that provides
             scholarships and community services to the Woodlawn Community and greater Chicago.
             The Alliance will utilize our facility in Woodlawn to hold meetings and conduct

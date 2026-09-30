@@ -37,7 +37,7 @@ export default function MardiGrasPage() {
         <p className="mt-1 text-xl font-bold text-primary">
           21st Annual &middot; {formatEventDate(LATEST_EDITION_DATE)}
         </p>
-        <p className="mt-1 text-text">Rate Field, Chicago</p>
+        <p className="mt-1 text-sm text-text">Rate Field, Chicago</p>
       </div>
 
       <div className="mt-8 max-w-2xl">

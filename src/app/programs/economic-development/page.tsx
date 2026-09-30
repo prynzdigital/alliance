@@ -44,7 +44,7 @@ export default function EconomicDevelopmentPage() {
       </div>
 
       <div className="mt-12 max-w-3xl">
-        <p className="text-text">
+        <p className="text-sm text-text">
           SOC Alliance runs seminars and roundtables with financial-industry professionals,
           helping community members build the skills and knowledge behind lasting economic
           stability — from first job to first home.
@@ -53,7 +53,7 @@ export default function EconomicDevelopmentPage() {
         <h2 className="mt-10">Past Highlights</h2>
         <div className="mt-3 rounded-card border border-black/10 bg-surface p-5">
           <p className="text-sm font-semibold text-text-muted">September 2022</p>
-          <p className="mt-1 text-text">
+          <p className="mt-1 text-sm text-text">
             &ldquo;Finance Matters&rdquo; — a three-part financial literacy webinar series with
             Tamara Dervin, Certified Financial Educator, covering budgeting, debt, and saving
             &amp; investing.

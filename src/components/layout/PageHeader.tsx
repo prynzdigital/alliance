@@ -51,7 +51,7 @@ export function PageHeader({
       <div className="relative mx-auto max-w-(--container-content) px-6 py-12 md:py-16">
         <Breadcrumbs items={breadcrumbs} variant="light" />
         <h1 className="mt-3 text-white">{title}</h1>
-        {description && <p className="mt-3 max-w-2xl text-white/85">{description}</p>}
+        {description && <p className="mt-3 max-w-2xl text-sm text-white/85">{description}</p>}
         {children}
       </div>
     </section>

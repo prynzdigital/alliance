@@ -46,7 +46,7 @@ export default function HealthPage() {
         <h2>Past Highlights</h2>
         <div className="mt-3 rounded-card border border-black/10 bg-surface p-5">
           <p className="text-sm font-semibold text-text-muted">November 15, 2023 &middot; Kroc Center</p>
-          <p className="mt-1 text-text">SOC Alliance hosted a community blood drive at the Kroc Center.</p>
+          <p className="mt-1 text-sm text-text">SOC Alliance hosted a community blood drive at the Kroc Center.</p>
         </div>
       </div>
 

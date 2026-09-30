@@ -31,7 +31,7 @@ export default function ContactPage() {
         </div>
 
         <div>
-          <address className="not-italic text-text">
+          <address className="text-sm not-italic text-text">
             <p className="font-semibold">SOC Alliance</p>
             <p className="mt-1 text-text-muted">{ORG.address}</p>
             <p className="mt-3">

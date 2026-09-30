@@ -49,14 +49,14 @@ export default function CommunityPage() {
 
       <div className="mt-12 max-w-3xl">
         <h2>Strengthening Violence Prevention Initiative (SVPI)</h2>
-        <p className="mt-3 text-text">
+        <p className="mt-3 text-sm text-text">
           SVPI is a community-based violence prevention program, funded in part by the Illinois
           Department of Human Services. It brings together Violence Interrupters, Field
           Managers, Case Managers, and Victim Services Facilitators to work directly with the
           people and blocks most affected by violence — building safety from the inside of the
           community, not outside of it.
         </p>
-        <p className="mt-3 text-text">
+        <p className="mt-3 text-sm text-text">
           If you or someone you know needs support, our{" "}
           <Link href="/get-involved/mentoring-life-coaching" className="font-semibold text-primary hover:underline">
             Mentoring &amp; Life Coaching
@@ -66,7 +66,7 @@ export default function CommunityPage() {
 
         <div className="mt-6 rounded-card border border-black/10 bg-surface p-5">
           <p className="text-sm font-semibold text-text-muted">August 21, 2025 &middot; Fuller Park Fieldhouse</p>
-          <p className="mt-1 text-text">
+          <p className="mt-1 text-sm text-text">
             SVPI joined the Chicago Park District&rsquo;s Fuller Park Fieldhouse and the Fuller
             Park Advisory Council for a community kickoff, identifying shared priorities:
             traffic safety, the need for male mentors, creative youth opportunities, and
@@ -74,7 +74,7 @@ export default function CommunityPage() {
           </p>
         </div>
 
-        <p className="mt-6 text-text">
+        <p className="mt-6 text-sm text-text">
           Interested in working with SVPI? Open roles are listed on our{" "}
           <Link href="/get-involved#careers" className="font-semibold text-primary hover:underline">
             Careers

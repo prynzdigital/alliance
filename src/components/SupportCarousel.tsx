@@ -119,7 +119,7 @@ export function SupportCarousel({
           <h3 className="line-clamp-2 min-h-[3.5rem] text-2xl font-bold text-text sm:min-h-[4rem]">
             {slide.title}
           </h3>
-          <p className="line-clamp-3 min-h-[4.5rem] text-text-muted">{slide.body}</p>
+          <p className="line-clamp-3 min-h-[4.5rem] text-sm text-text-muted">{slide.body}</p>
           <Link
             href={slide.href}
             target={slide.href.startsWith("http") ? "_blank" : undefined}
