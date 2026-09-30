@@ -85,7 +85,7 @@ export default function OurStoryPage() {
       />
 
       {/* Sticky-feeling sub-nav */}
-      <div className="glass-panel relative z-10 -mt-8 sm:-mt-10">
+      <div className="glass-panel relative z-10">
         <Container className="flex flex-wrap items-center gap-x-4 gap-y-2 py-3">
           <a href="#our-story" className="text-sm font-bold text-secondary-dark transition-colors hover:text-secondary">
             Our Story
