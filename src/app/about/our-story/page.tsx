@@ -85,7 +85,7 @@ export default function OurStoryPage() {
       />
 
       {/* Sticky-feeling pill sub-nav */}
-      <div className="border-b border-black/10 bg-surface">
+      <div className="glass-panel relative z-10 -mt-8 sm:-mt-10">
         <Container className="flex flex-wrap gap-2 py-3">
           <a href="#our-story" className="rounded-full bg-background px-4 py-1.5 text-sm font-semibold text-text shadow-sm transition-colors hover:text-primary">
             Our Story
