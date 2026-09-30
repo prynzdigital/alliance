@@ -84,18 +84,18 @@ export default function OurStoryPage() {
         imageAlt="A raised fist clasped by another hand, with community members raising their hands together in the background"
       />
 
-      {/* Sticky-feeling sub-nav */}
-      <div className="glass-panel relative z-10">
-        <Container className="flex flex-wrap items-center gap-x-4 gap-y-2 py-3">
-          <a href="#our-story" className="text-sm font-bold text-secondary-dark transition-colors hover:text-secondary">
+      {/* Sub-nav — transparent, overlapping the header photo directly */}
+      <div className="relative z-10 -mt-12 sm:-mt-14">
+        <Container className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/40 py-4">
+          <a href="#our-story" className="text-sm font-bold text-secondary transition-colors hover:text-white">
             Our Story
           </a>
-          <span className="h-4 w-px bg-black/15" aria-hidden />
-          <a href="#pillars" className="text-sm font-bold text-secondary-dark transition-colors hover:text-secondary">
+          <span className="h-4 w-px bg-white/40" aria-hidden />
+          <a href="#pillars" className="text-sm font-bold text-secondary transition-colors hover:text-white">
             Four Pillars
           </a>
-          <span className="h-4 w-px bg-black/15" aria-hidden />
-          <a href="#leadership" className="text-sm font-bold text-secondary-dark transition-colors hover:text-secondary">
+          <span className="h-4 w-px bg-white/40" aria-hidden />
+          <a href="#leadership" className="text-sm font-bold text-secondary transition-colors hover:text-white">
             Leadership &amp; Board
           </a>
         </Container>
