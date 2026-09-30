@@ -3,8 +3,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { primaryNav } from "@/lib/navigation";
+
+function subscribeToHash(callback: () => void) {
+  window.addEventListener("popstate", callback);
+  window.addEventListener("hashchange", callback);
+  return () => {
+    window.removeEventListener("popstate", callback);
+    window.removeEventListener("hashchange", callback);
+  };
+}
+function getHashSnapshot() {
+  return window.location.hash;
+}
+function getHashServerSnapshot() {
+  return "";
+}
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -18,6 +33,37 @@ export function SiteHeader() {
   // page needs a readable solid header from the first pixel of scroll.
   const isHome = pathname === "/";
   const transparent = isHome && !scrolled;
+
+  // Several nav items now point at anchors within the same page (e.g. "Our
+  // Story" and "Leadership & Board" both live on /about/our-story) after the
+  // page merges, so pathname alone can't tell them apart. useSyncExternalStore
+  // re-reads window.location.hash on every render (covers cross-page
+  // navigation and back/forward); clicking a nav link to a same-page anchor
+  // doesn't change pathname or fire hashchange, so those links also record a
+  // { path, hash } override below — it only applies while pathname still
+  // matches the clicked path, so it self-invalidates on the next real
+  // navigation instead of needing an effect to reset it.
+  const externalHash = useSyncExternalStore(subscribeToHash, getHashSnapshot, getHashServerSnapshot);
+  const [clicked, setClicked] = useState<{ path: string; hash: string } | null>(null);
+  const hash = clicked && clicked.path === pathname ? clicked.hash : externalHash;
+
+  function setHash(href: string) {
+    const [path, hashPart] = href.split("#");
+    setClicked({ path, hash: hashPart ? `#${hashPart}` : "" });
+  }
+
+  function isChildActive(href: string) {
+    const [childPath, childHash] = href.split("#");
+    if (childPath !== pathname) return false;
+    return childHash ? hash === `#${childHash}` : hash === "";
+  }
+
+  function isParentActive(item: (typeof primaryNav)[number]) {
+    if (item.children) {
+      return item.children.some((child) => isChildActive(child.href)) || pathname === item.href;
+    }
+    return pathname === item.href;
+  }
 
   useEffect(() => {
     function onScroll() {
@@ -119,9 +165,16 @@ export function SiteHeader() {
                   <button
                     type="button"
                     className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                      transparent ? "text-white hover:text-white/70" : "text-text hover:text-primary"
+                      isParentActive(item)
+                        ? transparent
+                          ? "text-white"
+                          : "text-primary"
+                        : transparent
+                          ? "text-white hover:text-white/70"
+                          : "text-text hover:text-primary"
                     }`}
                     aria-expanded={openDesktopMenu === item.label}
+                    aria-current={isParentActive(item) ? "page" : undefined}
                     onClick={() =>
                       setOpenDesktopMenu((cur) => (cur === item.label ? null : item.label))
                     }
@@ -142,24 +195,38 @@ export function SiteHeader() {
                   </button>
                   {openDesktopMenu === item.label && (
                     <ul className="dropdown-in absolute left-0 top-full min-w-56 rounded-card border border-black/5 bg-background py-2 shadow-lg">
-                      {item.children.map((child) => (
-                        <li key={child.href}>
-                          <Link
-                            href={child.href}
-                            className="block px-4 py-2 text-sm text-text transition-colors hover:bg-surface hover:text-primary"
-                          >
-                            {child.label}
-                          </Link>
-                        </li>
-                      ))}
+                      {item.children.map((child) => {
+                        const active = isChildActive(child.href);
+                        return (
+                          <li key={child.href}>
+                            <Link
+                              href={child.href}
+                              aria-current={active ? "page" : undefined}
+                              onClick={() => setHash(child.href)}
+                              className={`block px-4 py-2 text-sm transition-colors hover:bg-surface hover:text-primary ${
+                                active ? "font-semibold text-primary" : "text-text"
+                              }`}
+                            >
+                              {child.label}
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </>
               ) : (
                 <Link
                   href={item.href}
+                  aria-current={isParentActive(item) ? "page" : undefined}
                   className={`block rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                    transparent ? "text-white hover:text-white/70" : "text-text hover:text-primary"
+                    isParentActive(item)
+                      ? transparent
+                        ? "text-white"
+                        : "text-primary"
+                      : transparent
+                        ? "text-white hover:text-white/70"
+                        : "text-text hover:text-primary"
                   }`}
                 >
                   {item.label}
@@ -241,24 +308,39 @@ export function SiteHeader() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="block rounded-md px-2 py-3 text-base font-semibold uppercase tracking-wide text-text"
-                    onClick={() => setMobileOpen(false)}
+                    aria-current={isParentActive(item) ? "page" : undefined}
+                    className={`block rounded-md px-2 py-3 text-base font-semibold uppercase tracking-wide ${
+                      isParentActive(item) ? "text-primary" : "text-text"
+                    }`}
+                    onClick={() => {
+                      setHash(item.href);
+                      setMobileOpen(false);
+                    }}
                   >
                     {item.label}
                   </Link>
                   {item.children && (
                     <ul className="mb-2 ml-3 flex flex-col gap-1 border-l border-black/10 pl-3">
-                      {item.children.map((child) => (
-                        <li key={child.href}>
-                          <Link
-                            href={child.href}
-                            className="block rounded-md px-2 py-2 text-sm text-text-muted"
-                            onClick={() => setMobileOpen(false)}
-                          >
-                            {child.label}
-                          </Link>
-                        </li>
-                      ))}
+                      {item.children.map((child) => {
+                        const active = isChildActive(child.href);
+                        return (
+                          <li key={child.href}>
+                            <Link
+                              href={child.href}
+                              aria-current={active ? "page" : undefined}
+                              className={`block rounded-md px-2 py-2 text-sm ${
+                                active ? "font-semibold text-primary" : "text-text-muted"
+                              }`}
+                              onClick={() => {
+                                setHash(child.href);
+                                setMobileOpen(false);
+                              }}
+                            >
+                              {child.label}
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </li>
