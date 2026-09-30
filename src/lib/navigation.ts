@@ -48,7 +48,7 @@ export const primaryNav: NavSection[] = [
     label: "Donate",
     href: "/donate",
     children: [
-      { label: "Give Once / Monthly", href: "/donate/give" },
+      { label: "Give Once / Monthly", href: "/donate" },
       { label: "Mardi Gras Scholarship Fundraiser", href: "/donate/mardi-gras-fundraiser" },
       { label: "Pledge a Gift", href: "/donate/pledge" },
     ],

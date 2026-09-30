@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         destination: "/about/our-story#leadership",
         permanent: true,
       },
+      {
+        source: "/donate/give",
+        destination: "/donate",
+        permanent: true,
+      },
     ];
   },
   async headers() {
