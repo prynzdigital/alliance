@@ -33,27 +33,32 @@ export default function GetInvolvedPage() {
     <>
       <PageHeader
         title="Get Involved"
-        description="There are many ways to support SOC Alliance beyond giving."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Get Involved" }]}
         image="/help.jpg"
         imageAlt="Two people shaking hands, with a third person smiling in the background"
-      />
-      <Container className="py-16 md:py-24">
-      <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
-        <a href="#volunteer" className="text-primary hover:underline">
-          Volunteer
-        </a>
-        <a href="#careers" className="text-primary hover:underline">
-          Careers
-        </a>
-        <a href="#partner-with-us" className="text-primary hover:underline">
-          Partner With Us
-        </a>
-        <Link href="/get-involved/mentoring-life-coaching" className="text-primary hover:underline">
-          Mentoring &amp; Life Coaching
-        </Link>
-      </div>
+      >
+        {/* Sub-nav — rendered in-flow inside the header so it always sits
+            within the photo, however tall the header ends up being. */}
+        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <a href="#volunteer" className="text-sm font-bold text-white transition-colors hover:text-white/70">
+            Volunteer
+          </a>
+          <span className="h-4 w-px bg-white/40" aria-hidden />
+          <a href="#careers" className="text-sm font-bold text-white transition-colors hover:text-white/70">
+            Careers
+          </a>
+          <span className="h-4 w-px bg-white/40" aria-hidden />
+          <a href="#partner-with-us" className="text-sm font-bold text-white transition-colors hover:text-white/70">
+            Partner With Us
+          </a>
+          <span className="h-4 w-px bg-white/40" aria-hidden />
+          <Link href="/get-involved/mentoring-life-coaching" className="text-sm font-bold text-white transition-colors hover:text-white/70">
+            Mentoring &amp; Life Coaching
+          </Link>
+        </div>
+      </PageHeader>
 
+      <Container className="py-16 md:py-24">
       <div id="volunteer" className="mt-10 max-w-2xl scroll-mt-24">
         <SectionHeading eyebrow="Give Your Time" title="Volunteer" />
         <p className="mt-4 text-sm text-text-muted">

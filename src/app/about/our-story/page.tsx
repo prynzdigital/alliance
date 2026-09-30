@@ -81,11 +81,10 @@ export default function OurStoryPage() {
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Our Story" }]}
         image="/impact.jpg"
         imageAlt="A raised fist clasped by another hand, with community members raising their hands together in the background"
-      />
-
-      {/* Sub-nav — transparent, overlapping the header photo directly */}
-      <div className="relative z-10 -mt-12 sm:-mt-14">
-        <Container className="flex flex-wrap items-center gap-x-4 gap-y-2 py-4">
+      >
+        {/* Sub-nav — rendered in-flow inside the header so it always sits
+            within the photo, however tall the header ends up being. */}
+        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
           <a href="#our-story" className="text-sm font-bold text-white transition-colors hover:text-white/70">
             Our Story
           </a>
@@ -97,8 +96,8 @@ export default function OurStoryPage() {
           <a href="#leadership" className="text-sm font-bold text-white transition-colors hover:text-white/70">
             Leadership &amp; Board
           </a>
-        </Container>
-      </div>
+        </div>
+      </PageHeader>
 
       <Container className="py-16 md:py-24">
       {/* Intro — photo + copy side by side */}
