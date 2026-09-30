@@ -121,6 +121,19 @@ export default function OurStoryPage() {
             community service programs, and collaborates with the local community on numerous
             programs.
           </p>
+
+          <div className="mt-6 text-sm">
+            <PendingNotice>
+              <p>
+                SOC Alliance&rsquo;s founding history is currently being confirmed with the
+                organization. The current site states the organization was established in 1995,
+                which does not align with its 2015 IRS tax-exempt ruling year, and public
+                nonprofit registries suggest a possible — unconfirmed — connection to a
+                predecessor entity. Neither claim will be published here until SOC Alliance
+                confirms the accurate history.
+              </p>
+            </PendingNotice>
+          </div>
         </Reveal>
       </div>
       </Container>
@@ -230,23 +243,6 @@ export default function OurStoryPage() {
       </Reveal>
 
       <Container className="py-16 md:py-24">
-      {/* Our History */}
-      <Reveal className="max-w-3xl">
-        <h2>Our History</h2>
-        <div className="mt-3">
-          <PendingNotice>
-            <p>
-              SOC Alliance&rsquo;s founding history is currently being confirmed with the
-              organization. The current site states the organization was established in 1995,
-              which does not align with its 2015 IRS tax-exempt ruling year, and public
-              nonprofit registries suggest a possible — unconfirmed — connection to a
-              predecessor entity. Neither claim will be published here until SOC Alliance
-              confirms the accurate history.
-            </p>
-          </PendingNotice>
-        </div>
-      </Reveal>
-
       {/* Leadership & Board */}
       <div id="leadership" className="mt-20 scroll-mt-24 border-t border-black/10 pt-16">
         <Reveal>
