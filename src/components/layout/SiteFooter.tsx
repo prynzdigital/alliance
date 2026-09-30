@@ -18,15 +18,18 @@ const ORG = {
 };
 
 export function SiteFooter() {
+  const navSections = primaryNav.filter((item) => item.children);
+  const quickLinks = primaryNav.filter((item) => !item.children && item.href !== "/");
+
   return (
     <footer
       className="relative bg-text bg-cover bg-center bg-no-repeat bg-fixed"
       style={{ backgroundImage: "url('/community-work.png')" }}
     >
-      <div aria-hidden className="absolute inset-0 bg-text/92" />
+      <div aria-hidden className="absolute inset-0 bg-text/97" />
       <div className="relative mx-auto max-w-(--container-content) px-6 py-14">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
-          <div className="lg:col-span-2">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-6">
+          <div className="sm:col-span-2 lg:col-span-2">
             <div className="flex items-center gap-2.5">
               <Image
                 src="/soc-logo-mark-white.png"
@@ -83,11 +86,17 @@ export function SiteFooter() {
                 LinkedIn
               </a>
             </div>
+
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-white/15 pt-5">
+              {quickLinks.map((link) => (
+                <Link key={link.href} href={link.href} className="text-sm font-medium text-white/80 hover:text-secondary">
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
 
-          {primaryNav
-            .filter((item) => item.href !== "/")
-            .map((section) => (
+          {navSections.map((section) => (
               <nav key={section.href} aria-label={section.label}>
                 <p className="text-sm font-semibold text-white">{section.label}</p>
                 <ul className="mt-3 flex flex-col gap-2">
