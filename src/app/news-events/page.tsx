@@ -19,6 +19,8 @@ export default function NewsEventsPage() {
         title="News & Events"
         description="Status below is derived automatically from each event's date, so this list never goes stale."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "News & Events" }]}
+        image="/chicago.png"
+        imageAlt="The Chicago skyline"
       />
       <Container className="py-16 md:py-24">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

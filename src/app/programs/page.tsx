@@ -16,6 +16,8 @@ export default function ProgramsPage() {
         title="Our Programs"
         description="Every program SOC Alliance runs falls under one of four pillars."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Our Programs" }]}
+        image="/impact_bg.png"
+        imageAlt="Community members joining hands together"
       />
       <Container className="py-16 md:py-24">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">

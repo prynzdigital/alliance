@@ -34,6 +34,8 @@ export default function CareersPage() {
           { label: "Get Involved", href: "/get-involved" },
           { label: "Careers" },
         ]}
+        image="/career.jpg"
+        imageAlt="Illustration of professionals walking, representing careers and employment"
       />
       <Container className="py-16 md:py-24">
       <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">

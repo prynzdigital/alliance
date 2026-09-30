@@ -36,6 +36,8 @@ export default function FinancialsPage() {
           { label: "About", href: "/about" },
           { label: "Financials & Transparency" },
         ]}
+        image="/economic-2.jpg"
+        imageAlt="Rising stacks of gold coins in front of a blurred financial growth chart"
       />
       <Container className="py-16 md:py-24">
       <div className="max-w-3xl">

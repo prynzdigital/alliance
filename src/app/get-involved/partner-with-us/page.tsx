@@ -20,6 +20,8 @@ export default function PartnerWithUsPage() {
           { label: "Get Involved", href: "/get-involved" },
           { label: "Partner With Us" },
         ]}
+        image="/chicago.png"
+        imageAlt="The Chicago skyline"
       />
       <Container className="py-16 md:py-24">
       <div className="max-w-2xl">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/layout/Container";
-import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { PillarCTAs, PillarIntro } from "@/components/PillarIntro";
 import { getPillar } from "@/lib/programs";
 
@@ -14,18 +14,32 @@ const pillar = getPillar("health")!;
 
 export default function HealthPage() {
   return (
-    <Container className="py-16 md:py-24">
-      <Breadcrumbs
-        items={[
+    <>
+      <PageHeader
+        title={pillar.name}
+        description={pillar.summary}
+        breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Our Programs", href: "/programs" },
           { label: "Health" },
         ]}
+        image={pillar.image}
+        imageAlt={pillar.imageAlt}
+        tint={pillar.neon}
       />
+      <Container className="py-16 md:py-24">
       <PillarIntro pillar={pillar} />
 
       <div className="mt-10 max-w-3xl">
-        <ImagePlaceholder label="Blood drive or health program photo" />
+        <div className="relative aspect-video w-full overflow-hidden rounded-card shadow-sm">
+          <Image
+            src="/blood-drive.jpg"
+            alt="A &quot;Striking Out Blood Shortages&quot; flyer for the SOC Alliance community blood drive"
+            fill
+            sizes="(min-width: 1024px) 700px, 100vw"
+            className="object-cover"
+          />
+        </div>
       </div>
 
       <div className="mt-12 max-w-3xl">
@@ -37,6 +51,7 @@ export default function HealthPage() {
       </div>
 
       <PillarCTAs pillarName={pillar.name} />
-    </Container>
+      </Container>
+    </>
   );
 }

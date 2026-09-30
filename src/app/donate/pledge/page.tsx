@@ -20,6 +20,8 @@ export default function PledgePage() {
           { label: "Donate", href: "/donate" },
           { label: "Pledge a Gift" },
         ]}
+        image="/community-work.png"
+        imageAlt="Volunteers in green shirts working together in the community"
       />
       <Container className="py-16 md:py-24">
       <div className="grid max-w-3xl grid-cols-1 gap-6 sm:grid-cols-2">

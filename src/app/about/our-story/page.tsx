@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -9,18 +10,45 @@ import { pillars } from "@/lib/programs";
 export const metadata: Metadata = {
   title: "Our Story",
   description:
-    "Learn about SOC Alliance's mission, vision, and the four pillars that organize our work on Chicago's South Side.",
+    "Learn about SOC Alliance's mission, vision, four pillars, and volunteer Board of Directors.",
 };
+
+// Roster and photos sourced directly from the live site (socalliance.org/board-of-directors)
+// on 2026-08-30 — see docs/assets/board-photos/README.md for provenance and
+// docs/discovery/02_Organization_Research.md, Section 4, for the Form 990
+// discrepancies noted below.
+const board = [
+  { name: "Theodore Davis", title: "Board Chair", image: "/board/theodore-davis-board-chair.webp" },
+  { name: "Ronald Hughes", title: "Executive Director", image: "/board/ronald-hughes-executive-director.webp" },
+  { name: "Bruce Nash", title: "Treasurer", image: "/board/bruce-nash-treasurer.webp" },
+  { name: "Dana O'Banion", title: "Director", image: "/board/dana-obanion-director.webp" },
+  { name: "Dathon O'Banion", title: "Director", image: "/board/dathon-obanion-director.webp" },
+  { name: "Stephen Coleman", title: "Director", image: "/board/stephen-coleman-director.webp" },
+  { name: "Gerald McCarthy", title: "Director", image: "/board/gerald-mccarthy-director.webp" },
+  { name: "Dejuan Lever", title: "Director", image: "/board/dejuan-lever-director.webp" },
+];
 
 export default function OurStoryPage() {
   return (
     <>
       <PageHeader
         title="Our Story"
+        description="Our mission, vision, four pillars, and the volunteer Board of Directors behind them."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Our Story" }]}
+        image="/impact.jpg"
+        imageAlt="A raised fist clasped by another hand, with community members raising their hands together in the background"
       />
       <Container className="py-16 md:py-24">
-      <div className="max-w-3xl">
+      <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+        <a href="#our-story" className="text-primary hover:underline">
+          Our Story
+        </a>
+        <a href="#leadership" className="text-primary hover:underline">
+          Leadership &amp; Board
+        </a>
+      </div>
+
+      <div id="our-story" className="mt-8 max-w-3xl scroll-mt-24">
         <p className="text-lg text-text">
           Strengthening Our Community Alliance is a 501(c)(3) organization that provides
           scholarships and community services to the Woodlawn Community and greater Chicago. The
@@ -100,9 +128,45 @@ export default function OurStoryPage() {
         </div>
       </div>
 
+      <div id="leadership" className="mt-16 border-t border-black/10 pt-12 scroll-mt-24">
+        <h2>Leadership &amp; Board</h2>
+        <p className="mt-3 max-w-3xl text-text-muted">
+          SOC Alliance is led entirely by a volunteer Board of Directors &mdash; every officer
+          reports $0 compensation.
+        </p>
+
+        <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+          {board.map((person) => (
+            <div key={person.name} className="overflow-hidden rounded-card border border-black/10 bg-background">
+              <div className="relative aspect-square w-full bg-surface">
+                <Image
+                  src={person.image}
+                  alt={`Portrait of ${person.name}, ${person.title} of SOC Alliance`}
+                  fill
+                  sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-4">
+                <p className="font-semibold text-text">{person.name}</p>
+                <p className="text-sm text-text-muted">{person.title}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p className="mt-10 max-w-3xl text-sm text-text-muted">
+          Note on accuracy: SOC Alliance&rsquo;s most recent IRS Form 990 lists Gerald McCarthy
+          as Treasurer (rather than Director) and includes an additional director, John Moore,
+          who does not appear on the roster above. This page reflects the current live site;
+          we&rsquo;ve flagged the discrepancy with SOC Alliance and will update it once
+          confirmed.
+        </p>
+      </div>
+
       <div className="mt-12 max-w-3xl border-t border-black/10 pt-8">
-        <Link href="/about/leadership-board" className="text-sm font-semibold text-primary hover:underline">
-          Meet Our Leadership &rarr;
+        <Link href="/about/financials-transparency" className="text-sm font-semibold text-primary hover:underline">
+          Financials &amp; Transparency &rarr;
         </Link>
       </div>
       </Container>

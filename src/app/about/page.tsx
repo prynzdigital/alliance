@@ -11,13 +11,8 @@ export const metadata: Metadata = {
 const sections = [
   {
     title: "Our Story",
-    description: "Our mission, vision, and the four pillars that organize our work.",
+    description: "Our mission, vision, the four pillars that organize our work, and the volunteer Board of Directors who lead us.",
     href: "/about/our-story",
-  },
-  {
-    title: "Leadership & Board",
-    description: "Meet the volunteers who lead SOC Alliance.",
-    href: "/about/leadership-board",
   },
   {
     title: "Financials & Transparency",
@@ -33,9 +28,11 @@ export default function AboutPage() {
         title="About SOC Alliance"
         description="SOC Alliance is a 501(c)(3) nonprofit working to uplift and improve the life of the community on Chicago's South Side."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+        image="/community-2.jpg"
+        imageAlt="A group of young community members lying together in a circle, smiling"
       />
       <Container className="py-16 md:py-24">
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+      <div className="grid max-w-3xl grid-cols-1 gap-6 sm:grid-cols-2">
         {sections.map((section) => (
           <Card key={section.href} href={section.href}>
             <h2 className="text-lg">{section.title}</h2>

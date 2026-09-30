@@ -26,6 +26,8 @@ export default function MardiGrasPage() {
           { label: "Donate", href: "/donate" },
           { label: "Mardi Gras Scholarship Fundraiser" },
         ]}
+        image="/omega-gras.jpg"
+        imageAlt="A gold Mardi Gras mask surrounded by festive confetti and ribbon"
       />
       <Container className="py-16 md:py-24">
       <div className="max-w-2xl rounded-card border border-black/10 bg-surface p-6">

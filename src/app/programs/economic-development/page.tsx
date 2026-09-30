@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/layout/Container";
-import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { PillarCTAs, PillarIntro } from "@/components/PillarIntro";
 import { getPillar } from "@/lib/programs";
 
@@ -15,18 +15,32 @@ const pillar = getPillar("economic-development")!;
 
 export default function EconomicDevelopmentPage() {
   return (
-    <Container className="py-16 md:py-24">
-      <Breadcrumbs
-        items={[
+    <>
+      <PageHeader
+        title={pillar.name}
+        description={pillar.summary}
+        breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Our Programs", href: "/programs" },
           { label: "Economic Development" },
         ]}
+        image="/pillar-economic.jpg"
+        imageAlt="A businessperson holding a tablet displaying rising economic growth charts"
+        tint={pillar.neon}
       />
+      <Container className="py-16 md:py-24">
       <PillarIntro pillar={pillar} />
 
       <div className="mt-10 max-w-3xl">
-        <ImagePlaceholder label="Financial literacy workshop or seminar photo" />
+        <div className="relative aspect-video w-full overflow-hidden rounded-card shadow-sm">
+          <Image
+            src="/pillar-economic.jpg"
+            alt="A businessperson holding a tablet displaying rising economic growth charts"
+            fill
+            sizes="(min-width: 1024px) 700px, 100vw"
+            className="object-cover"
+          />
+        </div>
       </div>
 
       <div className="mt-12 max-w-3xl">
@@ -48,6 +62,7 @@ export default function EconomicDevelopmentPage() {
       </div>
 
       <PillarCTAs pillarName={pillar.name} />
-    </Container>
+      </Container>
+    </>
   );
 }

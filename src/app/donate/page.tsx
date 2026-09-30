@@ -16,6 +16,8 @@ export default function DonatePage() {
         title="Donate"
         description="SOC Alliance is a 501(c)(3) public charity, EIN 36-4047035. Your gift is tax-deductible to the extent allowed by law and directly funds scholarship, economic development, community, and health programs on Chicago's South Side."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Donate" }]}
+        image="/donate-photo.jpg"
+        imageAlt="A raised fist held by another hand, among a group of people with arms raised together"
       />
       <Container className="py-16 md:py-24">
       <div className="max-w-xl">

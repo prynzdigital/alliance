@@ -34,6 +34,8 @@ export default function GetInvolvedPage() {
         title="Get Involved"
         description="There are many ways to support SOC Alliance beyond giving."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Get Involved" }]}
+        image="/help.jpg"
+        imageAlt="Two people shaking hands, with a third person smiling in the background"
       />
       <Container className="py-16 md:py-24">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">

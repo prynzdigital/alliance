@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
-import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { PillarCTAs, PillarIntro } from "@/components/PillarIntro";
 import { getPillar } from "@/lib/programs";
 
@@ -19,18 +19,32 @@ const pillar = getPillar("community")!;
 // before final publish per 09_Content_Strategy.md, Content Rule 3.
 export default function CommunityPage() {
   return (
-    <Container className="py-16 md:py-24">
-      <Breadcrumbs
-        items={[
+    <>
+      <PageHeader
+        title={pillar.name}
+        description={pillar.summary}
+        breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Our Programs", href: "/programs" },
           { label: "Community" },
         ]}
+        image="/svpi-fuller-park.webp"
+        imageAlt="Community members and SVPI staff gathered inside the Fuller Park Fieldhouse"
+        tint={pillar.neon}
       />
+      <Container className="py-16 md:py-24">
       <PillarIntro pillar={pillar} />
 
       <div className="mt-10 max-w-3xl">
-        <ImagePlaceholder label="Community event or Fuller Park Advisory Council photo" />
+        <div className="relative aspect-video w-full overflow-hidden rounded-card shadow-sm">
+          <Image
+            src="/svpi-fuller-park.webp"
+            alt="Community members and SVPI staff gathered inside the Fuller Park Fieldhouse"
+            fill
+            sizes="(min-width: 1024px) 700px, 100vw"
+            className="object-cover"
+          />
+        </div>
       </div>
 
       <div className="mt-12 max-w-3xl">
@@ -70,6 +84,7 @@ export default function CommunityPage() {
       </div>
 
       <PillarCTAs pillarName={pillar.name} />
-    </Container>
+      </Container>
+    </>
   );
 }

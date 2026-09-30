@@ -21,6 +21,8 @@ export default function VolunteerPage() {
           { label: "Get Involved", href: "/get-involved" },
           { label: "Volunteer" },
         ]}
+        image="/volunteer.jpg"
+        imageAlt="A group of volunteers smiling together outdoors"
       />
       <Container className="py-16 md:py-24">
       <ul className="flex flex-wrap gap-2">

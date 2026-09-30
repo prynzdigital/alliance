@@ -19,7 +19,7 @@ export const primaryNav: NavSection[] = [
     href: "/about",
     children: [
       { label: "Our Story", href: "/about/our-story" },
-      { label: "Leadership & Board", href: "/about/leadership-board" },
+      { label: "Leadership & Board", href: "/about/our-story#leadership" },
       { label: "Financials & Transparency", href: "/about/financials-transparency" },
     ],
   },
