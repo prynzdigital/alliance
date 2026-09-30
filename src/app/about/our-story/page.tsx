@@ -123,38 +123,46 @@ export default function OurStoryPage() {
           </p>
         </Reveal>
       </div>
+      </Container>
 
-      {/* Mission / Vision / Values — grouped with the intro above as one
-          "who we are" section, rather than a separate disconnected block. */}
-      <div className="mt-16">
-        <Reveal>
-          <SectionHeading eyebrow="What Drives Us" title="Our Mission, Vision & Values" className="max-w-2xl" />
-        </Reveal>
-        <Reveal delay={75} className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {values.map((value) => {
-            const Icon = value.icon;
-            return (
-              <div
-                key={value.title}
-                className="rounded-card p-7 shadow-sm transition-shadow duration-200 hover:shadow-md"
-                style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 13%, white)" }}
-              >
-                <span
-                  className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-background"
-                  style={{ boxShadow: "0 2px 8px -2px color-mix(in srgb, var(--color-primary) 35%, transparent)" }}
-                >
-                  <Icon className="h-7 w-7 text-primary" />
-                </span>
-                <h3 className="mt-5 text-xl font-bold text-text">{value.title}</h3>
-                <p className="mt-2 text-text-muted">{value.body}</p>
-              </div>
-            );
-          })}
-        </Reveal>
-      </div>
+      {/* Mission / Vision / Values — full-bleed section with a faded,
+          desaturated photo wash (same technique and photo as the reference
+          build) instead of a flat white background. */}
+      <Reveal>
+        <section className="relative overflow-hidden bg-background py-16 md:py-24">
+          <Image
+            src="/svpi-fuller-park.webp"
+            alt=""
+            fill
+            aria-hidden
+            sizes="100vw"
+            className="object-cover opacity-40"
+            style={{ filter: "saturate(0.7)" }}
+          />
+          <div aria-hidden className="absolute inset-0 bg-background/55" />
+          <div className="relative mx-auto max-w-(--container-content) px-6">
+            <SectionHeading eyebrow="What Drives Us" title="Our Mission, Vision & Values" className="max-w-2xl" />
+            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+              {values.map((value) => {
+                const Icon = value.icon;
+                return (
+                  <div key={value.title} className="rounded-card bg-background p-7 shadow-md">
+                    <span className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-text">
+                      <Icon className="h-7 w-7 text-secondary" />
+                    </span>
+                    <h3 className="mt-5 text-xl font-bold text-text">{value.title}</h3>
+                    <p className="mt-2 text-text-muted">{value.body}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      </Reveal>
 
+      <Container className="py-16 md:py-24">
       {/* Four Pillars — real photo cards linking to each program */}
-      <div id="pillars" className="mt-20 scroll-mt-24">
+      <div id="pillars" className="scroll-mt-24">
         <Reveal>
           <SectionHeading eyebrow="How We Work" title="Our Four Pillars" className="max-w-2xl" />
           <p className="mt-3 max-w-2xl text-text-muted">
