@@ -84,16 +84,18 @@ export default function OurStoryPage() {
         imageAlt="A raised fist clasped by another hand, with community members raising their hands together in the background"
       />
 
-      {/* Sticky-feeling pill sub-nav */}
+      {/* Sticky-feeling sub-nav */}
       <div className="glass-panel relative z-10 -mt-8 sm:-mt-10">
-        <Container className="flex flex-wrap gap-2 py-3">
-          <a href="#our-story" className="rounded-full bg-background px-4 py-1.5 text-sm font-semibold text-text shadow-sm transition-colors hover:text-primary">
+        <Container className="flex flex-wrap items-center gap-x-4 gap-y-2 py-3">
+          <a href="#our-story" className="text-sm font-bold text-secondary-dark transition-colors hover:text-secondary">
             Our Story
           </a>
-          <a href="#pillars" className="rounded-full bg-background px-4 py-1.5 text-sm font-semibold text-text shadow-sm transition-colors hover:text-primary">
+          <span className="h-4 w-px bg-black/15" aria-hidden />
+          <a href="#pillars" className="text-sm font-bold text-secondary-dark transition-colors hover:text-secondary">
             Four Pillars
           </a>
-          <a href="#leadership" className="rounded-full bg-background px-4 py-1.5 text-sm font-semibold text-text shadow-sm transition-colors hover:text-primary">
+          <span className="h-4 w-px bg-black/15" aria-hidden />
+          <a href="#leadership" className="text-sm font-bold text-secondary-dark transition-colors hover:text-secondary">
             Leadership &amp; Board
           </a>
         </Container>
