@@ -78,7 +78,6 @@ export default function OurStoryPage() {
     <>
       <PageHeader
         title="Our Story"
-        description="Our mission, vision, four pillars, and the volunteer Board of Directors behind them."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Our Story" }]}
         image="/impact.jpg"
         imageAlt="A raised fist clasped by another hand, with community members raising their hands together in the background"
@@ -86,16 +85,16 @@ export default function OurStoryPage() {
 
       {/* Sub-nav — transparent, overlapping the header photo directly */}
       <div className="relative z-10 -mt-12 sm:-mt-14">
-        <Container className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/40 py-4">
-          <a href="#our-story" className="text-sm font-bold text-secondary transition-colors hover:text-white">
+        <Container className="flex flex-wrap items-center gap-x-4 gap-y-2 py-4">
+          <a href="#our-story" className="text-sm font-bold text-white transition-colors hover:text-white/70">
             Our Story
           </a>
           <span className="h-4 w-px bg-white/40" aria-hidden />
-          <a href="#pillars" className="text-sm font-bold text-secondary transition-colors hover:text-white">
+          <a href="#pillars" className="text-sm font-bold text-white transition-colors hover:text-white/70">
             Four Pillars
           </a>
           <span className="h-4 w-px bg-white/40" aria-hidden />
-          <a href="#leadership" className="text-sm font-bold text-secondary transition-colors hover:text-white">
+          <a href="#leadership" className="text-sm font-bold text-white transition-colors hover:text-white/70">
             Leadership &amp; Board
           </a>
         </Container>
@@ -115,14 +114,14 @@ export default function OurStoryPage() {
         </Reveal>
         <Reveal delay={75}>
           <SectionHeading eyebrow="Who We Are" title="A 501(c)(3) Rooted in Chicago’s South Side" />
-          <p className="mt-4 text-sm text-text">
+          <p className="mt-4 text-sm text-text-muted">
             Strengthening Our Community Alliance is a 501(c)(3) organization that provides
             scholarships and community services to the Woodlawn Community and greater Chicago.
             The Alliance utilizes its own facility in Woodlawn to hold meetings and conduct
             community service programs, and collaborates with the local community on numerous
             programs.
           </p>
-          <p className="mt-4 text-sm text-text">
+          <p className="mt-4 text-sm text-text-muted">
             SOC Alliance&rsquo;s founding history is currently being confirmed with the
             organization. The current site states the organization was established in 1995,
             which does not align with its 2015 IRS tax-exempt ruling year, and public
