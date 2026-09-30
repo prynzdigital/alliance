@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { PendingNotice } from "@/components/PendingNotice";
 import { Reveal } from "@/components/Reveal";
 import { Card, CardImage } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -114,26 +113,21 @@ export default function OurStoryPage() {
         </Reveal>
         <Reveal delay={75}>
           <SectionHeading eyebrow="Who We Are" title="A 501(c)(3) Rooted in Chicago’s South Side" />
-          <p className="mt-4 text-lg text-text">
+          <p className="mt-4 text-sm text-text">
             Strengthening Our Community Alliance is a 501(c)(3) organization that provides
             scholarships and community services to the Woodlawn Community and greater Chicago.
             The Alliance utilizes its own facility in Woodlawn to hold meetings and conduct
             community service programs, and collaborates with the local community on numerous
             programs.
           </p>
-
-          <div className="mt-6 text-sm">
-            <PendingNotice>
-              <p>
-                SOC Alliance&rsquo;s founding history is currently being confirmed with the
-                organization. The current site states the organization was established in 1995,
-                which does not align with its 2015 IRS tax-exempt ruling year, and public
-                nonprofit registries suggest a possible — unconfirmed — connection to a
-                predecessor entity. Neither claim will be published here until SOC Alliance
-                confirms the accurate history.
-              </p>
-            </PendingNotice>
-          </div>
+          <p className="mt-4 text-sm text-text-muted">
+            SOC Alliance&rsquo;s founding history is currently being confirmed with the
+            organization. The current site states the organization was established in 1995,
+            which does not align with its 2015 IRS tax-exempt ruling year, and public
+            nonprofit registries suggest a possible — unconfirmed — connection to a
+            predecessor entity. Neither claim will be published here until SOC Alliance
+            confirms the accurate history.
+          </p>
         </Reveal>
       </div>
       </Container>
