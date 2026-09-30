@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { MissionIcon, ValuesIcon, VisionIcon } from "@/components/icons/AboutIcons";
 import { Reveal } from "@/components/Reveal";
+import { SectionHeading } from "@/components/SectionHeading";
 
 const tabs = [
   {
@@ -90,10 +91,7 @@ export function AboutAlliance() {
 
         {/* Content */}
         <Reveal delay={75}>
-          <p className="text-sm font-bold uppercase tracking-widest text-accent">About Us</p>
-          <h2 className="mt-2 text-3xl font-extrabold leading-[1.1] text-text md:text-4xl">
-            About the Alliance
-          </h2>
+          <SectionHeading eyebrow="About Us" title="About the Alliance" />
 
           <div className="mt-4 flex flex-wrap gap-2">
             {tabs.map((tab, i) => (

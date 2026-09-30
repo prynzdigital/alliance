@@ -6,8 +6,11 @@ import { PendingNotice } from "@/components/PendingNotice";
 import { Reveal } from "@/components/Reveal";
 import { Card, CardImage } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { SectionHeading } from "@/components/SectionHeading";
 import { MissionIcon, ValuesIcon, VisionIcon } from "@/components/icons/AboutIcons";
 import { pillars } from "@/lib/programs";
+
+const ORG_ADDRESS = "6615 S. Kenwood Ave., Chicago, IL 60637";
 
 export const metadata: Metadata = {
   title: "Our Story",
@@ -110,8 +113,7 @@ export default function OurStoryPage() {
           />
         </Reveal>
         <Reveal delay={75}>
-          <p className="text-sm font-bold uppercase tracking-widest text-accent">Who We Are</p>
-          <h2 className="mt-2">A 501(c)(3) Rooted in Chicago&rsquo;s South Side</h2>
+          <SectionHeading eyebrow="Who We Are" title="A 501(c)(3) Rooted in Chicago’s South Side" />
           <p className="mt-4 text-lg text-text">
             Strengthening Our Community Alliance is a 501(c)(3) organization that provides
             scholarships and community services to the Woodlawn Community and greater Chicago.
@@ -122,27 +124,39 @@ export default function OurStoryPage() {
         </Reveal>
       </div>
 
-      {/* Mission / Vision / Values */}
-      <Reveal className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-3">
-        {values.map((value) => {
-          const Icon = value.icon;
-          return (
-            <div key={value.title} className="rounded-card border border-black/10 bg-surface p-6">
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                <Icon className="h-6 w-6 text-primary" />
-              </span>
-              <h2 className="mt-4 text-lg">{value.title}</h2>
-              <p className="mt-2 text-text-muted">{value.body}</p>
-            </div>
-          );
-        })}
-      </Reveal>
+      {/* Mission / Vision / Values — grouped with the intro above as one
+          "who we are" section, rather than a separate disconnected block. */}
+      <div className="mt-16">
+        <Reveal>
+          <SectionHeading eyebrow="What Drives Us" title="Our Mission, Vision & Values" className="max-w-2xl" />
+        </Reveal>
+        <Reveal delay={75} className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
+          {values.map((value) => {
+            const Icon = value.icon;
+            return (
+              <div
+                key={value.title}
+                className="rounded-card p-7 shadow-sm transition-shadow duration-200 hover:shadow-md"
+                style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 13%, white)" }}
+              >
+                <span
+                  className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-background"
+                  style={{ boxShadow: "0 2px 8px -2px color-mix(in srgb, var(--color-primary) 35%, transparent)" }}
+                >
+                  <Icon className="h-7 w-7 text-primary" />
+                </span>
+                <h3 className="mt-5 text-xl font-bold text-text">{value.title}</h3>
+                <p className="mt-2 text-text-muted">{value.body}</p>
+              </div>
+            );
+          })}
+        </Reveal>
+      </div>
 
       {/* Four Pillars — real photo cards linking to each program */}
       <div id="pillars" className="mt-20 scroll-mt-24">
         <Reveal>
-          <p className="text-sm font-bold uppercase tracking-widest text-accent">How We Work</p>
-          <h2 className="mt-2">Our Four Pillars</h2>
+          <SectionHeading eyebrow="How We Work" title="Our Four Pillars" className="max-w-2xl" />
           <p className="mt-3 max-w-2xl text-text-muted">
             SOC Alliance organizes its work around four pillars, each with its own named programs.
           </p>
@@ -172,27 +186,44 @@ export default function OurStoryPage() {
         </div>
       </div>
 
-      {/* Where We Work — photo band */}
-      <Reveal className="mt-20">
-        <div
-          className="relative overflow-hidden rounded-card bg-cover bg-center bg-no-repeat px-6 py-14 sm:px-12 md:py-20"
-          style={{ backgroundImage: "url('/community-work.png')" }}
+      </Container>
+
+      {/* Where We Work — full-width CTA band, breaking out of the container */}
+      <Reveal>
+        <section
+          className="relative overflow-hidden bg-cover bg-center bg-no-repeat py-16 md:py-24"
+          style={{ backgroundImage: "url('/chicago.png')" }}
         >
-          <div aria-hidden className="absolute inset-0 bg-text/85" />
-          <div className="relative max-w-2xl">
-            <p className="text-sm font-bold uppercase tracking-widest text-secondary">Where We Work</p>
-            <h2 className="mt-2 text-white">Woodlawn, Chicago &mdash; and Beyond</h2>
-            <p className="mt-4 text-white/85">
-              SOC Alliance is based in Woodlawn on Chicago&rsquo;s South Side, where it holds
-              meetings and runs community service programs out of its own facility, while
-              collaborating with partners across greater Chicago.
-            </p>
+          <div aria-hidden className="absolute inset-0 bg-text/80" />
+          <div className="relative mx-auto flex max-w-(--container-content) flex-col gap-8 px-6 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-xl">
+              <SectionHeading eyebrow="Where We Work" title="Woodlawn, Chicago — and Beyond" light />
+              <p className="mt-4 text-white/85">
+                SOC Alliance is based in Woodlawn on Chicago&rsquo;s South Side, where it holds
+                meetings and runs community service programs out of its own facility, while
+                collaborating with partners across greater Chicago.
+              </p>
+            </div>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ORG_ADDRESS)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex shrink-0 items-center gap-4 self-start rounded-full bg-secondary py-2 pl-6 pr-2 text-sm font-bold text-text transition-colors hover:bg-secondary-dark md:self-auto"
+            >
+              Get Directions
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-text text-white transition-transform group-hover:translate-x-0.5">
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2}>
+                  <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </a>
           </div>
-        </div>
+        </section>
       </Reveal>
 
+      <Container className="py-16 md:py-24">
       {/* Our History */}
-      <Reveal className="mt-16 max-w-3xl">
+      <Reveal className="max-w-3xl">
         <h2>Our History</h2>
         <div className="mt-3">
           <PendingNotice>
@@ -211,8 +242,7 @@ export default function OurStoryPage() {
       {/* Leadership & Board */}
       <div id="leadership" className="mt-20 scroll-mt-24 border-t border-black/10 pt-16">
         <Reveal>
-          <p className="text-sm font-bold uppercase tracking-widest text-accent">Who Leads Us</p>
-          <h2 className="mt-2">Leadership &amp; Board</h2>
+          <SectionHeading eyebrow="Who Leads Us" title="Leadership & Board" className="max-w-2xl" />
           <p className="mt-3 max-w-2xl text-text-muted">
             SOC Alliance is led entirely by a volunteer Board of Directors &mdash; every officer
             reports $0 compensation.

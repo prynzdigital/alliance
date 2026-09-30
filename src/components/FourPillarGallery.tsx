@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { pillars } from "@/lib/programs";
 import { Reveal } from "@/components/Reveal";
+import { SectionHeading } from "@/components/SectionHeading";
 
 // Real per-pillar photos: Community and Health are the org's own real event
 // photography (already used in News & Events); Scholarship and Economic
@@ -30,15 +31,11 @@ export function FourPillarGallery() {
   return (
     <section className="mx-auto max-w-(--container-content) px-6 py-16 md:py-24">
       <Reveal>
-        <div className="flex items-center gap-3">
-          <span className="h-px w-8 bg-secondary" aria-hidden />
-          <p className="text-xs font-bold uppercase tracking-widest text-secondary-dark">
-            The Four Pillar Plan
-          </p>
-        </div>
-        <h2 className="mt-4 max-w-2xl text-4xl sm:text-5xl">
-          Scholarship, Economic Development, Community and Health
-        </h2>
+        <SectionHeading
+          eyebrow="The Four Pillar Plan"
+          title="Scholarship, Economic Development, Community and Health"
+          className="max-w-2xl"
+        />
       </Reveal>
 
       <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
