@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AboutAlliance } from "@/components/AboutAlliance";
+import { FourPillarGallery } from "@/components/FourPillarGallery";
 import { SupportCarousel } from "@/components/SupportCarousel";
 import { PictureCarousel } from "@/components/PictureCarousel";
 import { HeroSlider } from "@/components/HeroSlider";
@@ -101,6 +102,8 @@ export default function Home() {
       <PillarBand />
 
       <AboutAlliance />
+
+      <FourPillarGallery />
 
       {/* Upcoming Events + Blog Post — two Support-Our-Work-style carousel
           cards side by side, moved up to sit directly under About the
