@@ -47,7 +47,7 @@ export default function MardiGrasPage() {
       </div>
 
       <div className="mt-12 max-w-2xl border-t border-black/10 pt-8">
-        <Link href="/get-involved/partner-with-us" className="text-sm font-semibold text-primary hover:underline">
+        <Link href="/get-involved#partner-with-us" className="text-sm font-semibold text-primary hover:underline">
           Become a Sponsor &rarr;
         </Link>
       </div>

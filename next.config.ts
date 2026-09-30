@@ -13,6 +13,21 @@ const nextConfig: NextConfig = {
         destination: "/donate",
         permanent: true,
       },
+      {
+        source: "/get-involved/volunteer",
+        destination: "/get-involved#volunteer",
+        permanent: true,
+      },
+      {
+        source: "/get-involved/careers",
+        destination: "/get-involved#careers",
+        permanent: true,
+      },
+      {
+        source: "/get-involved/partner-with-us",
+        destination: "/get-involved#partner-with-us",
+        permanent: true,
+      },
     ];
   },
   async headers() {

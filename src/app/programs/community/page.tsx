@@ -76,7 +76,7 @@ export default function CommunityPage() {
 
         <p className="mt-6 text-text">
           Interested in working with SVPI? Open roles are listed on our{" "}
-          <Link href="/get-involved/careers" className="font-semibold text-primary hover:underline">
+          <Link href="/get-involved#careers" className="font-semibold text-primary hover:underline">
             Careers
           </Link>{" "}
           page.

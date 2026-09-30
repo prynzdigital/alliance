@@ -37,9 +37,9 @@ export const primaryNav: NavSection[] = [
     label: "Get Involved",
     href: "/get-involved",
     children: [
-      { label: "Volunteer", href: "/get-involved/volunteer" },
-      { label: "Careers", href: "/get-involved/careers" },
-      { label: "Partner With Us", href: "/get-involved/partner-with-us" },
+      { label: "Volunteer", href: "/get-involved#volunteer" },
+      { label: "Careers", href: "/get-involved#careers" },
+      { label: "Partner With Us", href: "/get-involved#partner-with-us" },
       { label: "Mentoring & Life Coaching", href: "/get-involved/mentoring-life-coaching" },
     ],
   },

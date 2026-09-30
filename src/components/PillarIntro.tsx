@@ -28,7 +28,7 @@ export function PillarIntro({ pillar }: { pillar: Pillar }) {
 export function PillarCTAs({ pillarName }: { pillarName: string }) {
   return (
     <div className="mt-12 flex flex-wrap gap-4 border-t border-black/10 pt-8">
-      <Button href="/get-involved/volunteer" variant="primary">
+      <Button href="/get-involved#volunteer" variant="primary">
         Volunteer With This Program
       </Button>
       <Button href="/donate" variant="outline">

@@ -47,7 +47,7 @@ const participateCards = [
   {
     title: "Volunteer",
     description: "Give your time across any of our four pillars.",
-    href: "/get-involved/volunteer",
+    href: "/get-involved#volunteer",
     image: "/volunteer.jpg",
     imageAlt: "A group of volunteers smiling together outdoors",
   },
@@ -61,7 +61,7 @@ const participateCards = [
   {
     title: "Careers",
     description: "See open roles, including positions with our Violence Prevention Initiative.",
-    href: "/get-involved/careers",
+    href: "/get-involved#careers",
     image: "/career.jpg",
     imageAlt: "Illustration of professionals walking, representing careers and employment",
   },

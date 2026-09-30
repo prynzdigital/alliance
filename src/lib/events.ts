@@ -106,7 +106,7 @@ export const events: SocEvent[] = [
     date: "2025-04-08",
     description:
       "SOC Alliance opened applications for Area Violence Interrupter, Area Field Manager, Case Manager, and Victim Services Facilitator roles.",
-    href: "/get-involved/careers",
+    href: "/get-involved#careers",
     cta: "See Careers",
     image: IMG.community,
     imageAlt: COMMUNITY_ALT,

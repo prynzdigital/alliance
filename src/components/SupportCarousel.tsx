@@ -29,7 +29,7 @@ const DEFAULT_SLIDES: CarouselSlide[] = [
     title: "Lend a Hand",
     body: "Give your time across scholarship, economic development, community, and health programs. Every volunteer hour reaches a neighbor directly.",
     cta: "Volunteer",
-    href: "/get-involved/volunteer",
+    href: "/get-involved#volunteer",
     color: "var(--color-accent)",
   },
   {
