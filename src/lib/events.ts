@@ -46,17 +46,6 @@ const OMEGA_GRAS_ALT = "A gold Mardi Gras mask surrounded by festive confetti an
 // socalliance.org/blog) — do not add an entry without a source.
 export const events: SocEvent[] = [
   {
-    title: "SOC Alliance Board Member Mark Campbell, PhD, Named to Marquis Who's Who",
-    date: "2026-09-24",
-    description:
-      "Mark Campbell, PhD — a SOC Alliance board member and vice president of information technology for the Houston Rockets — has been included in Marquis Who's Who for his three decades of leadership in information technology.",
-    href: "https://www.24-7pressrelease.com/press-release/538921/marquis-whos-who-honors-mark-campbell-phd-for-expertise-in-information-technology-leadership-and-innovation",
-    cta: "Read the Press Release",
-    image: "/mark-campbell.jpg",
-    imageAlt: "Portrait of Mark Campbell, PhD, smiling in a suit and tie",
-    color: NEON.impact,
-  },
-  {
     title: "Apply for Mentoring & Life Coaching",
     date: "2026-06-18",
     description:
