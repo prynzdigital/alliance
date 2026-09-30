@@ -120,7 +120,7 @@ export default function OurStoryPage() {
             community service programs, and collaborates with the local community on numerous
             programs.
           </p>
-          <p className="mt-4 text-sm text-text-muted">
+          <p className="mt-4 text-sm text-text">
             SOC Alliance&rsquo;s founding history is currently being confirmed with the
             organization. The current site states the organization was established in 1995,
             which does not align with its 2015 IRS tax-exempt ruling year, and public
