@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PendingNotice } from "@/components/PendingNotice";
+import { SectionHeading } from "@/components/SectionHeading";
 
 export const metadata: Metadata = {
   title: "Financials & Transparency",
@@ -41,20 +42,20 @@ export default function FinancialsPage() {
       />
       <Container className="py-16 md:py-24">
       <div className="max-w-3xl">
-        <h2>Most Recent Financial Summary</h2>
-        <p className="mt-2 text-sm text-text-muted">
+        <SectionHeading eyebrow="Transparency" title="Most Recent Financial Summary" />
+        <p className="mt-4 text-sm text-text-muted">
           Fiscal year ending October 2024. Source: ProPublica Nonprofit Explorer / GuideStar.
         </p>
         <dl className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
           {financials.map((item) => (
-            <div key={item.label} className="rounded-card border border-black/10 bg-surface p-5">
+            <div key={item.label} className="rounded-card border-t-4 border-primary bg-surface p-5 shadow-sm">
               <dt className="text-sm text-text-muted">{item.label}</dt>
               <dd className="mt-1 text-2xl font-bold text-primary">{item.value}</dd>
             </div>
           ))}
         </dl>
 
-        <h2 className="mt-10">Revenue Mix</h2>
+        <h3 className="mt-10">Revenue Mix</h3>
         <ul className="mt-4 flex flex-col gap-2">
           {revenueMix.map((item) => (
             <li key={item.label} className="flex items-center justify-between rounded-md bg-surface px-4 py-2">
@@ -69,7 +70,7 @@ export default function FinancialsPage() {
           to $175,938 in FY2024 — roughly 13x growth over its first decade of filings.
         </p>
 
-        <h2 className="mt-10">Form 990 & Annual Report</h2>
+        <h3 className="mt-10">Form 990 & Annual Report</h3>
         <div className="mt-3">
           <PendingNotice>
             <p>Publishing the filed Form 990 or an annual report here requires SOC Alliance&rsquo;s permission.</p>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { Card } from "@/components/ui/Card";
+import { Card, CardImage } from "@/components/ui/Card";
 
 export const metadata: Metadata = {
   title: "About",
@@ -13,11 +13,15 @@ const sections = [
     title: "Our Story",
     description: "Our mission, vision, the four pillars that organize our work, and the volunteer Board of Directors who lead us.",
     href: "/about/our-story",
+    image: "/impact.jpg",
+    imageAlt: "A raised fist clasped by another hand, with community members raising their hands together in the background",
   },
   {
     title: "Financials & Transparency",
     description: "Our financial summary and tax-exempt status.",
     href: "/about/financials-transparency",
+    image: "/economic-2.jpg",
+    imageAlt: "Rising stacks of gold coins in front of a blurred financial growth chart",
   },
 ];
 
@@ -35,6 +39,7 @@ export default function AboutPage() {
       <div className="grid max-w-3xl grid-cols-1 gap-6 sm:grid-cols-2">
         {sections.map((section) => (
           <Card key={section.href} href={section.href}>
+            <CardImage src={section.image} alt={section.imageAlt} />
             <h2 className="text-lg">{section.title}</h2>
             <p className="mt-2 text-sm text-text-muted">{section.description}</p>
             <span className="mt-4 inline-block text-sm font-semibold text-primary group-hover:underline">

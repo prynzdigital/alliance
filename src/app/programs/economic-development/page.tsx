@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PillarCTAs, PillarIntro } from "@/components/PillarIntro";
+import { SectionHeading } from "@/components/SectionHeading";
 import { getPillar } from "@/lib/programs";
 
 export const metadata: Metadata = {
@@ -50,7 +51,7 @@ export default function EconomicDevelopmentPage() {
           stability — from first job to first home.
         </p>
 
-        <h2 className="mt-10">Past Highlights</h2>
+        <SectionHeading eyebrow="Recent Events" title="Past Highlights" className="mt-10" />
         <div className="mt-3 rounded-card border border-black/10 bg-surface p-5">
           <p className="text-sm font-semibold text-text-muted">September 2022</p>
           <p className="mt-1 text-sm text-text">

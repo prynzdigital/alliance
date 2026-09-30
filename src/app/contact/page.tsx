@@ -27,11 +27,15 @@ export default function ContactPage() {
       <Container className="py-16 md:py-24">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
         <div>
-          <ContactForm />
+          <h2 className="text-lg">Send Us a Message</h2>
+          <div className="mt-4">
+            <ContactForm />
+          </div>
         </div>
 
         <div>
-          <address className="text-sm not-italic text-text">
+          <h2 className="text-lg">Reach Us Directly</h2>
+          <address className="mt-4 rounded-card border border-black/10 bg-surface p-6 text-sm not-italic text-text">
             <p className="font-semibold">SOC Alliance</p>
             <p className="mt-1 text-text-muted">{ORG.address}</p>
             <p className="mt-3">

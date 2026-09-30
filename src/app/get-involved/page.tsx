@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { PendingNotice } from "@/components/PendingNotice";
+import { SectionHeading } from "@/components/SectionHeading";
 import { VolunteerForm } from "@/components/VolunteerForm";
 import { buildMailtoHref } from "@/lib/mailto";
 import { pillars } from "@/lib/programs";
@@ -54,8 +55,8 @@ export default function GetInvolvedPage() {
       </div>
 
       <div id="volunteer" className="mt-10 max-w-2xl scroll-mt-24">
-        <h2>Volunteer</h2>
-        <p className="mt-3 text-sm text-text-muted">
+        <SectionHeading eyebrow="Give Your Time" title="Volunteer" />
+        <p className="mt-4 text-sm text-text-muted">
           SOC Alliance runs entirely on volunteer leadership and support. There&rsquo;s a place
           for you across any of our four pillars.
         </p>
@@ -82,8 +83,8 @@ export default function GetInvolvedPage() {
       </div>
 
       <div id="careers" className="mt-16 max-w-2xl border-t border-black/10 pt-12 scroll-mt-24">
-        <h2>Careers</h2>
-        <p className="mt-3 text-sm text-text-muted">
+        <SectionHeading eyebrow="Join Our Team" title="Careers" />
+        <p className="mt-4 text-sm text-text-muted">
           SOC Alliance&rsquo;s Strengthening Violence Prevention Initiative (SVPI) hires across
           the following role categories, funded in part by the Illinois Department of Human
           Services.
@@ -108,8 +109,8 @@ export default function GetInvolvedPage() {
       </div>
 
       <div id="partner-with-us" className="mt-16 max-w-2xl border-t border-black/10 pt-12 scroll-mt-24">
-        <h2>Partner With Us</h2>
-        <p className="mt-3 text-sm text-text-muted">
+        <SectionHeading eyebrow="Businesses & Institutions" title="Partner With Us" />
+        <p className="mt-4 text-sm text-text-muted">
           SOC Alliance works alongside businesses, sponsors, and institutional partners
           year-round &mdash; not only around our flagship Mardi Gras Scholarship Fundraiser,
           where sponsorships start at $500.

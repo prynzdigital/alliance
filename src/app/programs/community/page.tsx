@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PillarCTAs, PillarIntro } from "@/components/PillarIntro";
+import { SectionHeading } from "@/components/SectionHeading";
 import { getPillar } from "@/lib/programs";
 
 export const metadata: Metadata = {
@@ -48,8 +49,8 @@ export default function CommunityPage() {
       </div>
 
       <div className="mt-12 max-w-3xl">
-        <h2>Strengthening Violence Prevention Initiative (SVPI)</h2>
-        <p className="mt-3 text-sm text-text">
+        <SectionHeading eyebrow="Community Safety" title="Strengthening Violence Prevention Initiative (SVPI)" />
+        <p className="mt-4 text-sm text-text">
           SVPI is a community-based violence prevention program, funded in part by the Illinois
           Department of Human Services. It brings together Violence Interrupters, Field
           Managers, Case Managers, and Victim Services Facilitators to work directly with the

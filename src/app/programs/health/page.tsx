@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PillarCTAs, PillarIntro } from "@/components/PillarIntro";
+import { SectionHeading } from "@/components/SectionHeading";
 import { getPillar } from "@/lib/programs";
 
 export const metadata: Metadata = {
@@ -43,7 +44,7 @@ export default function HealthPage() {
       </div>
 
       <div className="mt-12 max-w-3xl">
-        <h2>Past Highlights</h2>
+        <SectionHeading eyebrow="Recent Events" title="Past Highlights" />
         <div className="mt-3 rounded-card border border-black/10 bg-surface p-5">
           <p className="text-sm font-semibold text-text-muted">November 15, 2023 &middot; Kroc Center</p>
           <p className="mt-1 text-sm text-text">SOC Alliance hosted a community blood drive at the Kroc Center.</p>

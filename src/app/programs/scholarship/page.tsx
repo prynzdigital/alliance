@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PendingNotice } from "@/components/PendingNotice";
+import { SectionHeading } from "@/components/SectionHeading";
 import { PillarCTAs, PillarIntro } from "@/components/PillarIntro";
 import { getPillar } from "@/lib/programs";
 
@@ -46,8 +47,8 @@ export default function ScholarshipPage() {
       </div>
 
       <div className="mt-12 max-w-3xl">
-        <h2>Talent Hunt Competition</h2>
-        <p className="mt-3 text-sm text-text">
+        <SectionHeading eyebrow="Flagship Program" title="Talent Hunt Competition" />
+        <p className="mt-4 text-sm text-text">
           SOC Alliance&rsquo;s annual scholarship competition for Chicagoland high school
           students, judged on vocal or instrumental performance.
         </p>
