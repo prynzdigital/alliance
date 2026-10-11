@@ -8,9 +8,24 @@ import { HeroSlider } from "@/components/HeroSlider";
 import { PillarBand } from "@/components/PillarBand";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { Reveal } from "@/components/Reveal";
+import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { Card, CardImage } from "@/components/ui/Card";
 import { formatEventDate, getPastEvents, getUpcomingEvents } from "@/lib/events";
+
+function ViewAllLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className="group inline-flex shrink-0 items-center gap-1.5 pb-1 text-sm font-bold text-primary"
+    >
+      {children}
+      <span aria-hidden className="transition-transform group-hover:translate-x-1">
+        &rarr;
+      </span>
+    </Link>
+  );
+}
 
 const namedPartners = [
   "Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc.",
@@ -109,14 +124,12 @@ export default function Home() {
           cards side by side, moved up to sit directly under About the
           Alliance. */}
       <section>
-        <div className="mx-auto max-w-(--container-content) px-6 py-16 md:py-24">
+        <div className="mx-auto max-w-(--container-content) px-6 py-14 md:py-20">
           <div className="grid items-stretch gap-10 md:grid-cols-[40%_1fr]">
             <Reveal className="flex h-full flex-col">
-              <div className="flex flex-wrap items-baseline justify-between gap-4">
-                <h2>Upcoming Events</h2>
-                <Link href="/news-events" className="text-sm font-semibold text-primary hover:underline">
-                  View all &rarr;
-                </Link>
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <SectionHeading eyebrow="On the Calendar" title="Upcoming Events" />
+                <ViewAllLink href="/news-events">View all</ViewAllLink>
               </div>
               {upcomingEvents.length > 0 ? (
                 <div className="mt-8 flex-1">
@@ -148,11 +161,9 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={75} className="flex h-full flex-col">
-              <div className="flex flex-wrap items-baseline justify-between gap-4">
-                <h2>Blog Post</h2>
-                <Link href="/news-events" className="text-sm font-semibold text-primary hover:underline">
-                  View full archive &rarr;
-                </Link>
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <SectionHeading eyebrow="From the Blog" title="Latest Stories" />
+                <ViewAllLink href="/news-events">View full archive</ViewAllLink>
               </div>
               <div className="mt-8 flex-1">
                 <SupportCarousel slides={blogPostSlides} imageSize="lg" />
@@ -170,9 +181,14 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/70" />
         <div className="relative mx-auto max-w-(--container-content) px-6 text-center">
           <Reveal>
-            <h2 className="text-white">Our Impact</h2>
+            <SectionHeading eyebrow="By the Numbers" title="Our Impact" light align="center" />
             <div className="mt-8 flex flex-col items-center gap-2">
-              <p className="text-6xl font-bold text-white sm:text-7xl">$100,000+</p>
+              <p
+                className="text-6xl font-extrabold tracking-tight text-secondary sm:text-8xl"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                $100,000+
+              </p>
               <p className="max-w-md text-sm text-white/85">
                 in scholarships awarded, cumulatively, through the Omega Mardi Gras Scholarship
                 Fundraiser <span className="whitespace-nowrap">(as of March 2026)</span>
@@ -199,9 +215,9 @@ export default function Home() {
           organization's own site (docs/discovery/20_Client_Input_Required.md
           addendum, live-site verification pass). Layout alternates image
           side per story. */}
-      <section className="mx-auto max-w-(--container-content) px-6 py-16 md:py-24">
+      <section className="mx-auto max-w-(--container-content) px-6 py-14 md:py-20">
         <Reveal>
-          <h2>Stories From Our Community</h2>
+          <SectionHeading eyebrow="In the Neighborhood" title="Stories From Our Community" />
         </Reveal>
         <div className="mt-8 flex flex-col gap-10">
           {communityStories.map((story, i) => {
@@ -243,44 +259,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Latest News — pulled from the full blog archive in lib/events.ts */}
-      <section className="mx-auto max-w-(--container-content) px-6 py-16 md:py-24">
-        <Reveal>
-          <div className="flex flex-wrap items-baseline justify-between gap-4">
-            <h2>Latest News</h2>
-            <Link href="/news-events" className="text-sm font-semibold text-primary hover:underline">
-              View full archive &rarr;
-            </Link>
-          </div>
-        </Reveal>
-        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-          {latestNews.map((event, i) => (
-            <Reveal key={event.title} delay={i * 75}>
-              <Card href={event.href} className="h-full" glass neonAccent={event.color}>
-                <CardImage src={event.image} alt={event.imageAlt} />
-                <p className="text-sm font-semibold text-text-muted">{formatEventDate(event.date)}</p>
-                <h3 className="mt-2 text-lg">{event.title}</h3>
-                <p className="mt-2 text-sm text-text-muted">{event.description}</p>
-                <span className="mt-4 inline-block text-sm font-semibold text-primary group-hover:underline">
-                  Learn more &rarr;
-                </span>
-              </Card>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
       {/* Partner & Collaborator Mentions — static Chicago skyline background,
           same treatment as Our Impact/Support Our Work above. */}
       <section
-        className="relative bg-cover bg-center bg-no-repeat bg-fixed py-16 md:py-24"
+        className="relative bg-cover bg-center bg-no-repeat bg-fixed py-14 md:py-20"
         style={{ backgroundImage: "url('/chicago.png')" }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/70" />
         <div className="relative mx-auto max-w-(--container-content) px-6">
           <Reveal className="text-center">
-            <h2 className="text-white">Working Alongside Our Community</h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm text-white/80">
+            <SectionHeading eyebrow="Our Partners" title="Working Alongside Our Community" light align="center" />
+            <p className="mx-auto mt-4 max-w-xl text-sm text-white/80">
               SOC Alliance programs are made possible in partnership with these organizations.
             </p>
             {/* Partner logos are pending client confirmation on which
@@ -304,9 +293,9 @@ export default function Home() {
       </section>
 
       {/* How to Participate */}
-      <section className="mx-auto max-w-(--container-content) px-6 py-16 md:py-24">
+      <section className="mx-auto max-w-(--container-content) px-6 py-14 md:py-20">
         <Reveal>
-          <h2>How to Participate</h2>
+          <SectionHeading eyebrow="Get Involved" title="How to Participate" />
         </Reveal>
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
           {participateCards.map((card, i) => (
@@ -331,8 +320,8 @@ export default function Home() {
       <section className="py-14 md:py-20">
         <div className="mx-auto max-w-(--container-content) px-6">
           <Reveal>
-            <h2 className="text-center">Support Our Work</h2>
-            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-text-muted">
+            <SectionHeading eyebrow="Make a Difference" title="Support Our Work" align="center" />
+            <p className="mx-auto mt-4 max-w-xl text-center text-sm text-text-muted">
               SOC Alliance is a 501(c)(3) public charity, EIN 36-4047035. Every gift and every
               volunteer hour is tax-deductible and reaches the community directly.
             </p>
