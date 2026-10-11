@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { CtaBand } from "@/components/CtaBand";
+import { ArrowPillLink, CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { StatTiles } from "@/components/StatTiles";
@@ -17,11 +18,12 @@ export const metadata: Metadata = {
 // Editions come from the shared events list, newest first, so a new edition
 // only needs adding in one place and its status is always derived from its date.
 const editions = events
-  .filter((e) => e.title.includes("Omega Mardi Gras Scholarship Fundraiser"))
+  .filter((e) => e.title.includes("Omega Mardi Gras"))
   .sort((a, b) => b.date.localeCompare(a.date));
 
 export default function MardiGrasPage() {
-  const hasUpcoming = editions.some((e) => getEventStatus(e.date) === "upcoming");
+  // Soonest edition that hasn't happened yet, if one has been announced.
+  const nextEdition = editions.filter((e) => getEventStatus(e.date) === "upcoming").at(-1);
 
   return (
     <>
@@ -36,6 +38,62 @@ export default function MardiGrasPage() {
         image="/omega-gras.jpg"
         imageAlt="A gold Mardi Gras mask surrounded by festive confetti and ribbon"
       />
+
+      {nextEdition && (
+        <section className="relative overflow-hidden bg-text py-14 text-white md:py-20">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-primary/40 blur-3xl"
+          />
+          <Container className="relative">
+            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_minmax(0,420px)]">
+              <Reveal>
+                <SectionHeading eyebrow="Save the Date" title={nextEdition.title} light />
+                <p
+                  className="mt-6 text-4xl font-extrabold tracking-tight text-secondary sm:text-5xl"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  <time dateTime={nextEdition.date}>{formatEventDate(nextEdition.date)}</time>
+                </p>
+                {nextEdition.location && (
+                  <p className="mt-2 text-sm font-semibold text-white">{nextEdition.location}</p>
+                )}
+                <p className="mt-6 max-w-xl text-sm text-white/85">
+                  The Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc. and Strengthening Our
+                  Community Alliance present the next Omega Mardi Gras Scholarship Fundraiser. Mark
+                  your calendar and join us in raising scholarship dollars for students in our
+                  community.
+                </p>
+                {!nextEdition.location && (
+                  <p className="mt-4 max-w-xl text-sm text-white/70">
+                    Venue and ticket details will be posted here as soon as they&rsquo;re announced.
+                  </p>
+                )}
+                <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                  <ArrowPillLink label="Become a Sponsor" href="/get-involved#partner-with-us" />
+                  <Link
+                    href="/donate"
+                    className="text-sm font-bold text-white underline-offset-4 transition-colors hover:text-secondary hover:underline"
+                  >
+                    Or make a donation
+                  </Link>
+                </div>
+              </Reveal>
+              <Reveal delay={75}>
+                <Image
+                  src={nextEdition.image}
+                  alt={nextEdition.imageAlt}
+                  width={1200}
+                  height={1680}
+                  sizes="(min-width: 1024px) 420px, 100vw"
+                  className="mx-auto h-auto w-full max-w-sm rounded-card shadow-2xl ring-1 ring-white/10 lg:max-w-none"
+                  priority
+                />
+              </Reveal>
+            </div>
+          </Container>
+        </section>
+      )}
 
       <Container className="py-14 md:py-20">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
@@ -87,7 +145,7 @@ export default function MardiGrasPage() {
         <Reveal>
           <SectionHeading eyebrow="Recent Editions" title="On the Calendar" />
         </Reveal>
-        <ul className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <ul className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {editions.map((edition, i) => {
             const upcoming = getEventStatus(edition.date) === "upcoming";
             return (
@@ -123,7 +181,7 @@ export default function MardiGrasPage() {
             );
           })}
         </ul>
-        {!hasUpcoming && (
+        {!nextEdition && (
           <Reveal delay={150}>
             <p className="mt-8 max-w-2xl text-sm text-text-muted">
               Date, venue, and ticket details for the next edition will be posted here as soon as

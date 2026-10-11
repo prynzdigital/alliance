@@ -46,6 +46,21 @@ const OMEGA_GRAS_ALT = "A gold Mardi Gras mask surrounded by festive confetti an
 // socalliance.org/blog) — do not add an entry without a source.
 export const events: SocEvent[] = [
   {
+    // Save-the-date flyer supplied by the client on 2026-10-10. The flyer gives
+    // only the name, date, and co-presenters; venue and tickets aren't announced
+    // yet, so `location` is deliberately left unset.
+    title: "Omega Mardi Gras 2027",
+    date: "2027-03-20",
+    description:
+      "Save the date! The Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc. and SOC Alliance present the Omega Mardi Gras Scholarship Fundraiser. Venue and ticket details are coming soon.",
+    href: "/donate/mardi-gras-fundraiser",
+    cta: "Learn More",
+    image: "/omega-gras-2027.webp",
+    imageAlt:
+      "Save-the-date flyer for Omega Mardi Gras 2027 on March 20, 2027, featuring a purple and gold masquerade mask, presented by the Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc. and Strengthening Our Community Alliance",
+    color: NEON.scholarship,
+  },
+  {
     title: "Apply for Mentoring & Life Coaching",
     date: "2026-06-18",
     description:
