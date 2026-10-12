@@ -6,9 +6,6 @@ import { Button } from "@/components/ui/Button";
 import { FacebookIcon, LinkedInIcon } from "@/components/icons/SocialIcons";
 import { pillars } from "@/lib/programs";
 
-const FACEBOOK_URL = "https://www.facebook.com/socommunityalliance";
-const LINKEDIN_URL = "https://www.linkedin.com/company/strengthening-our-community-alliance/";
-
 const AUTO_ADVANCE_MS = 6500;
 
 // Slide-specific image overrides — used only here, not on the pillar cards/
@@ -37,7 +34,7 @@ function PlayIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function HeroSlider() {
+export function HeroSlider({ facebookUrl, linkedinUrl }: { facebookUrl: string; linkedinUrl: string }) {
   const [index, setIndex] = useState(0);
   const [hovering, setHovering] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
@@ -161,24 +158,28 @@ export function HeroSlider() {
       </div>
 
       <div className="absolute right-5 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-4 sm:right-8 md:flex">
-        <a
-          href={FACEBOOK_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="SOC Alliance on Facebook"
-          className="flex h-9 w-9 items-center justify-center rounded-full text-white transition-colors hover:bg-white/15"
-        >
-          <FacebookIcon className="h-4 w-4" />
-        </a>
-        <a
-          href={LINKEDIN_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="SOC Alliance on LinkedIn"
-          className="flex h-9 w-9 items-center justify-center rounded-full text-white transition-colors hover:bg-white/15"
-        >
-          <LinkedInIcon className="h-4 w-4" />
-        </a>
+        {facebookUrl && (
+          <a
+            href={facebookUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="SOC Alliance on Facebook"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-white transition-colors hover:bg-white/15"
+          >
+            <FacebookIcon className="h-4 w-4" />
+          </a>
+        )}
+        {linkedinUrl && (
+          <a
+            href={linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="SOC Alliance on LinkedIn"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-white transition-colors hover:bg-white/15"
+          >
+            <LinkedInIcon className="h-4 w-4" />
+          </a>
+        )}
         <span
           className="mt-1 text-[11px] font-semibold uppercase tracking-widest text-white/70"
           style={{ writingMode: "vertical-rl" }}

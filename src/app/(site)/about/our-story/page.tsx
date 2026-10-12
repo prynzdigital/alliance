@@ -1,0 +1,275 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import { Container } from "@/components/layout/Container";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { Reveal } from "@/components/Reveal";
+import { Card, CardImage } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { SectionHeading } from "@/components/SectionHeading";
+import { MissionIcon, ValuesIcon, VisionIcon } from "@/components/icons/AboutIcons";
+import { getBoard, getSettings } from "@/lib/cms/content";
+import type { BoardMember } from "@/lib/cms/defaults";
+import { pillars } from "@/lib/programs";
+
+export const metadata: Metadata = {
+  title: "Our Story",
+  description:
+    "Learn about SOC Alliance's mission, vision, four pillars, and volunteer Board of Directors.",
+};
+
+function initials(name: string) {
+  return name
+    .split(/\s+/)
+    .map((part) => part[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
+
+function BoardCard({ person }: { person: BoardMember }) {
+  return (
+    <div className="group overflow-hidden rounded-card border border-black/10 bg-background shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+      <div className="relative aspect-square w-full bg-surface">
+        {person.photo ? (
+          <Image
+            src={person.photo}
+            alt={`Portrait of ${person.name}, ${person.title} of SOC Alliance`}
+            fill
+            sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <span
+            aria-hidden
+            className="flex h-full w-full items-center justify-center bg-text text-4xl font-extrabold text-secondary"
+            style={{ fontFamily: "var(--font-heading)" }}
+          >
+            {initials(person.name)}
+          </span>
+        )}
+      </div>
+      <div className="p-4">
+        <p className="font-semibold text-text">{person.name}</p>
+        <p className="text-sm font-medium text-secondary-dark">{person.title}</p>
+        {person.bio && <p className="mt-2 text-sm text-text-muted">{person.bio}</p>}
+      </div>
+    </div>
+  );
+}
+
+export default async function OurStoryPage() {
+  // Roster comes from Leadership & Board in the admin (seeded from the live
+  // site's board page, 2026-08-30 — see docs/assets/board-photos/README.md).
+  // Officers are listed first, then directors, purely for visual grouping.
+  const [settings, board] = await Promise.all([getSettings(), getBoard()]);
+  const officers = board.filter((m) => m.group === "Officer");
+  const directors = board.filter((m) => m.group !== "Officer");
+  const values = [
+    { icon: MissionIcon, title: "Mission", body: settings.mission },
+    { icon: VisionIcon, title: "Vision", body: settings.vision },
+    { icon: ValuesIcon, title: "Values", body: settings.values },
+  ];
+  const ORG_ADDRESS = settings.contact_address;
+
+  return (
+    <>
+      <PageHeader
+        title="Our Story"
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Our Story" }]}
+        image="/impact.jpg"
+        imageAlt="A raised fist clasped by another hand, with community members raising their hands together in the background"
+      >
+        {/* Sub-nav — rendered in-flow inside the header so it always sits
+            within the photo, however tall the header ends up being. */}
+        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <a href="#our-story" className="text-sm font-bold text-white transition-colors hover:text-white/70">
+            Our Story
+          </a>
+          <span className="h-4 w-px bg-white/40" aria-hidden />
+          <a href="#pillars" className="text-sm font-bold text-white transition-colors hover:text-white/70">
+            Four Pillars
+          </a>
+          <span className="h-4 w-px bg-white/40" aria-hidden />
+          <a href="#leadership" className="text-sm font-bold text-white transition-colors hover:text-white/70">
+            Leadership &amp; Board
+          </a>
+        </div>
+      </PageHeader>
+
+      <Container className="py-16 md:py-24">
+      {/* Intro — photo + copy side by side */}
+      <div id="our-story" className="grid scroll-mt-24 grid-cols-1 items-center gap-10 md:grid-cols-[45%_1fr]">
+        <Reveal className="relative aspect-[4/3] w-full overflow-hidden rounded-card shadow-lg">
+          <Image
+            src="/community-2.jpg"
+            alt="A group of young community members lying together in a circle, smiling"
+            fill
+            sizes="(min-width: 768px) 40vw, 90vw"
+            className="object-cover"
+          />
+        </Reveal>
+        <Reveal delay={75}>
+          <SectionHeading eyebrow="Who We Are" title="A 501(c)(3) Rooted in Chicago’s South Side" />
+          <p className="mt-4 whitespace-pre-line text-sm text-text-muted">{settings.who_we_are}</p>
+          <p className="mt-4 text-sm text-text-muted">
+            SOC Alliance&rsquo;s founding history is currently being confirmed with the
+            organization. The current site states the organization was established in 1995,
+            which does not align with its 2015 IRS tax-exempt ruling year, and public
+            nonprofit registries suggest a possible — unconfirmed — connection to a
+            predecessor entity. Neither claim will be published here until SOC Alliance
+            confirms the accurate history.
+          </p>
+        </Reveal>
+      </div>
+      </Container>
+
+      {/* Mission / Vision / Values — full-bleed section with a faded,
+          desaturated photo wash (same technique and photo as the reference
+          build) instead of a flat white background. */}
+      <Reveal>
+        <section className="relative overflow-hidden bg-background py-16 md:py-24">
+          <Image
+            src="/svpi-fuller-park.webp"
+            alt=""
+            fill
+            aria-hidden
+            sizes="100vw"
+            className="object-cover opacity-40"
+            style={{ filter: "saturate(0.7)" }}
+          />
+          <div aria-hidden className="absolute inset-0 bg-background/55" />
+          <div className="relative mx-auto max-w-(--container-content) px-6">
+            <SectionHeading eyebrow="What Drives Us" title="Our Mission, Vision & Values" className="max-w-2xl" />
+            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+              {values.map((value) => {
+                const Icon = value.icon;
+                return (
+                  <div key={value.title} className="rounded-card bg-background p-7 shadow-md">
+                    <span className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-text">
+                      <Icon className="h-7 w-7 text-secondary" />
+                    </span>
+                    <h3 className="mt-5 text-xl font-bold text-text">{value.title}</h3>
+                    <p className="mt-2 text-sm text-text-muted">{value.body}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      </Reveal>
+
+      <Container className="py-16 md:py-24">
+      {/* Four Pillars — real photo cards linking to each program */}
+      <div id="pillars" className="scroll-mt-24">
+        <Reveal>
+          <SectionHeading eyebrow="How We Work" title="Our Four Pillars" className="max-w-2xl" />
+          <p className="mt-3 max-w-2xl text-sm text-text-muted">
+            SOC Alliance organizes its work around four pillars, each with its own named programs.
+          </p>
+        </Reveal>
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {pillars.map((pillar, i) => {
+            const Icon = pillar.icon;
+            return (
+              <Reveal key={pillar.slug} delay={i * 75}>
+                <Card href={`/programs/${pillar.slug}`} accentColor={pillar.colorVar} className="h-full">
+                  <CardImage src={pillar.image} alt={pillar.imageAlt} />
+                  <span
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full"
+                    style={{ backgroundColor: `color-mix(in srgb, ${pillar.colorVar} 14%, transparent)` }}
+                  >
+                    <Icon className="h-5 w-5" style={{ color: pillar.colorVar }} />
+                  </span>
+                  <h3 className="mt-3 text-lg">{pillar.name}</h3>
+                  <p className="mt-2 text-sm text-text-muted">{pillar.summary}</p>
+                  <span className="mt-4 inline-block text-sm font-semibold text-primary group-hover:underline">
+                    Learn more &rarr;
+                  </span>
+                </Card>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+
+      </Container>
+
+      {/* Where We Work — full-width CTA band, breaking out of the container */}
+      <Reveal>
+        <section
+          className="relative overflow-hidden bg-cover bg-center bg-no-repeat py-16 md:py-24"
+          style={{ backgroundImage: "url('/chicago.png')" }}
+        >
+          <div aria-hidden className="absolute inset-0 bg-text/80" />
+          <div className="relative mx-auto flex max-w-(--container-content) flex-col gap-8 px-6 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-xl">
+              <SectionHeading eyebrow="Where We Work" title="Woodlawn, Chicago — and Beyond" light />
+              <p className="mt-4 text-sm text-white/85">
+                SOC Alliance is based in Woodlawn on Chicago&rsquo;s South Side, where it holds
+                meetings and runs community service programs out of its own facility, while
+                collaborating with partners across greater Chicago.
+              </p>
+            </div>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ORG_ADDRESS)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex shrink-0 items-center gap-4 self-start rounded-full bg-secondary py-2 pl-6 pr-2 text-sm font-bold text-text transition-colors hover:bg-secondary-dark md:self-auto"
+            >
+              Get Directions
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-text text-white transition-transform group-hover:translate-x-0.5">
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2}>
+                  <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </a>
+          </div>
+        </section>
+      </Reveal>
+
+      <Container className="py-16 md:py-24">
+      {/* Leadership & Board */}
+      <div id="leadership" className="mt-20 scroll-mt-24 border-t border-black/10 pt-16">
+        <Reveal>
+          <SectionHeading eyebrow="Who Leads Us" title="Leadership & Board" className="max-w-2xl" />
+          {settings.board_intro && (
+            <p className="mt-3 max-w-2xl text-sm text-text-muted">{settings.board_intro}</p>
+          )}
+        </Reveal>
+
+        {officers.length > 0 && (
+          <Reveal delay={75} className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+            {officers.map((person) => (
+              <BoardCard key={person.id ?? person.name} person={person} />
+            ))}
+          </Reveal>
+        )}
+
+        {directors.length > 0 && (
+          <Reveal delay={125} className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+            {directors.map((person) => (
+              <BoardCard key={person.id ?? person.name} person={person} />
+            ))}
+          </Reveal>
+        )}
+
+        <p className="mt-10 max-w-3xl text-sm text-text-muted">
+          Note on accuracy: SOC Alliance&rsquo;s most recent IRS Form 990 lists Gerald McCarthy
+          as Treasurer (rather than Director) and includes an additional director, John Moore,
+          who does not appear on the roster above. This page reflects the current live site;
+          we&rsquo;ve flagged the discrepancy with SOC Alliance and will update it once
+          confirmed.
+        </p>
+      </div>
+
+      <Reveal className="mt-16 flex max-w-3xl flex-wrap items-center justify-between gap-4 border-t border-black/10 pt-8">
+        <p className="text-sm text-text-muted">See our financial summary and tax-exempt status.</p>
+        <Button href="/about/financials-transparency" variant="outline">
+          Financials &amp; Transparency
+        </Button>
+      </Reveal>
+      </Container>
+    </>
+  );
+}

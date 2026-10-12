@@ -1,6 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Local-dev stand-in database (see src/lib/server/db.ts); ships WASM files
+  // that must be loaded from node_modules rather than bundled.
+  serverExternalPackages: ["@electric-sql/pglite"],
+  images: {
+    // Photos uploaded through the admin are stored in Vercel Blob.
+    remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }],
+  },
+  experimental: {
+    serverActions: {
+      // Admin image uploads go through Server Actions (4 MB max per image,
+      // plus multipart overhead).
+      bodySizeLimit: "5mb",
+    },
+  },
   async redirects() {
     return [
       {

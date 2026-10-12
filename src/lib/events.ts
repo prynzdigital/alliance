@@ -1,4 +1,16 @@
+export type EventPillar = "scholarship" | "economic" | "community" | "health" | "general";
+
+export const EVENT_PILLARS: { value: EventPillar; label: string }[] = [
+  { value: "scholarship", label: "Scholarship" },
+  { value: "economic", label: "Economic Development" },
+  { value: "community", label: "Community" },
+  { value: "health", label: "Health" },
+  { value: "general", label: "General / Organizational" },
+];
+
 export type SocEvent = {
+  /** Database id; absent on the built-in defaults. */
+  id?: number;
   title: string;
   date: string; // ISO date
   location?: string;
@@ -13,6 +25,7 @@ export type SocEvent = {
   /** Neon accent color, matching the same theme as `image` (see
    * lib/programs.ts's `neon` field for the pillar-derived values). */
   color: string;
+  pillar: EventPillar;
 };
 
 const IMG = {
@@ -23,13 +36,26 @@ const IMG = {
   impact: "/impact.png",
 };
 
-const NEON = {
+export const PILLAR_NEON: Record<EventPillar, string> = {
   scholarship: "#7B7FFF",
   economic: "#FFD23F",
   community: "#9B6BFF",
   health: "#22E6CE",
-  impact: "#4DD9FF",
+  general: "#4DD9FF",
 };
+
+/** Fallback image when an event has no photo of its own. */
+export const PILLAR_IMAGE: Record<EventPillar, { src: string; alt: string }> = {
+  scholarship: { src: IMG.scholarship, alt: "A graduate in a cap and gown embracing a loved one" },
+  economic: { src: IMG.economic, alt: "A seedling growing from a stack of coins, symbolizing financial growth" },
+  community: { src: IMG.community, alt: "Community members gathered together at a neighborhood event" },
+  health: { src: IMG.health, alt: "A healthcare provider speaking warmly with a patient" },
+  general: { src: IMG.impact, alt: "Community members gathered together" },
+};
+
+function theme(pillar: EventPillar) {
+  return { pillar, color: PILLAR_NEON[pillar] };
+}
 
 const SCHOLARSHIP_ALT = "A graduate in a cap and gown embracing a loved one";
 const COMMUNITY_ALT = "Community members gathered together at a neighborhood event";
@@ -44,7 +70,11 @@ const OMEGA_GRAS_ALT = "A gold Mardi Gras mask surrounded by festive confetti an
 // Facts trace to docs/discovery/02_Organization_Research.md, Section 7 and its
 // 2026-08-30/2026-08-31 live-site verification addenda (pulled from
 // socalliance.org/blog) — do not add an entry without a source.
-export const events: SocEvent[] = [
+//
+// These are the built-in defaults: they seed the CMS database on first run and
+// are what the public site shows if the database is ever unreachable. Day-to-day
+// edits happen in the admin dashboard (/admin/events), not here.
+export const defaultEvents: SocEvent[] = [
   {
     // Save-the-date flyer supplied by the client on 2026-10-10. The flyer gives
     // only the name, date, and co-presenters; venue and tickets aren't announced
@@ -58,7 +88,7 @@ export const events: SocEvent[] = [
     image: "/omega-gras-2027.webp",
     imageAlt:
       "Save-the-date flyer for Omega Mardi Gras 2027 on March 20, 2027, featuring a purple and gold masquerade mask, presented by the Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc. and Strengthening Our Community Alliance",
-    color: NEON.scholarship,
+    ...theme("scholarship"),
   },
   {
     title: "Apply for Mentoring & Life Coaching",
@@ -69,7 +99,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: "/mentoring-flyer.png",
     imageAlt: "Flyer for the SOC Alliance Mentoring & Life Coaching Program, serving Fuller Park, South Chicago, and South Deering",
-    color: NEON.community,
+    ...theme("community"),
   },
   {
     title: "Happy Labor Day",
@@ -80,7 +110,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: "/labor-day.png",
     imageAlt: "An American flag beside a chalkboard sign reading \"Happy Labor Day\"",
-    color: NEON.impact,
+    ...theme("general"),
   },
   {
     title: "21st Annual Omega Mardi Gras Scholarship Fundraiser",
@@ -92,7 +122,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: "/omega-gras.jpg",
     imageAlt: OMEGA_GRAS_ALT,
-    color: NEON.scholarship,
+    ...theme("scholarship"),
   },
   {
     title: "Giving Tuesday 2025",
@@ -102,7 +132,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: "/giving.png",
     imageAlt: "A hand offering a purple heart to another open hand, with a \"Giving Tuesday\" wordmark",
-    color: NEON.impact,
+    ...theme("general"),
   },
   {
     title: "SVPI × Fuller Park Advisory Council Kickoff",
@@ -114,7 +144,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: "/svpi-fuller-park.webp",
     imageAlt: "Community members and SVPI staff gathered inside the Fuller Park Fieldhouse for the Advisory Council kickoff",
-    color: NEON.community,
+    ...theme("community"),
   },
   {
     title: "Strengthening Violence Prevention Initiative Is Hiring",
@@ -125,7 +155,7 @@ export const events: SocEvent[] = [
     cta: "See Careers",
     image: IMG.community,
     imageAlt: COMMUNITY_ALT,
-    color: NEON.community,
+    ...theme("community"),
   },
   {
     title: "2025 Talent Hunt Competition",
@@ -137,7 +167,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: "/talent-hunt.png",
     imageAlt: "A collage of student performers at the 2025 Talent Hunt Competition, playing violin, piano, and trumpet",
-    color: NEON.scholarship,
+    ...theme("scholarship"),
   },
   {
     title: "20th Annual Omega Mardi Gras Scholarship Fundraiser",
@@ -148,7 +178,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: "/omega-gras-20th.jpg",
     imageAlt: "Save-the-date graphic for the 20th Annual Omega Mardi Gras Scholarship Fundraiser, featuring a jeweled masquerade mask",
-    color: NEON.scholarship,
+    ...theme("scholarship"),
   },
   {
     title: "Giving Tuesday 2024",
@@ -158,7 +188,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: "/giving-tuesday-2024.png",
     imageAlt: "A wooden desk calendar reading December 3, Tuesday, next to a handwritten \"Giving Tuesday\" note",
-    color: NEON.impact,
+    ...theme("general"),
   },
   {
     title: "Cook County Starting Block Grant Secured",
@@ -169,7 +199,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: "/grant-award.png",
     imageAlt: "A \"We Received a Grant!\" graphic for the Cook County Starting Block Grants program",
-    color: NEON.impact,
+    ...theme("general"),
   },
   {
     // Flyer found on the org's own CDN gives this event's date as July 22,
@@ -185,7 +215,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: "/blood-drive.jpg",
     imageAlt: "A \"Striking Out Blood Shortages\" flyer for the SOC Alliance community blood drive at the Kroc Center",
-    color: NEON.health,
+    ...theme("health"),
   },
   {
     title: "Interacting with Law Enforcement",
@@ -196,7 +226,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: "/law-enforcement.jpg",
     imageAlt: "Flyer for the \"Interacting with Law Enforcement\" session with attorney April Preyer, Esq., and the Westside Justice Center",
-    color: NEON.community,
+    ...theme("community"),
   },
   {
     title: "Soft Skills Training with Michelle Relerford",
@@ -206,7 +236,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: IMG.scholarship,
     imageAlt: SCHOLARSHIP_ALT,
-    color: NEON.scholarship,
+    ...theme("scholarship"),
   },
   {
     title: "Finance Matters Webinar Series",
@@ -217,7 +247,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: IMG.economic,
     imageAlt: "A seedling growing from a stack of coins, symbolizing financial growth",
-    color: NEON.economic,
+    ...theme("economic"),
   },
   {
     title: "SOC Alliance Promotes Positive Loitering",
@@ -228,7 +258,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: IMG.community,
     imageAlt: COMMUNITY_ALT,
-    color: NEON.community,
+    ...theme("community"),
   },
   {
     title: "Eugene Williams Memorial",
@@ -239,7 +269,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: IMG.community,
     imageAlt: COMMUNITY_ALT,
-    color: NEON.community,
+    ...theme("community"),
   },
   {
     title: "Annual Back To School BBQ",
@@ -249,7 +279,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: IMG.community,
     imageAlt: COMMUNITY_ALT,
-    color: NEON.community,
+    ...theme("community"),
   },
   {
     title: "Know Your Rights: A Seminar on Property Taxes",
@@ -260,7 +290,7 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: IMG.economic,
     imageAlt: "A seedling growing from a stack of coins, symbolizing financial growth",
-    color: NEON.economic,
+    ...theme("economic"),
   },
   {
     title: "Back To School BBQ",
@@ -270,12 +300,24 @@ export const events: SocEvent[] = [
     cta: "Learn More",
     image: IMG.community,
     imageAlt: COMMUNITY_ALT,
-    color: NEON.community,
+    ...theme("community"),
   },
 ];
 
+/** Today's calendar date in Chicago, as YYYY-MM-DD. */
+function chicagoToday(now: Date): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Chicago",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(now);
+}
+
+// An event stays "upcoming" through the whole of its own day in Chicago,
+// rather than flipping to "past" at UTC midnight the evening before.
 export function getEventStatus(dateIso: string, now: Date = new Date()): "upcoming" | "past" {
-  return new Date(dateIso) >= now ? "upcoming" : "past";
+  return dateIso.slice(0, 10) >= chicagoToday(now) ? "upcoming" : "past";
 }
 
 export function formatEventDate(dateIso: string): string {
@@ -286,13 +328,13 @@ export function formatEventDate(dateIso: string): string {
   });
 }
 
-export function getUpcomingEvents(now: Date = new Date()): SocEvent[] {
+export function getUpcomingEvents(events: SocEvent[], now: Date = new Date()): SocEvent[] {
   return events
     .filter((e) => getEventStatus(e.date, now) === "upcoming")
     .sort((a, b) => a.date.localeCompare(b.date));
 }
 
-export function getPastEvents(now: Date = new Date()): SocEvent[] {
+export function getPastEvents(events: SocEvent[], now: Date = new Date()): SocEvent[] {
   return events
     .filter((e) => getEventStatus(e.date, now) === "past")
     .sort((a, b) => b.date.localeCompare(a.date));

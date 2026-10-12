@@ -3,21 +3,21 @@ import Link from "next/link";
 import { footerLegal, primaryNav } from "@/lib/navigation";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { FacebookIcon, LinkedInIcon } from "@/components/icons/SocialIcons";
+import { telHref, type SiteSettings } from "@/lib/cms/settings";
 
-const ORG = {
-  name: "SOC Alliance",
-  fullName: "Strengthening Our Community Alliance",
-  address: "6615 S. Kenwood Ave., Chicago, IL 60637",
-  phone: "773-693-2222",
-  phoneHref: "tel:+17736932222",
-  fax: "888-504-1727",
-  email: "info@socalliance.org",
-  ein: "36-4047035",
-  facebook: "https://www.facebook.com/socommunityalliance",
-  linkedin: "https://www.linkedin.com/company/strengthening-our-community-alliance/",
-};
-
-export function SiteFooter() {
+export function SiteFooter({ settings }: { settings: SiteSettings }) {
+  const ORG = {
+    name: settings.org_name,
+    fullName: settings.org_full_name,
+    address: settings.contact_address,
+    phone: settings.contact_phone,
+    phoneHref: telHref(settings.contact_phone),
+    fax: settings.contact_fax,
+    email: settings.contact_email,
+    ein: settings.org_ein,
+    facebook: settings.social_facebook,
+    linkedin: settings.social_linkedin,
+  };
   const navSections = primaryNav.filter((item) => item.children);
   const quickLinks = primaryNav.filter((item) => !item.children && item.href !== "/");
 
@@ -54,7 +54,7 @@ export function SiteFooter() {
                   {ORG.email}
                 </a>
               </p>
-              <p className="mt-1">Fax: {ORG.fax}</p>
+              {ORG.fax && <p className="mt-1">Fax: {ORG.fax}</p>}
             </address>
 
             <a
@@ -67,24 +67,28 @@ export function SiteFooter() {
             </a>
 
             <div className="mt-6 flex flex-col gap-2">
-              <a
-                href={ORG.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-secondary"
-              >
-                <FacebookIcon aria-hidden="true" className="h-5 w-5" />
-                Facebook
-              </a>
-              <a
-                href={ORG.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-secondary"
-              >
-                <LinkedInIcon aria-hidden="true" className="h-5 w-5" />
-                LinkedIn
-              </a>
+              {ORG.facebook && (
+                <a
+                  href={ORG.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-secondary"
+                >
+                  <FacebookIcon aria-hidden="true" className="h-5 w-5" />
+                  Facebook
+                </a>
+              )}
+              {ORG.linkedin && (
+                <a
+                  href={ORG.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-secondary"
+                >
+                  <LinkedInIcon aria-hidden="true" className="h-5 w-5" />
+                  LinkedIn
+                </a>
+              )}
             </div>
 
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-white/15 pt-5">

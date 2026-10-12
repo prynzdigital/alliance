@@ -12,11 +12,11 @@ You are building the redesigned website for **SOC Alliance** (Strengthening Our 
 
 - **Framework:** Next.js (App Router) + React + TypeScript
 - **Styling:** Tailwind CSS, configured with the design tokens in `docs/discovery/11_Design_System.md`
-- **CMS:** Headless CMS (content model in `docs/discovery/14_Technical_Architecture.md`) — confirm which specific provider with the user before wiring it up; don't assume one
+- **CMS:** Custom admin dashboard at `/admin` (user decision, 2026-10-11: "just like the e-cleanpro project") — Neon Postgres + Vercel Blob + bcrypt/HMAC-cookie auth with Owner/Admin roles and an audit log. Content model and setup: `docs/CMS_SETUP.md`. Editable collections are declared once in `src/lib/cms/collections.ts` and site settings in `src/lib/cms/settings.ts`; public reads go through `src/lib/cms/content.ts`, which falls back to the built-in defaults if the database is unavailable.
 - **Hosting:** Vercel
 - **Animation:** plain CSS transitions by default; reach for Framer Motion only for the few purposeful moments the design direction calls for — don't default to it
-- **No database (Postgres/Neon) unless a specific relational/transactional need emerges** — the CMS covers the content model. Don't add one speculatively.
-- **Forms:** native Next.js forms + a transactional email service (e.g., Resend) for contact/volunteer/application intake. **Exception:** the Monthly Pledge / Building Pledge agreements are a legal commitment and should route through a proper e-signature platform, not a native form — confirm the platform with the user first.
+- **Database:** Neon Postgres backs the CMS above (local dev falls back to an embedded PGlite in `.data/`). Schema lives in `src/lib/server/schema.ts` and is applied idempotently at runtime — add new columns as `ALTER TABLE … ADD COLUMN IF NOT EXISTS`.
+- **Forms:** native Next.js forms (Server Actions) that save to the admin Inbox, plus optional Resend email notifications for contact/volunteer/application intake. **Exception:** the Monthly Pledge / Building Pledge agreements are a legal commitment and should route through a proper e-signature platform, not a native form — confirm the platform with the user first.
 - **Donations:** Donorbox, **embedded on-page** (not linked off-site — this is the #1 fix from the audit, don't regress to the old off-site-link pattern).
 - **Images:** Next.js `<Image>` component everywhere; no unoptimized `<img>` tags.
 

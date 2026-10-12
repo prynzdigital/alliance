@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { telHref } from "@/lib/cms/settings";
 import { primaryNav } from "@/lib/navigation";
 
 function subscribeToHash(callback: () => void) {
@@ -21,7 +22,7 @@ function getHashServerSnapshot() {
   return "";
 }
 
-export function SiteHeader() {
+export function SiteHeader({ phone }: { phone: string }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDesktopMenu, setOpenDesktopMenu] = useState<string | null>(null);
@@ -238,7 +239,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-4">
           <a
-            href="tel:+17736932222"
+            href={telHref(phone)}
             className={`hidden items-center gap-2.5 xl:flex ${transparent ? "text-white" : "text-text"}`}
           >
             <span
@@ -254,7 +255,7 @@ export function SiteHeader() {
               <span className={`block text-[11px] font-medium ${transparent ? "text-white/70" : "text-text-muted"}`}>
                 Contact Us
               </span>
-              <span className="block text-sm font-bold">773-693-2222</span>
+              <span className="block text-sm font-bold">{phone}</span>
             </span>
           </a>
 

@@ -1,39 +1,27 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import { buildMailtoHref } from "@/lib/mailto";
+import { useActionState, useEffect, useRef } from "react";
+import { submitPublicForm } from "@/app/actions/forms";
 import { Button } from "@/components/ui/Button";
-
-const CONTACT_EMAIL = "info@socalliance.org";
+import { FieldError, FormStatus, Honeypot, initialFormState, inputClass } from "@/components/forms/FormParts";
 
 export function MentoringForm() {
-  const [submitted, setSubmitted] = useState(false);
+  const [state, formAction, pending] = useActionState(submitPublicForm.bind(null, "mentoring"), initialFormState);
+  const formRef = useRef<HTMLFormElement>(null);
+  const errors = state.fieldErrors ?? {};
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    const name = form.get("name")?.toString() || "Not provided";
-    const contact = form.get("contact")?.toString() ?? "";
-    const message = form.get("message")?.toString() || "Not provided";
-
-    const subject = "Mentoring & Life Coaching — reaching out";
-    const body = `Name: ${name}\nBest way to reach me: ${contact}\nMessage: ${message}`;
-    window.location.href = buildMailtoHref(CONTACT_EMAIL, subject, body);
-    setSubmitted(true);
-  }
+  useEffect(() => {
+    if (state.status === "success") formRef.current?.reset();
+  }, [state]);
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+    <form ref={formRef} action={formAction} className="relative flex flex-col gap-5">
+      <Honeypot />
       <div>
         <label htmlFor="mentoring-name" className="block text-sm font-medium text-text">
           Name <span className="font-normal text-text-muted">(optional)</span>
         </label>
-        <input
-          id="mentoring-name"
-          name="name"
-          type="text"
-          className="mt-1 w-full rounded-button border border-black/15 bg-background px-3 py-2 text-sm text-text"
-        />
+        <input id="mentoring-name" name="name" type="text" autoComplete="name" className={inputClass} />
       </div>
 
       <div>
@@ -45,32 +33,26 @@ export function MentoringForm() {
           name="contact"
           type="text"
           required
-          aria-required="true"
-          className="mt-1 w-full rounded-button border border-black/15 bg-background px-3 py-2 text-sm text-text"
+          aria-invalid={Boolean(errors.contact)}
+          aria-describedby={errors.contact ? "mentoring-contact-error" : undefined}
+          className={inputClass}
         />
+        <FieldError id="mentoring-contact-error" message={errors.contact} />
       </div>
 
       <div>
         <label htmlFor="mentoring-message" className="block text-sm font-medium text-text">
-          What&rsquo;s going on? <span className="font-normal text-text-muted">(optional — share as much or as little as you want)</span>
+          What&rsquo;s going on?{" "}
+          <span className="font-normal text-text-muted">(optional — share as much or as little as you want)</span>
         </label>
-        <textarea
-          id="mentoring-message"
-          name="message"
-          rows={4}
-          className="mt-1 w-full rounded-button border border-black/15 bg-background px-3 py-2 text-sm text-text"
-        />
+        <textarea id="mentoring-message" name="message" rows={4} className={inputClass} />
       </div>
 
-      <Button type="submit" className="self-start">
-        Reach Out
+      <Button type="submit" className="self-start" disabled={pending}>
+        {pending ? "Sending…" : "Reach Out"}
       </Button>
 
-      <p role="status" className="text-sm text-text-muted">
-        {submitted
-          ? `Your email app should now be open, ready to send to ${CONTACT_EMAIL}. Someone will follow up using the contact info you shared.`
-          : `Online submission isn't wired up yet — this opens your email app pre-filled to ${CONTACT_EMAIL}. Prefer to talk now? Call us directly below.`}
-      </p>
+      <FormStatus state={state} />
     </form>
   );
 }

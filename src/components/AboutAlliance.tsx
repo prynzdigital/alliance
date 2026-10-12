@@ -7,23 +7,6 @@ import { MissionIcon, ValuesIcon, VisionIcon } from "@/components/icons/AboutIco
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 
-const tabs = [
-  {
-    label: "Our Mission",
-    icon: MissionIcon,
-    body: "The Mission is to uplift and improve the life of the community.",
-  },
-  {
-    label: "Our Vision",
-    icon: VisionIcon,
-    body: "The Vision is to create a community in which all people thrive and develop to their greatest potential.",
-  },
-  {
-    label: "Our Values",
-    icon: ValuesIcon,
-    body: "We believe in a four pillar plan to uplift the community, Scholarships, Economic Development, Community and Health.",
-  },
-];
 
 function ShieldCheckIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -34,7 +17,24 @@ function ShieldCheckIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function AboutAlliance() {
+export function AboutAlliance({
+  mission,
+  vision,
+  values,
+  blurb,
+  ein,
+}: {
+  mission: string;
+  vision: string;
+  values: string;
+  blurb: string;
+  ein: string;
+}) {
+  const tabs = [
+    { label: "Our Mission", icon: MissionIcon, body: mission },
+    { label: "Our Vision", icon: VisionIcon, body: vision },
+    { label: "Our Values", icon: ValuesIcon, body: values },
+  ];
   const [active, setActive] = useState(0);
   const activeTab = tabs[active];
   const ActiveIcon = activeTab.icon;
@@ -113,13 +113,7 @@ export function AboutAlliance() {
             <p className="text-sm text-text-muted">{activeTab.body}</p>
           </div>
 
-          <p className="mt-4 max-w-lg text-sm text-text-muted">
-            Strengthening Our Community Alliance is a 501(c)(3) organization that provides
-            scholarships and community services to the Woodlawn Community and greater Chicago.
-            The Alliance will utilize our facility in Woodlawn to hold meetings and conduct
-            community service programs, and will also collaborate with the local community on
-            numerous programs.
-          </p>
+          <p className="mt-4 max-w-lg whitespace-pre-line text-sm text-text-muted">{blurb}</p>
 
           <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-4">
             <Link
@@ -135,7 +129,7 @@ export function AboutAlliance() {
             </Link>
 
             <Link href="/about/financials-transparency" className="text-sm text-text-muted hover:text-primary">
-              <span className="block font-bold text-text">EIN 36-4047035</span>
+              <span className="block font-bold text-text">EIN {ein}</span>
               501(c)(3) public charity
             </Link>
           </div>

@@ -1,53 +1,37 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import { buildMailtoHref } from "@/lib/mailto";
+import { useActionState, useEffect, useRef } from "react";
+import { submitPublicForm } from "@/app/actions/forms";
 import { Button } from "@/components/ui/Button";
+import { FieldError, FormStatus, Honeypot, initialFormState, inputClass } from "@/components/forms/FormParts";
 
 const intents = [
-  { value: "general", label: "General inquiry" },
-  { value: "program", label: "Program application question" },
-  { value: "media", label: "Media / press" },
-  { value: "volunteer", label: "Volunteering" },
-  { value: "partnership", label: "Donor / partnership" },
+  { value: "General inquiry", label: "General inquiry" },
+  { value: "Program application question", label: "Program application question" },
+  { value: "Media / press", label: "Media / press" },
+  { value: "Volunteering", label: "Volunteering" },
+  { value: "Donor / partnership", label: "Donor / partnership" },
 ];
 
-const CONTACT_EMAIL = "info@socalliance.org";
-
-// No transactional email service is wired up yet (pending client preference —
-// see docs/discovery/20_Client_Input_Required.md). Until then, submitting
-// opens the visitor's email client with the message pre-filled rather than
-// silently failing or faking a "message sent" state.
+// Submissions land in the admin dashboard's Inbox (and are emailed to the
+// organization once email sending is configured).
 export function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
+  const [state, formAction, pending] = useActionState(submitPublicForm.bind(null, "contact"), initialFormState);
+  const formRef = useRef<HTMLFormElement>(null);
+  const errors = state.fieldErrors ?? {};
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    const intentLabel =
-      intents.find((i) => i.value === form.get("intent"))?.label ?? "General inquiry";
-    const name = form.get("name")?.toString() ?? "";
-    const email = form.get("email")?.toString() ?? "";
-    const message = form.get("message")?.toString() ?? "";
-
-    const subject = `[${intentLabel}] Message from ${name}`;
-    const body = `${message}\n\n---\nName: ${name}\nEmail: ${email}\nTopic: ${intentLabel}`;
-    window.location.href = buildMailtoHref(CONTACT_EMAIL, subject, body);
-    setSubmitted(true);
-  }
+  useEffect(() => {
+    if (state.status === "success") formRef.current?.reset();
+  }, [state]);
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate={false}>
+    <form ref={formRef} action={formAction} className="relative flex flex-col gap-5">
+      <Honeypot />
       <div>
         <label htmlFor="contact-intent" className="block text-sm font-medium text-text">
           What&rsquo;s this about?
         </label>
-        <select
-          id="contact-intent"
-          name="intent"
-          required
-          className="mt-1 w-full rounded-button border border-black/15 bg-background px-3 py-2 text-sm text-text"
-        >
+        <select id="contact-intent" name="topic" required className={inputClass}>
           {intents.map((intent) => (
             <option key={intent.value} value={intent.value}>
               {intent.label}
@@ -65,9 +49,12 @@ export function ContactForm() {
           name="name"
           type="text"
           required
-          aria-required="true"
-          className="mt-1 w-full rounded-button border border-black/15 bg-background px-3 py-2 text-sm text-text"
+          autoComplete="name"
+          aria-invalid={Boolean(errors.name)}
+          aria-describedby={errors.name ? "contact-name-error" : undefined}
+          className={inputClass}
         />
+        <FieldError id="contact-name-error" message={errors.name} />
       </div>
 
       <div>
@@ -79,9 +66,12 @@ export function ContactForm() {
           name="email"
           type="email"
           required
-          aria-required="true"
-          className="mt-1 w-full rounded-button border border-black/15 bg-background px-3 py-2 text-sm text-text"
+          autoComplete="email"
+          aria-invalid={Boolean(errors.email)}
+          aria-describedby={errors.email ? "contact-email-error" : undefined}
+          className={inputClass}
         />
+        <FieldError id="contact-email-error" message={errors.email} />
       </div>
 
       <div>
@@ -92,21 +82,19 @@ export function ContactForm() {
           id="contact-message"
           name="message"
           required
-          aria-required="true"
           rows={5}
-          className="mt-1 w-full rounded-button border border-black/15 bg-background px-3 py-2 text-sm text-text"
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? "contact-message-error" : undefined}
+          className={inputClass}
         />
+        <FieldError id="contact-message-error" message={errors.message} />
       </div>
 
-      <Button type="submit" className="self-start">
-        Continue to Email
+      <Button type="submit" className="self-start" disabled={pending}>
+        {pending ? "Sending…" : "Send Message"}
       </Button>
 
-      <p role="status" className="text-sm text-text-muted">
-        {submitted
-          ? `Your email app should now be open with this message ready to send to ${CONTACT_EMAIL}.`
-          : `Online submission isn't wired up yet — this opens your email app with your message pre-filled to ${CONTACT_EMAIL}.`}
-      </p>
+      <FormStatus state={state} />
     </form>
   );
 }
