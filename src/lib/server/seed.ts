@@ -10,8 +10,8 @@ const SEED_FLAG = "seeded_v1";
 // admin starts with everything that's live today instead of empty lists. The
 // flag in `meta` means emptying a list in the admin later is respected.
 //
-// The first Owner account is created from ADMIN_USERNAME + ADMIN_PASSWORD_HASH
-// (same approach as the e-cleanpro admin) whenever no accounts exist yet.
+// The first Owner account comes from ADMIN_USERNAME + ADMIN_PASSWORD_HASH
+// (same approach as the e-cleanpro admin) — see bootstrapOwner below.
 export async function seedDatabase(exec: Exec): Promise<void> {
   // Claiming the flag first (atomic insert) means two cold starts racing each
   // other can't both seed and duplicate every row.
@@ -53,16 +53,52 @@ export async function seedDatabase(exec: Exec): Promise<void> {
     }
   }
 
+  await bootstrapOwner(exec);
+}
+
+const BCRYPT_HASH = /^\$2[aby]\$\d{2}\$[./A-Za-z0-9]{53}$/;
+
+/** Tolerates common paste mistakes: the "ADMIN_PASSWORD_HASH=" prefix, quotes, or .env-style \$ escapes. */
+function normalizeHash(raw: string): string {
+  return raw
+    .trim()
+    .replace(/^ADMIN_PASSWORD_HASH\s*=\s*/, "")
+    .replace(/^["']|["']$/g, "")
+    .replace(/\\\$/g, "$");
+}
+
+// Creates the first Owner from ADMIN_USERNAME + ADMIN_PASSWORD_HASH when no
+// accounts exist. Until that Owner signs in for the first time, their password
+// keeps following the env var, so a mistake in the initial setup can be fixed
+// by correcting the variable and redeploying. After the first sign-in the env
+// var is ignored and the password is managed in the admin (My account).
+async function bootstrapOwner(exec: Exec): Promise<void> {
   const username = process.env.ADMIN_USERNAME?.trim();
-  const passwordHash = process.env.ADMIN_PASSWORD_HASH?.trim();
-  if (username && passwordHash) {
-    const users = await exec(`SELECT COUNT(*)::int AS n FROM admin_users`, []);
-    if (Number(users[0]?.n ?? 0) === 0) {
-      await exec(
-        `INSERT INTO admin_users (username, email, password_hash, role, status)
-         VALUES ($1, $2, $3, 'Owner', 'Active') ON CONFLICT (username) DO NOTHING`,
-        [username, process.env.ADMIN_EMAIL?.trim().toLowerCase() || null, passwordHash]
-      );
-    }
+  const rawHash = process.env.ADMIN_PASSWORD_HASH;
+  if (!username || !rawHash) return;
+
+  const passwordHash = normalizeHash(rawHash);
+  if (!BCRYPT_HASH.test(passwordHash)) {
+    console.error(
+      "ADMIN_PASSWORD_HASH is not a bcrypt hash, so the first admin account was not set up. " +
+        "Generate it with `npm run admin:hash` and paste only the value that starts with $2b$."
+    );
+    return;
   }
+  const email = process.env.ADMIN_EMAIL?.trim().toLowerCase() || null;
+
+  const users = await exec(`SELECT COUNT(*)::int AS n FROM admin_users`, []);
+  if (Number(users[0]?.n ?? 0) === 0) {
+    await exec(
+      `INSERT INTO admin_users (username, email, password_hash, role, status)
+       VALUES ($1, $2, $3, 'Owner', 'Active') ON CONFLICT (username) DO NOTHING`,
+      [username, email, passwordHash]
+    );
+    return;
+  }
+  await exec(
+    `UPDATE admin_users SET password_hash = $2, email = COALESCE(email, $3)
+     WHERE lower(username) = lower($1) AND last_login_at IS NULL AND password_hash <> $2`,
+    [username, passwordHash, email]
+  );
 }

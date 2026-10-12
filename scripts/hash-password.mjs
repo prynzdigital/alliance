@@ -20,5 +20,8 @@ if (!password || password.length < 10) {
   process.exit(1);
 }
 const hash = await bcrypt.hash(password, 12);
-console.log("\nAdd this to your environment variables (Vercel → Settings → Environment Variables):\n");
-console.log(`ADMIN_PASSWORD_HASH=${hash}\n`);
+console.log("\nIn Vercel → Settings → Environment Variables:");
+console.log("  Key:   ADMIN_PASSWORD_HASH");
+console.log("  Value: (copy the line below — it starts with $2b$; do NOT paste your password)\n");
+console.log(hash);
+console.log("");
