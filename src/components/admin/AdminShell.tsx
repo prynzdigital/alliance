@@ -86,11 +86,9 @@ export function AdminShell({
   }, [open]);
 
   const linkClass = (active: boolean, nested = false) =>
-    `flex w-full items-center gap-3 rounded-lg px-3 ${nested ? "py-2 pl-11 text-[13px]" : "py-2.5 text-sm"} font-semibold transition-colors ${
+    `relative flex w-full items-center gap-3 rounded-xl px-3 ${nested ? "py-2 pl-11 text-[13px]" : "py-2.5 text-sm"} font-semibold transition-colors ${
       active
-        ? nested
-          ? "bg-white/10 text-secondary"
-          : "bg-white/12 text-white"
+        ? `${nested ? "bg-white/10 text-secondary" : "bg-white/12 text-white"} before:absolute before:-left-3 before:top-1/2 before:h-6 before:w-1 before:-translate-y-1/2 before:rounded-r-full before:bg-secondary`
         : "text-white/70 hover:bg-white/6 hover:text-white"
     }`;
 
@@ -123,7 +121,7 @@ export function AdminShell({
   };
 
   const sidebar = (
-    <div className="flex h-full flex-col bg-text text-white">
+    <div className="flex h-full flex-col bg-gradient-to-b from-[#0e2a45] via-text to-text text-white">
       <div className="flex items-center gap-3 border-b border-white/10 px-5 py-5">
         <Image src="/soc-logo-mark.png" alt="" width={764} height={446} className="h-8 w-auto" />
         <div className="leading-tight">

@@ -126,6 +126,45 @@ export const ChevronIcon = (p: IconProps) => (
     <path d="m9 18 6-6-6-6" />
   </Svg>
 );
+export const MailIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <rect x="3" y="5" width="18" height="14" rx="2" />
+    <path d="m3.5 6.5 8.5 6 8.5-6" />
+  </Svg>
+);
+export const ChartIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M3 3v18h18" />
+    <path d="M7 15l4-5 4 3 5-7" />
+  </Svg>
+);
+export const LayersIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="m12 2 10 5-10 5L2 7l10-5Z" />
+    <path d="m2 17 10 5 10-5M2 12l10 5 10-5" />
+  </Svg>
+);
+export const UploadIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+  </Svg>
+);
+export const PencilIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M12 20h9" />
+    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+  </Svg>
+);
+export const ArrowUpIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="m5 12 7-7 7 7M12 19V5" />
+  </Svg>
+);
+export const ArrowDownIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="m19 12-7 7-7-7M12 5v14" />
+  </Svg>
+);
 export const DownloadIcon = (p: IconProps) => (
   <Svg {...p}>
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
