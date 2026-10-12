@@ -40,20 +40,6 @@ export const SETTING_GROUPS: SettingGroup[] = [
     ],
   },
   {
-    slug: "social",
-    title: "Social Links",
-    description: "Leave a link blank to hide that icon across the site.",
-    fields: [
-      { key: "social_facebook", label: "Facebook URL", type: "url", default: "https://www.facebook.com/socommunityalliance" },
-      {
-        key: "social_linkedin",
-        label: "LinkedIn URL",
-        type: "url",
-        default: "https://www.linkedin.com/company/strengthening-our-community-alliance/",
-      },
-    ],
-  },
-  {
     slug: "homepage",
     title: "Homepage",
     description: "The Our Impact band and the About the Alliance section.",

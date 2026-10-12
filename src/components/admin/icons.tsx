@@ -64,6 +64,14 @@ export const BriefcaseIcon = (p: IconProps) => (
     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
   </Svg>
 );
+export const ShareIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <circle cx="18" cy="5" r="3" />
+    <circle cx="6" cy="12" r="3" />
+    <circle cx="18" cy="19" r="3" />
+    <path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98" />
+  </Svg>
+);
 export const SlidersIcon = (p: IconProps) => (
   <Svg {...p}>
     <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6" />

@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
-import { FacebookIcon, LinkedInIcon } from "@/components/icons/SocialIcons";
+import { SocialIcon } from "@/components/icons/SocialIcons";
+import { socialName, type SocialLink } from "@/lib/cms/social";
 import { pillars } from "@/lib/programs";
 
 const AUTO_ADVANCE_MS = 6500;
@@ -34,7 +35,7 @@ function PlayIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function HeroSlider({ facebookUrl, linkedinUrl }: { facebookUrl: string; linkedinUrl: string }) {
+export function HeroSlider({ socialLinks }: { socialLinks: SocialLink[] }) {
   const [index, setIndex] = useState(0);
   const [hovering, setHovering] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
@@ -157,29 +158,20 @@ export function HeroSlider({ facebookUrl, linkedinUrl }: { facebookUrl: string; 
         </button>
       </div>
 
+      {socialLinks.length > 0 && (
       <div className="absolute right-5 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-4 sm:right-8 md:flex">
-        {facebookUrl && (
+        {socialLinks.map((link) => (
           <a
-            href={facebookUrl}
+            key={link.id ?? link.url}
+            href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="SOC Alliance on Facebook"
+            aria-label={`SOC Alliance on ${socialName(link)}`}
             className="flex h-9 w-9 items-center justify-center rounded-full text-white transition-colors hover:bg-white/15"
           >
-            <FacebookIcon className="h-4 w-4" />
+            <SocialIcon platform={link.platform} className="h-4 w-4" />
           </a>
-        )}
-        {linkedinUrl && (
-          <a
-            href={linkedinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="SOC Alliance on LinkedIn"
-            className="flex h-9 w-9 items-center justify-center rounded-full text-white transition-colors hover:bg-white/15"
-          >
-            <LinkedInIcon className="h-4 w-4" />
-          </a>
-        )}
+        ))}
         <span
           className="mt-1 text-[11px] font-semibold uppercase tracking-widest text-white/70"
           style={{ writingMode: "vertical-rl" }}
@@ -187,6 +179,7 @@ export function HeroSlider({ facebookUrl, linkedinUrl }: { facebookUrl: string; 
           Follow Us
         </span>
       </div>
+      )}
     </section>
   );
 }

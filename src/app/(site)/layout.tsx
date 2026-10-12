@@ -1,7 +1,7 @@
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { TopBar } from "@/components/layout/TopBar";
-import { getEvents, getSettings } from "@/lib/cms/content";
+import { getEvents, getSettings, getSocialLinks } from "@/lib/cms/content";
 import { getUpcomingEvents } from "@/lib/events";
 
 // Re-render public pages at least hourly so anything date-derived (an event
@@ -10,7 +10,7 @@ import { getUpcomingEvents } from "@/lib/events";
 export const revalidate = 3600;
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
-  const [settings, events] = await Promise.all([getSettings(), getEvents()]);
+  const [settings, events, socialLinks] = await Promise.all([getSettings(), getEvents(), getSocialLinks()]);
   const [nextEvent] = getUpcomingEvents(events);
 
   // Verified organization facts for search engines — see
@@ -33,7 +33,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       postalCode: rest[1]?.trim().split(" ")[1],
       addressCountry: "US",
     },
-    sameAs: [settings.social_facebook, settings.social_linkedin].filter(Boolean),
+    sameAs: socialLinks.map((link) => link.url),
     nonprofitStatus: { "@type": "NonprofitType", nonprofitStatus: "Nonprofit501c3" },
     taxID: settings.org_ein,
   };
@@ -52,7 +52,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <main id="main-content" className="flex-1 pt-[7.25rem]">
         {children}
       </main>
-      <SiteFooter settings={settings} />
+      <SiteFooter settings={settings} socialLinks={socialLinks} />
     </>
   );
 }

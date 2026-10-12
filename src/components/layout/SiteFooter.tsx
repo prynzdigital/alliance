@@ -2,10 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { footerLegal, primaryNav } from "@/lib/navigation";
 import { NewsletterForm } from "@/components/NewsletterForm";
-import { FacebookIcon, LinkedInIcon } from "@/components/icons/SocialIcons";
+import { SocialIcon } from "@/components/icons/SocialIcons";
 import { telHref, type SiteSettings } from "@/lib/cms/settings";
+import { socialName, type SocialLink } from "@/lib/cms/social";
 
-export function SiteFooter({ settings }: { settings: SiteSettings }) {
+export function SiteFooter({ settings, socialLinks }: { settings: SiteSettings; socialLinks: SocialLink[] }) {
   const ORG = {
     name: settings.org_name,
     fullName: settings.org_full_name,
@@ -15,8 +16,6 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
     fax: settings.contact_fax,
     email: settings.contact_email,
     ein: settings.org_ein,
-    facebook: settings.social_facebook,
-    linkedin: settings.social_linkedin,
   };
   const navSections = primaryNav.filter((item) => item.children);
   const quickLinks = primaryNav.filter((item) => !item.children && item.href !== "/");
@@ -66,30 +65,23 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
               Get directions
             </a>
 
-            <div className="mt-6 flex flex-col gap-2">
-              {ORG.facebook && (
-                <a
-                  href={ORG.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-secondary"
-                >
-                  <FacebookIcon aria-hidden="true" className="h-5 w-5" />
-                  Facebook
-                </a>
-              )}
-              {ORG.linkedin && (
-                <a
-                  href={ORG.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-secondary"
-                >
-                  <LinkedInIcon aria-hidden="true" className="h-5 w-5" />
-                  LinkedIn
-                </a>
-              )}
-            </div>
+            {socialLinks.length > 0 && (
+              <ul className="mt-6 flex flex-col gap-2" aria-label="Social media">
+                {socialLinks.map((link) => (
+                  <li key={link.id ?? link.url}>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-secondary"
+                    >
+                      <SocialIcon platform={link.platform} className="h-5 w-5" />
+                      {socialName(link)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
 
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-white/15 pt-5">
               {quickLinks.map((link) => (

@@ -9,7 +9,7 @@ export function AuthCard({ title, subtitle, children }: { title: string; subtitl
       <Image src="/community-work.png" alt="" fill priority sizes="100vw" className="object-cover" aria-hidden />
       <div aria-hidden className="absolute inset-0 bg-gradient-to-br from-text/95 via-text/90 to-primary/80" />
       <div className="relative w-full max-w-sm rounded-3xl border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-xl">
-        <Image src="/soc-logo-mark-white.png" alt="SOC Alliance" width={764} height={446} className="h-10 w-auto" priority />
+        <Image src="/soc-logo-mark.png" alt="SOC Alliance" width={764} height={446} className="h-12 w-auto" priority />
         <h1 className="mt-6 text-2xl font-extrabold text-white">{title}</h1>
         <p className="mt-1 mb-6 text-sm text-white/65">{subtitle}</p>
         {children}

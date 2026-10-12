@@ -1,4 +1,5 @@
 import { EVENT_PILLARS } from "@/lib/events";
+import { SOCIAL_PLATFORMS } from "./social";
 
 // Declarative definition of every editable list in the admin. The admin's
 // list/create/edit screens AND the server-side save/delete actions are both
@@ -158,6 +159,42 @@ export const COLLECTIONS: CollectionDef[] = [
     fields: [
       { name: "name", label: "Organization name", type: "text", required: true },
       { name: "url", label: "Website", type: "url", help: "Optional. Makes the name a link." },
+      sortOrderField,
+      publishedField,
+    ],
+  },
+  {
+    slug: "social",
+    table: "social_links",
+    title: "Social Media",
+    singular: "Social Link",
+    description: "Social media profiles. Each one gets an icon in the footer and on the homepage banner.",
+    orderBy: "sort_order ASC, id ASC",
+    titleColumn: "platform",
+    subtitleColumns: ["label", "url"],
+    appearsOn: "Footer, homepage banner, and search-engine data",
+    fields: [
+      {
+        name: "platform",
+        label: "Platform",
+        type: "select",
+        required: true,
+        options: SOCIAL_PLATFORMS.map((p) => ({ value: p, label: p })),
+        default: "Facebook",
+      },
+      {
+        name: "url",
+        label: "Profile link",
+        type: "url",
+        required: true,
+        placeholder: "https://www.instagram.com/…",
+      },
+      {
+        name: "label",
+        label: "Display name",
+        type: "text",
+        help: "Only needed for “Other” (e.g. Nextdoor). Leave blank to use the platform name.",
+      },
       sortOrderField,
       publishedField,
     ],

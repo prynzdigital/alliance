@@ -1,17 +1,93 @@
 import { SVGProps } from "react";
 
-export function FacebookIcon({ className = "", ...props }: SVGProps<SVGSVGElement>) {
+type IconProps = SVGProps<SVGSVGElement>;
+
+function Glyph({ className = "", children, ...props }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" className={`fill-current ${className}`} {...props}>
-      <path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.9.25-1.5 1.55-1.5H16.5V4.3C16.24 4.26 15.35 4.18 14.3 4.18c-2.2 0-3.7 1.34-3.7 3.8V10.5H8v3h2.6V21h2.9z" />
+    <svg viewBox="0 0 24 24" className={`fill-current ${className}`} aria-hidden {...props}>
+      {children}
     </svg>
   );
 }
 
-export function LinkedInIcon({ className = "", ...props }: SVGProps<SVGSVGElement>) {
+export function FacebookIcon(props: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" className={`fill-current ${className}`} {...props}>
+    <Glyph {...props}>
+      <path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.9.25-1.5 1.55-1.5H16.5V4.3C16.24 4.26 15.35 4.18 14.3 4.18c-2.2 0-3.7 1.34-3.7 3.8V10.5H8v3h2.6V21h2.9z" />
+    </Glyph>
+  );
+}
+
+export function LinkedInIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
       <path d="M6.94 8.5H4.06V19h2.88V8.5ZM5.5 4.5a1.67 1.67 0 1 0 0 3.34A1.67 1.67 0 0 0 5.5 4.5ZM19.94 19h-2.88v-5.4c0-1.29-.46-2.16-1.6-2.16-.88 0-1.4.59-1.63 1.16-.08.2-.1.48-.1.76V19h-2.88s.04-9.65 0-10.5h2.88v1.49c.38-.59 1.07-1.42 2.6-1.42 1.9 0 3.32 1.24 3.32 3.9V19Z" />
+    </Glyph>
+  );
+}
+
+export function InstagramIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4Zm0 7.75a3.05 3.05 0 1 1 0-6.1 3.05 3.05 0 0 1 0 6.1Zm4.9-8.95a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2Z" />
+      <path d="M12 3c-2.44 0-2.75.01-3.71.05-.96.05-1.61.2-2.18.42a4.4 4.4 0 0 0-1.6 1.04 4.4 4.4 0 0 0-1.04 1.6c-.22.57-.37 1.22-.42 2.18C3.01 9.25 3 9.56 3 12s.01 2.75.05 3.71c.05.96.2 1.61.42 2.18.23.6.53 1.1 1.04 1.6.5.5 1 .81 1.6 1.04.57.22 1.22.37 2.18.42.96.04 1.27.05 3.71.05s2.75-.01 3.71-.05c.96-.05 1.61-.2 2.18-.42a4.4 4.4 0 0 0 1.6-1.04c.5-.5.81-1 1.04-1.6.22-.57.37-1.22.42-2.18.04-.96.05-1.27.05-3.71s-.01-2.75-.05-3.71c-.05-.96-.2-1.61-.42-2.18a4.4 4.4 0 0 0-1.04-1.6 4.4 4.4 0 0 0-1.6-1.04c-.57-.22-1.22-.37-2.18-.42C14.75 3.01 14.44 3 12 3Zm0 1.62c2.4 0 2.69.01 3.64.05.88.04 1.35.19 1.67.31.42.16.72.36 1.03.67.32.31.51.61.67 1.03.12.32.27.8.31 1.67.04.95.05 1.24.05 3.65s-.01 2.69-.05 3.64c-.04.88-.19 1.35-.31 1.67-.16.42-.36.72-.67 1.03-.31.32-.61.51-1.03.67-.32.12-.8.27-1.67.31-.95.04-1.24.05-3.64.05s-2.7-.01-3.65-.05c-.88-.04-1.35-.19-1.67-.31a2.78 2.78 0 0 1-1.03-.67 2.78 2.78 0 0 1-.67-1.03c-.12-.32-.27-.8-.31-1.67C4.63 14.69 4.62 14.4 4.62 12s.01-2.7.05-3.65c.04-.88.19-1.35.31-1.67.16-.42.36-.72.67-1.03.31-.32.61-.51 1.03-.67.32-.12.8-.27 1.67-.31.95-.04 1.24-.05 3.65-.05Z" />
+    </Glyph>
+  );
+}
+
+export function XIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M17.75 3.5h3.07l-6.7 7.66L22 20.5h-6.17l-4.83-6.32-5.53 6.32H2.4l7.17-8.2L2 3.5h6.33l4.37 5.78 5.05-5.78Zm-1.08 15.15h1.7L7.4 5.25H5.58l11.09 13.4Z" />
+    </Glyph>
+  );
+}
+
+export function YouTubeIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M21.58 7.19a2.5 2.5 0 0 0-1.76-1.77C18.27 5 12 5 12 5s-6.27 0-7.82.42A2.5 2.5 0 0 0 2.42 7.2C2 8.75 2 12 2 12s0 3.25.42 4.81a2.5 2.5 0 0 0 1.76 1.77C5.73 19 12 19 12 19s6.27 0 7.82-.42a2.5 2.5 0 0 0 1.76-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81ZM10 15V9l5.2 3L10 15Z" />
+    </Glyph>
+  );
+}
+
+export function TikTokIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.78.12V9.77a5.7 5.7 0 0 0-.78-.05 5.68 5.68 0 1 0 5.68 5.68V9.01a7.34 7.34 0 0 0 4.28 1.37V7.29a4.28 4.28 0 0 1-3.22-1.47Z" />
+    </Glyph>
+  );
+}
+
+export function ThreadsIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M16.6 11.2a6 6 0 0 0-.22-.1c-.13-2.4-1.44-3.77-3.64-3.78h-.03c-1.32 0-2.41.56-3.09 1.58l1.21.83c.5-.76 1.3-.92 1.88-.92h.02c.72 0 1.27.21 1.62.63.26.3.43.72.52 1.25a9.4 9.4 0 0 0-2.1-.1c-2.12.12-3.48 1.36-3.39 3.08.05.87.48 1.63 1.22 2.12.63.41 1.44.62 2.28.57 1.1-.06 1.97-.48 2.58-1.25.46-.59.75-1.35.88-2.31.53.32.92.73 1.13 1.24.37.86.39 2.27-.76 3.42-1 1-2.21 1.44-4.04 1.45-2.03-.02-3.57-.67-4.57-1.94-.94-1.19-1.42-2.9-1.44-5.1.02-2.2.5-3.91 1.44-5.1 1-1.27 2.54-1.92 4.57-1.94 2.05.02 3.61.67 4.65 1.95.5.62.89 1.41 1.14 2.33l1.42-.38a7.5 7.5 0 0 0-1.43-2.88C16.82 3.07 14.86 2.2 12.36 2.2h-.01c-2.5.02-4.42.86-5.71 2.5-1.15 1.46-1.74 3.49-1.76 6.04v.01c.02 2.55.61 4.58 1.76 6.04 1.29 1.64 3.21 2.48 5.71 2.5h.01c2.22-.02 3.79-.6 5.08-1.89 1.69-1.69 1.64-3.81 1.08-5.11-.4-.93-1.16-1.69-2.2-2.19l.28.1Zm-3.83 3.6c-.92.05-1.88-.36-1.93-1.25-.03-.66.47-1.4 2-1.48l.53-.02c.54 0 1.05.05 1.52.15-.17 2.18-1.2 2.55-2.12 2.6Z" />
+    </Glyph>
+  );
+}
+
+export function LinkIcon({ className = "", ...props }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden {...props}>
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
     </svg>
   );
+}
+
+const ICONS: Record<string, (props: IconProps) => React.ReactElement> = {
+  Facebook: FacebookIcon,
+  Instagram: InstagramIcon,
+  LinkedIn: LinkedInIcon,
+  "X (Twitter)": XIcon,
+  YouTube: YouTubeIcon,
+  TikTok: TikTokIcon,
+  Threads: ThreadsIcon,
+};
+
+/** Icon for a social platform name (see SOCIAL_PLATFORMS); falls back to a link icon. */
+export function SocialIcon({ platform, ...props }: IconProps & { platform: string }) {
+  const Icon = ICONS[platform] ?? LinkIcon;
+  return <Icon {...props} />;
 }

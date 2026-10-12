@@ -11,7 +11,7 @@ import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { Card, CardImage } from "@/components/ui/Card";
-import { getEvents, getPartners, getSettings, getStories } from "@/lib/cms/content";
+import { getEvents, getPartners, getSettings, getSocialLinks, getStories } from "@/lib/cms/content";
 import { formatEventDate, getPastEvents, getUpcomingEvents } from "@/lib/events";
 
 function ViewAllLink({ href, children }: { href: string; children: React.ReactNode }) {
@@ -53,11 +53,12 @@ const participateCards = [
 ];
 
 export default async function Home() {
-  const [events, settings, communityStories, partners] = await Promise.all([
+  const [events, settings, communityStories, partners, socialLinks] = await Promise.all([
     getEvents(),
     getSettings(),
     getStories(),
     getPartners(),
+    getSocialLinks(),
   ]);
   const upcomingEvents = getUpcomingEvents(events).slice(0, 3);
   const latestNews = getPastEvents(events).slice(0, 3);
@@ -88,7 +89,7 @@ export default async function Home() {
     <div className="mesh-bg-soft">
       <h1 className="sr-only">Strengthening Our Community Alliance (SOC Alliance)</h1>
 
-      <HeroSlider facebookUrl={settings.social_facebook} linkedinUrl={settings.social_linkedin} />
+      <HeroSlider socialLinks={socialLinks} />
 
       <PillarBand />
 

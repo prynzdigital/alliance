@@ -14,6 +14,7 @@ import {
   type Partner,
 } from "./defaults";
 import { DEFAULT_SETTINGS, SETTING_KEYS, type SiteSettings } from "./settings";
+import { defaultSocialLinks, type SocialLink } from "./social";
 
 // Every public read of CMS content goes through here. Results are cached
 // (tag "cms") and refreshed whenever an admin saves a change, plus at least
@@ -124,6 +125,16 @@ export const getCareerRoles = cmsQuery(
   async (): Promise<CareerRole[]> =>
     sql<CareerRole>`SELECT id, title, description FROM career_roles WHERE published = true ORDER BY sort_order ASC, id ASC`,
   defaultCareerRoles
+);
+
+export const getSocialLinks = cmsQuery(
+  "social",
+  async (): Promise<SocialLink[]> =>
+    sql<SocialLink>`
+      SELECT id, platform, label, url FROM social_links
+      WHERE published = true ORDER BY sort_order ASC, id ASC
+    `,
+  defaultSocialLinks
 );
 
 export const getStories = cmsQuery(

@@ -17,6 +17,7 @@ import {
   InboxIcon,
   LogIcon,
   MenuIcon,
+  ShareIcon,
   ShieldIcon,
   SlidersIcon,
   StoryIcon,
@@ -56,6 +57,7 @@ export function AdminShell({
         { href: "/admin/board", label: "Leadership & Board", icon: UsersIcon },
         { href: "/admin/partners", label: "Partners", icon: HandshakeIcon },
         { href: "/admin/careers", label: "Careers", icon: BriefcaseIcon },
+        { href: "/admin/social", label: "Social Media", icon: ShareIcon },
       ],
     },
     {
@@ -123,7 +125,7 @@ export function AdminShell({
   const sidebar = (
     <div className="flex h-full flex-col bg-text text-white">
       <div className="flex items-center gap-3 border-b border-white/10 px-5 py-5">
-        <Image src="/soc-logo-mark-white.png" alt="" width={764} height={446} className="h-7 w-auto" />
+        <Image src="/soc-logo-mark.png" alt="" width={764} height={446} className="h-8 w-auto" />
         <div className="leading-tight">
           <p className="text-sm font-extrabold" style={{ fontFamily: "var(--font-heading)" }}>
             SOC Alliance
@@ -236,6 +238,7 @@ export function AdminShell({
           >
             {open ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
           </button>
+          <Image src="/soc-logo-mark.png" alt="" width={764} height={446} className="h-6 w-auto" />
           <span className="text-sm font-extrabold" style={{ fontFamily: "var(--font-heading)" }}>
             SOC Alliance Admin
           </span>

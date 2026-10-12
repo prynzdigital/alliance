@@ -105,6 +105,17 @@ export const SCHEMA_STATEMENTS: string[] = [
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
   )`,
 
+  `CREATE TABLE IF NOT EXISTS social_links (
+    id SERIAL PRIMARY KEY,
+    platform TEXT NOT NULL,
+    label TEXT,
+    url TEXT NOT NULL,
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    published BOOLEAN NOT NULL DEFAULT true,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  )`,
+
   // Public form submissions (contact, volunteer, mentoring, newsletter).
   `CREATE TABLE IF NOT EXISTS submissions (
     id SERIAL PRIMARY KEY,

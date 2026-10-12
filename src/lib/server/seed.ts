@@ -1,6 +1,7 @@
 import "server-only";
 import { defaultEvents } from "@/lib/events";
 import { defaultBoard, defaultCareerRoles, defaultPartners, defaultStories } from "@/lib/cms/defaults";
+import { defaultSocialLinks } from "@/lib/cms/social";
 
 type Exec = (text: string, params: unknown[]) => Promise<Record<string, unknown>[]>;
 
@@ -53,7 +54,41 @@ export async function seedDatabase(exec: Exec): Promise<void> {
     }
   }
 
+  await seedSocialLinks(exec);
   await bootstrapOwner(exec);
+}
+
+// Social links moved from two fixed settings (social_facebook/social_linkedin)
+// to their own editable list. Runs once (own flag, since existing databases
+// already claimed seeded_v1), carrying over any edits made to the old settings.
+async function seedSocialLinks(exec: Exec): Promise<void> {
+  const claimed = await exec(
+    `INSERT INTO meta (key, value) VALUES ('seeded_social_v1', $1) ON CONFLICT (key) DO NOTHING RETURNING key`,
+    [new Date().toISOString()]
+  );
+  if (claimed.length === 0) return;
+
+  const legacy = await exec(
+    `SELECT key, value FROM settings WHERE key IN ('social_facebook', 'social_linkedin')`,
+    []
+  );
+  const legacyValue = (key: string) => legacy.find((r) => r.key === key)?.value as string | undefined;
+  const overrides: Record<string, string | undefined> = {
+    Facebook: legacyValue("social_facebook"),
+    LinkedIn: legacyValue("social_linkedin"),
+  };
+
+  for (const [i, link] of defaultSocialLinks.entries()) {
+    const override = overrides[link.platform];
+    const url = override === undefined ? link.url : override.trim();
+    if (!url) continue; // was deliberately blanked out in the old settings
+    await exec(`INSERT INTO social_links (platform, label, url, sort_order) VALUES ($1, $2, $3, $4)`, [
+      link.platform,
+      link.label,
+      url,
+      (i + 1) * 10,
+    ]);
+  }
 }
 
 const BCRYPT_HASH = /^\$2[aby]\$\d{2}\$[./A-Za-z0-9]{53}$/;

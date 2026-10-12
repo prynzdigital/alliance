@@ -12,7 +12,8 @@ The site has a built-in admin dashboard at **`/admin`**, modeled on the e-cleanp
 | **Leadership & Board** | The roster on Our Story, including photos, titles, Officer/Director grouping, order, and optional bios. |
 | **Partners** | The homepage's Our Partners band. |
 | **Careers** | Role list on Get Involved → Careers. |
-| **Site Settings** | Contact details, EIN, and social links (header, footer, contact page, search data); homepage impact figure and About text; mission, vision, and values; the Donorbox embed link. |
+| **Social Media** | Add, edit, reorder, hide, or delete profiles (Facebook, Instagram, LinkedIn, X, YouTube, TikTok, Threads, or any other link). These appear in the footer, the homepage banner, and search-engine data. |
+| **Site Settings** | Contact details and EIN (header, footer, contact page, search data); homepage impact figure and About text; mission, vision, and values; the Donorbox embed link. |
 | **Media Library** | All uploaded images. An image that a page is still using can't be deleted. |
 | **Team & Access** (Owners) | Add, deactivate, or remove admins; reset passwords. |
 | **Activity Log** (Owners) | Who changed what, and when. |
