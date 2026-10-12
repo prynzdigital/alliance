@@ -8,7 +8,6 @@ import { SupportCarousel } from "@/components/SupportCarousel";
 import { PictureCarousel } from "@/components/PictureCarousel";
 import { HeroSlider } from "@/components/HeroSlider";
 import { PillarBand } from "@/components/PillarBand";
-import { NewsletterForm } from "@/components/NewsletterForm";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/Button";
@@ -420,26 +419,6 @@ export default async function Home() {
             </Link>
           </Reveal>
         </div>
-
-        <Reveal delay={100}>
-          <div className="relative isolate mt-6 overflow-hidden rounded-3xl bg-primary px-8 py-8 sm:px-10">
-            <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-primary via-primary to-accent" />
-            <div
-              aria-hidden
-              className="absolute inset-0 -z-10 opacity-10"
-              style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "18px 18px" }}
-            />
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-              <div>
-                <h2 className="text-2xl font-extrabold text-white sm:text-3xl">Stay Connected</h2>
-                <p className="mt-1 text-sm text-white/80">Get occasional updates on programs, events, and ways to help.</p>
-              </div>
-              <div className="w-full lg:max-w-md">
-                <NewsletterForm idPrefix="home" dark buttonVariant="outlineInverse" />
-              </div>
-            </div>
-          </div>
-        </Reveal>
       </section>
     </div>
   );

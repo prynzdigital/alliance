@@ -17,7 +17,7 @@ export function NewsletterForm({
   dark?: boolean;
   /** Force a vertical layout even at wider viewports — for narrow columns. */
   stacked?: boolean;
-  buttonVariant?: "primary" | "outlineInverse";
+  buttonVariant?: "primary" | "secondary" | "outlineInverse";
 }) {
   const [state, formAction, pending] = useActionState(submitPublicForm.bind(null, "newsletter"), initialFormState);
   const formRef = useRef<HTMLFormElement>(null);
