@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { PillarCTAs, PillarIntro } from "@/components/PillarIntro";
-import { SectionHeading } from "@/components/SectionHeading";
+import { Highlights, PillarFooter, PillarNav, WhatWeDo } from "@/components/programs/PillarSections";
 import { getPillar } from "@/lib/programs";
 
 export const metadata: Metadata = {
@@ -25,45 +22,42 @@ export default function EconomicDevelopmentPage() {
           { label: "Our Programs", href: "/programs" },
           { label: "Economic Development" },
         ]}
-        image="/pillar-economic.jpg"
-        imageAlt="A businessperson holding a tablet displaying rising economic growth charts"
+        image={pillar.feature.src}
+        imageAlt={pillar.feature.alt}
         tint={pillar.neon}
-      />
-      <Container className="py-16 md:py-24">
-      <PillarIntro pillar={pillar} />
+      >
+        <PillarNav current={pillar.slug} />
+      </PageHeader>
 
-      <div className="mt-10 max-w-3xl">
-        <div className="relative aspect-video w-full overflow-hidden rounded-card shadow-sm">
-          <Image
-            src="/pillar-economic.jpg"
-            alt="A businessperson holding a tablet displaying rising economic growth charts"
-            fill
-            sizes="(min-width: 1024px) 700px, 100vw"
-            className="object-cover"
-          />
-        </div>
-      </div>
-
-      <div className="mt-12 max-w-3xl">
-        <p className="text-sm text-text">
-          SOC Alliance runs seminars and roundtables with financial-industry professionals,
-          helping community members build the skills and knowledge behind lasting economic
-          stability — from first job to first home.
+      <WhatWeDo
+        pillar={pillar}
+        photo={{ src: "/economic-2.jpg", alt: "Stacks of coins rising alongside an upward financial growth chart" }}
+      >
+        <p>
+          SOC Alliance runs seminars and roundtables with financial-industry professionals, helping
+          community members build the skills and knowledge behind lasting economic stability — from
+          first job to first home.
         </p>
+      </WhatWeDo>
 
-        <SectionHeading eyebrow="Recent Events" title="Past Highlights" className="mt-10" />
-        <div className="mt-3 rounded-card border border-black/10 bg-surface p-5">
-          <p className="text-sm font-semibold text-text-muted">September 2022</p>
-          <p className="mt-1 text-sm text-text">
-            &ldquo;Finance Matters&rdquo; — a three-part financial literacy webinar series with
-            Tamara Dervin, Certified Financial Educator, covering budgeting, debt, and saving
-            &amp; investing.
-          </p>
-        </div>
-      </div>
+      <Highlights
+        pillar={pillar}
+        items={[
+          {
+            date: "September 2022",
+            title: "“Finance Matters” Webinar Series",
+            body: (
+              <p>
+                A three-part financial literacy webinar series with Tamara Dervin, Certified Financial
+                Educator, covering budgeting, debt, and saving &amp; investing.
+              </p>
+            ),
+            image: { src: "/economic.png", alt: "A seedling growing from a stack of coins, symbolizing financial growth" },
+          },
+        ]}
+      />
 
-      <PillarCTAs pillarName={pillar.name} />
-      </Container>
+      <PillarFooter pillar={pillar} />
     </>
   );
 }

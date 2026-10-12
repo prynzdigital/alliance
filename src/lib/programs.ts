@@ -19,6 +19,8 @@ export type Pillar = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
   image: string;
   imageAlt: string;
+  /** Larger photo used for this pillar's feature row and page header. */
+  feature: { src: string; alt: string };
 };
 
 // Facts sourced from docs/discovery/02_Organization_Research.md, Section 2.
@@ -33,6 +35,7 @@ export const pillars: Pillar[] = [
     icon: ScholarshipIcon,
     image: "/scholarship.png",
     imageAlt: "A graduate in a cap and gown embracing a loved one",
+    feature: { src: "/scholarship.png", alt: "A graduate in a cap and gown embracing a loved one" },
   },
   {
     slug: "economic-development",
@@ -51,6 +54,7 @@ export const pillars: Pillar[] = [
     icon: EconomicDevelopmentIcon,
     image: "/economic.png",
     imageAlt: "A seedling growing from a stack of coins, symbolizing financial growth",
+    feature: { src: "/pillar-economic.jpg", alt: "A businessperson holding a tablet displaying rising economic growth charts" },
   },
   {
     slug: "community",
@@ -62,6 +66,7 @@ export const pillars: Pillar[] = [
     icon: CommunityIcon,
     image: "/community.png",
     imageAlt: "A group of community members posing together at a neighborhood gathering",
+    feature: { src: "/svpi-fuller-park.webp", alt: "Community members and SVPI staff gathered inside the Fuller Park Fieldhouse" },
   },
   {
     slug: "health",
@@ -73,6 +78,7 @@ export const pillars: Pillar[] = [
     icon: HealthIcon,
     image: "/health.png",
     imageAlt: "A healthcare provider speaking warmly with a patient",
+    feature: { src: "/health.png", alt: "A healthcare provider speaking warmly with a patient" },
   },
 ];
 

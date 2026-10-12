@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PendingNotice } from "@/components/PendingNotice";
-import { SectionHeading } from "@/components/SectionHeading";
-import { PillarCTAs, PillarIntro } from "@/components/PillarIntro";
+import { FeatureProgram, Highlights, PillarFooter, PillarNav, WhatWeDo } from "@/components/programs/PillarSections";
 import { getPillar } from "@/lib/programs";
 
 export const metadata: Metadata = {
@@ -30,64 +27,71 @@ export default function ScholarshipPage() {
         image={pillar.image}
         imageAlt={pillar.imageAlt}
         tint={pillar.neon}
-      />
-      <Container className="py-16 md:py-24">
-      <PillarIntro pillar={pillar} />
+      >
+        <PillarNav current={pillar.slug} />
+      </PageHeader>
 
-      <div className="mt-10 max-w-3xl">
-        <div className="relative aspect-video w-full overflow-hidden rounded-card shadow-sm">
-          <Image
-            src="/talent-hunt.png"
-            alt="A collage of student performers at the 2025 Talent Hunt Competition, playing violin, piano, and trumpet"
-            fill
-            sizes="(min-width: 1024px) 700px, 100vw"
-            className="object-cover"
-          />
-        </div>
-      </div>
-
-      <div className="mt-12 max-w-3xl">
-        <SectionHeading eyebrow="Flagship Program" title="Talent Hunt Competition" />
-        <p className="mt-4 text-sm text-text">
-          SOC Alliance&rsquo;s annual scholarship competition for Chicagoland high school
-          students, judged on vocal or instrumental performance.
+      <WhatWeDo pillar={pillar} photo={{ src: "/pillar-scholarship.jpg", alt: "A graduation cap resting on stacks of coins beside a book" }}>
+        <p>
+          SOC Alliance&rsquo;s Scholarship pillar supports students through mentoring, tutoring,
+          technology and coding programs, and scholarship awards.
         </p>
-
-        <div className="mt-4">
-          <PendingNotice>
-            <p>Eligibility, deadline, and application details for the next Talent Hunt Competition are pending.</p>
-          </PendingNotice>
-        </div>
-
-        <h3 className="mt-8">Past Highlights</h3>
-        <div className="mt-3 rounded-card border border-black/10 bg-surface p-5">
-          <p className="text-sm font-semibold text-text-muted">March 22, 2025 &middot; Vandercook College of Music</p>
-          <p className="mt-1 text-sm text-text">
-            2025 winner: <strong>Tiffany Tyus</strong>, piano — &ldquo;Spain&rdquo; by Chick
-            Corea. Co-sponsored by the Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc.
-          </p>
-        </div>
-
-        <p className="mt-4 text-sm text-text-muted">
-          The Talent Hunt Competition is funded in part by the{" "}
+        <p>
+          Its flagship program is the annual Talent Hunt Competition, funded in part by the{" "}
           <Link href="/donate/mardi-gras-fundraiser" className="font-semibold text-primary hover:underline">
             Omega Mardi Gras Scholarship Fundraiser
           </Link>
           , which has awarded over $100,000 in scholarships cumulatively.
         </p>
+      </WhatWeDo>
 
-        <h3 className="mt-8">Career &amp; Skills Readiness</h3>
-        <div className="mt-3 rounded-card border border-black/10 bg-surface p-5">
-          <p className="text-sm font-semibold text-text-muted">March 22, 2023</p>
-          <p className="mt-1 text-sm text-text">
-            &ldquo;Soft Skills Training&rdquo; with Michelle Relerford — a student professional
-            skills training session.
-          </p>
+      <FeatureProgram
+        eyebrow="Flagship Program"
+        title="Talent Hunt Competition"
+        image={{
+          src: "/talent-hunt.png",
+          alt: "A collage of student performers at the 2025 Talent Hunt Competition, playing violin, piano, and trumpet",
+        }}
+      >
+        <p>
+          SOC Alliance&rsquo;s annual scholarship competition for Chicagoland high school students,
+          judged on vocal or instrumental performance.
+        </p>
+        <div className="mt-2">
+          <PendingNotice>
+            <p>Eligibility, deadline, and application details for the next Talent Hunt Competition are pending.</p>
+          </PendingNotice>
         </div>
-      </div>
+      </FeatureProgram>
 
-      <PillarCTAs pillarName={pillar.name} />
-      </Container>
+      <Highlights
+        pillar={pillar}
+        items={[
+          {
+            date: "March 22, 2025",
+            place: "Vandercook College of Music",
+            title: "2025 Talent Hunt Competition",
+            body: (
+              <p>
+                2025 winner: <strong className="text-text">Tiffany Tyus</strong>, piano — &ldquo;Spain&rdquo; by
+                Chick Corea. Co-sponsored by the Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc.
+              </p>
+            ),
+          },
+          {
+            date: "March 22, 2023",
+            title: "Soft Skills Training",
+            body: (
+              <p>
+                &ldquo;Soft Skills Training&rdquo; with Michelle Relerford — a student professional skills
+                training session focused on career and skills readiness.
+              </p>
+            ),
+          },
+        ]}
+      />
+
+      <PillarFooter pillar={pillar} />
     </>
   );
 }

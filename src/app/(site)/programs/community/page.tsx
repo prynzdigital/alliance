@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { PillarCTAs, PillarIntro } from "@/components/PillarIntro";
-import { SectionHeading } from "@/components/SectionHeading";
+import { FeatureProgram, Highlights, PillarFooter, PillarNav, WhatWeDo } from "@/components/programs/PillarSections";
 import { getPillar } from "@/lib/programs";
 
 export const metadata: Metadata = {
@@ -29,63 +26,69 @@ export default function CommunityPage() {
           { label: "Our Programs", href: "/programs" },
           { label: "Community" },
         ]}
-        image="/svpi-fuller-park.webp"
-        imageAlt="Community members and SVPI staff gathered inside the Fuller Park Fieldhouse"
+        image="/positive-loitering.webp"
+        imageAlt="Community members and Chicago Police Department officers gathered together at the SOC Alliance facility in Woodlawn"
         tint={pillar.neon}
-      />
-      <Container className="py-16 md:py-24">
-      <PillarIntro pillar={pillar} />
+      >
+        <PillarNav current={pillar.slug} />
+      </PageHeader>
 
-      <div className="mt-10 max-w-3xl">
-        <div className="relative aspect-video w-full overflow-hidden rounded-card shadow-sm">
-          <Image
-            src="/svpi-fuller-park.webp"
-            alt="Community members and SVPI staff gathered inside the Fuller Park Fieldhouse"
-            fill
-            sizes="(min-width: 1024px) 700px, 100vw"
-            className="object-cover"
-          />
-        </div>
-      </div>
+      <WhatWeDo pillar={pillar} photo={{ src: pillar.image, alt: pillar.imageAlt }}>
+        <p>
+          SOC Alliance&rsquo;s Community pillar covers safety, volunteerism, and voter education and
+          registration, including the Strengthening Violence Prevention Initiative (SVPI).
+        </p>
+      </WhatWeDo>
 
-      <div className="mt-12 max-w-3xl">
-        <SectionHeading eyebrow="Community Safety" title="Strengthening Violence Prevention Initiative (SVPI)" />
-        <p className="mt-4 text-sm text-text">
+      <FeatureProgram
+        eyebrow="Community Safety"
+        title="Strengthening Violence Prevention Initiative"
+        image={{ src: "/svpi-fuller-park.webp", alt: "Community members and SVPI staff gathered inside the Fuller Park Fieldhouse" }}
+      >
+        <p>
           SVPI is a community-based violence prevention program, funded in part by the Illinois
-          Department of Human Services. It brings together Violence Interrupters, Field
-          Managers, Case Managers, and Victim Services Facilitators to work directly with the
-          people and blocks most affected by violence — building safety from the inside of the
-          community, not outside of it.
+          Department of Human Services. It brings together Violence Interrupters, Field Managers, Case
+          Managers, and Victim Services Facilitators to work directly with the people and blocks most
+          affected by violence — building safety from the inside of the community, not outside of it.
         </p>
-        <p className="mt-3 text-sm text-text">
-          If you or someone you know needs support, our{" "}
-          <Link href="/get-involved/mentoring-life-coaching" className="font-semibold text-primary hover:underline">
-            Mentoring &amp; Life Coaching
-          </Link>{" "}
-          program is here to help.
-        </p>
-
-        <div className="mt-6 rounded-card border border-black/10 bg-surface p-5">
-          <p className="text-sm font-semibold text-text-muted">August 21, 2025 &middot; Fuller Park Fieldhouse</p>
-          <p className="mt-1 text-sm text-text">
-            SVPI joined the Chicago Park District&rsquo;s Fuller Park Fieldhouse and the Fuller
-            Park Advisory Council for a community kickoff, identifying shared priorities:
-            traffic safety, the need for male mentors, creative youth opportunities, and
-            transportation access to community events.
-          </p>
+        <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <Link
+            href="/get-involved/mentoring-life-coaching"
+            className="group rounded-2xl border border-black/5 bg-background p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <span className="block text-sm font-bold text-text group-hover:text-primary">Need support? →</span>
+            <span className="mt-1 block text-xs text-text-muted">Our Mentoring &amp; Life Coaching program is here to help.</span>
+          </Link>
+          <Link
+            href="/get-involved#careers"
+            className="group rounded-2xl border border-black/5 bg-background p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <span className="block text-sm font-bold text-text group-hover:text-primary">Work with SVPI →</span>
+            <span className="mt-1 block text-xs text-text-muted">See the roles we hire for on our Careers page.</span>
+          </Link>
         </div>
+      </FeatureProgram>
 
-        <p className="mt-6 text-sm text-text">
-          Interested in working with SVPI? Open roles are listed on our{" "}
-          <Link href="/get-involved#careers" className="font-semibold text-primary hover:underline">
-            Careers
-          </Link>{" "}
-          page.
-        </p>
-      </div>
+      <Highlights
+        pillar={pillar}
+        items={[
+          {
+            date: "August 21, 2025",
+            place: "Fuller Park Fieldhouse",
+            title: "SVPI × Fuller Park Advisory Council Kickoff",
+            body: (
+              <p>
+                SVPI joined the Chicago Park District&rsquo;s Fuller Park Fieldhouse and the Fuller Park
+                Advisory Council for a community kickoff, identifying shared priorities: traffic safety,
+                the need for male mentors, creative youth opportunities, and transportation access to
+                community events.
+              </p>
+            ),
+          },
+        ]}
+      />
 
-      <PillarCTAs pillarName={pillar.name} />
-      </Container>
+      <PillarFooter pillar={pillar} />
     </>
   );
 }
