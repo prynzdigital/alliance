@@ -9,7 +9,7 @@ import { SUBMISSION_TYPES } from "@/lib/admin/types";
 import { requireUser } from "@/lib/server/auth";
 import { databaseMode, sql } from "@/lib/server/db";
 import { isEmailConfigured } from "@/lib/server/email";
-import { storageMode } from "@/lib/server/storage";
+import { blobEnvNames, storageMode } from "@/lib/server/storage";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
@@ -95,7 +95,9 @@ export default async function DashboardPage() {
           ? "Uploads go to Vercel Blob."
           : storage === "local"
             ? "Development mode: uploads are saved to this computer. Connect a Vercel Blob store before launch."
-            : "Not connected — uploads won't work. In Vercel, connect a Blob store to this project (Production), then redeploy.",
+            : `Not connected — uploads won't work. In Vercel, connect a Blob store to this project (Production), then redeploy. Blob-related variables this deployment can see: ${
+                blobEnvNames().join(", ") || "none"
+              }.`,
     },
     {
       ok: email,

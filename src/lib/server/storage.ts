@@ -10,15 +10,36 @@ export const ALLOWED_IMAGE_TYPES: Record<string, string> = {
 };
 export const MAX_UPLOAD_BYTES = 4 * 1024 * 1024;
 
-// Connecting a Vercel Blob store adds either BLOB_READ_WRITE_TOKEN (classic
-// token) or BLOB_STORE_ID (newer stores, authenticated via Vercel's OIDC
-// token at runtime). @vercel/blob accepts either, so treat either as connected.
-function blobConfigured(): boolean {
-  return Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID);
+type BlobAuth = { token: string } | { storeId: string };
+
+// Connecting a Vercel Blob store adds either a read-write token
+// (BLOB_READ_WRITE_TOKEN, value "vercel_blob_rw_…") or, on newer stores, a
+// store id (BLOB_STORE_ID, value "store_…", authenticated with Vercel's OIDC
+// token at runtime). If the store was connected with a custom prefix the
+// variable names change (e.g. MEDIA_READ_WRITE_TOKEN), so fall back to finding
+// the credential by its value shape. Credentials are passed to @vercel/blob
+// explicitly so any of these work.
+function blobAuth(): BlobAuth | null {
+  const env = process.env;
+  if (env.BLOB_READ_WRITE_TOKEN) return { token: env.BLOB_READ_WRITE_TOKEN };
+  if (env.BLOB_STORE_ID) return { storeId: env.BLOB_STORE_ID };
+  const entries = Object.entries(env);
+  const token = entries.find(([, v]) => v?.startsWith("vercel_blob_rw_"))?.[1];
+  if (token) return { token };
+  const storeId = entries.find(([k, v]) => k.endsWith("STORE_ID") && v?.startsWith("store_"))?.[1];
+  if (storeId) return { storeId };
+  return null;
+}
+
+/** Names (never values) of env vars that look Blob-related — shown on the dashboard to help diagnose setup. */
+export function blobEnvNames(): string[] {
+  return Object.keys(process.env)
+    .filter((k) => /BLOB|READ_WRITE_TOKEN|STORE_ID/.test(k))
+    .sort();
 }
 
 export function storageMode(): "blob" | "local" | "none" {
-  if (blobConfigured()) return "blob";
+  if (blobAuth()) return "blob";
   return process.env.NODE_ENV !== "production" ? "local" : "none";
 }
 
@@ -35,11 +56,12 @@ export async function storeImage(file: File, folder: string): Promise<StoredFile
 
   const safeFolder = folder.replace(/[^a-z0-9-]/gi, "") || "uploads";
   const key = `${safeFolder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const auth = blobAuth();
   const mode = storageMode();
 
-  if (mode === "blob") {
+  if (auth) {
     const { put } = await import("@vercel/blob");
-    const blob = await put(key, file, { access: "public", contentType: file.type });
+    const blob = await put(key, file, { access: "public", contentType: file.type, ...auth });
     return { url: blob.url, pathname: blob.pathname, filename: file.name, contentType: file.type, size: file.size };
   }
   if (mode === "local") {
@@ -59,9 +81,10 @@ export async function deleteStoredFile(url: string): Promise<void> {
       await unlink(path.join(process.cwd(), "public", "uploads", rel));
       return;
     }
-    if (/^https:\/\/[^/]+\.blob\.vercel-storage\.com\//.test(url) && blobConfigured()) {
+    const auth = blobAuth();
+    if (/^https:\/\/[^/]+\.blob\.vercel-storage\.com\//.test(url) && auth) {
       const { del } = await import("@vercel/blob");
-      await del(url);
+      await del(url, auth);
     }
   } catch (err) {
     console.error("Failed to delete stored file:", err);
