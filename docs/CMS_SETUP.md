@@ -22,7 +22,7 @@ Long-form page copy, such as the program pages and the privacy policy, still liv
 ## Going live on Vercel
 
 1. **Database.** Go to Vercel → Project → Storage → Create → **Neon** (Postgres) and connect it to the project. This adds `DATABASE_URL`. The tables are created automatically on first use. The current site content (events, board, partners, stories, careers) is copied in once as the starting data.
-2. **Image storage.** Go to Storage → Create → **Blob** and connect it. This adds `BLOB_READ_WRITE_TOKEN`.
+2. **Image storage.** Go to Storage → Create → **Blob** and connect it to the project, including the Production environment. This adds `BLOB_READ_WRITE_TOKEN` or, on newer stores, `BLOB_STORE_ID`. The site accepts either.
 3. **Environment variables.** Set these under Settings → Environment Variables (see `.env.example`):
    - `SESSION_SECRET`: 32+ random characters. Generate one with `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`.
    - `ADMIN_USERNAME`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD_HASH`: the first Owner account. Generate the hash with `npm run admin:hash`, then paste it into Vercel exactly as printed.

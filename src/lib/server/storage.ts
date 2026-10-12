@@ -10,8 +10,15 @@ export const ALLOWED_IMAGE_TYPES: Record<string, string> = {
 };
 export const MAX_UPLOAD_BYTES = 4 * 1024 * 1024;
 
+// Connecting a Vercel Blob store adds either BLOB_READ_WRITE_TOKEN (classic
+// token) or BLOB_STORE_ID (newer stores, authenticated via Vercel's OIDC
+// token at runtime). @vercel/blob accepts either, so treat either as connected.
+function blobConfigured(): boolean {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID);
+}
+
 export function storageMode(): "blob" | "local" | "none" {
-  if (process.env.BLOB_READ_WRITE_TOKEN) return "blob";
+  if (blobConfigured()) return "blob";
   return process.env.NODE_ENV !== "production" ? "local" : "none";
 }
 
@@ -52,7 +59,7 @@ export async function deleteStoredFile(url: string): Promise<void> {
       await unlink(path.join(process.cwd(), "public", "uploads", rel));
       return;
     }
-    if (/^https:\/\/[^/]+\.blob\.vercel-storage\.com\//.test(url) && process.env.BLOB_READ_WRITE_TOKEN) {
+    if (/^https:\/\/[^/]+\.blob\.vercel-storage\.com\//.test(url) && blobConfigured()) {
       const { del } = await import("@vercel/blob");
       await del(url);
     }

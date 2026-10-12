@@ -84,12 +84,18 @@ export default async function DashboardPage() {
     {
       ok: db === "neon",
       label: "Database",
-      detail: db === "neon" ? "Connected to Neon Postgres." : "Using a local development database. Connect Neon before launch.",
+      detail:
+        db === "neon" ? "Connected to Neon Postgres." : "Using a local development database. Connect Neon before launch.",
     },
     {
       ok: storage === "blob",
       label: "Image storage",
-      detail: storage === "blob" ? "Uploads go to Vercel Blob." : "Uploads are saved locally. Connect a Vercel Blob store before launch.",
+      detail:
+        storage === "blob"
+          ? "Uploads go to Vercel Blob."
+          : storage === "local"
+            ? "Development mode: uploads are saved to this computer. Connect a Vercel Blob store before launch."
+            : "Not connected — uploads won't work. In Vercel, connect a Blob store to this project (Production), then redeploy.",
     },
     {
       ok: email,
