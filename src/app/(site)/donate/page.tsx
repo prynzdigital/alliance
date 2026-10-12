@@ -7,7 +7,7 @@ import { DonorboxEmbed } from "@/components/DonorboxEmbed";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
-import { StatTiles } from "@/components/StatTiles";
+import { StatBand } from "@/components/StatBand";
 import { Card, CardImage } from "@/components/ui/Card";
 import { getSettings } from "@/lib/cms/content";
 import { telHref } from "@/lib/cms/settings";
@@ -123,33 +123,29 @@ export default async function DonatePage() {
         </div>
       </Container>
 
-      <section className="bg-surface py-14 md:py-20">
-        <Container>
-          <Reveal>
-            <SectionHeading eyebrow="Why Give" title="A Record You Can Trust" />
-          </Reveal>
-          <Reveal delay={75} className="mt-8">
-            <StatTiles
-              items={[
-                {
-                  value: "$100,000+",
-                  label: "in scholarships awarded through the Omega Mardi Gras Scholarship Fundraiser",
-                },
-                { value: "501(c)(3)", label: `public charity · EIN ${ein}` },
-                { value: "$0", label: "officer compensation. Our officers serve without pay." },
-              ]}
-            />
-          </Reveal>
-          <Reveal delay={125}>
-            <Link
-              href="/about/financials-transparency"
-              className="mt-6 inline-block text-sm font-bold text-primary hover:underline"
-            >
-              See our financials &rarr;
-            </Link>
-          </Reveal>
-        </Container>
-      </section>
+      <StatBand
+        eyebrow="Why Give"
+        title="A Record You Can Trust"
+        intro={<p>Every gift goes to a registered public charity with a volunteer board and a track record of giving back.</p>}
+        image="/impact.jpg"
+        items={[
+          {
+            value: "$100K+",
+            label: "in scholarships awarded through the Omega Mardi Gras Scholarship Fundraiser",
+            icon: "scholarship",
+          },
+          { value: "501(c)(3)", label: `Registered public charity · EIN ${ein}`, icon: "shield" },
+          { value: "$0", label: "Officer compensation. Our officers serve without pay.", icon: "heart" },
+        ]}
+        footer={
+          <Link
+            href="/about/financials-transparency"
+            className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 text-sm font-bold text-white ring-1 ring-white/20 transition hover:bg-white/20"
+          >
+            See our financials <span aria-hidden>&rarr;</span>
+          </Link>
+        }
+      />
 
       <Container className="py-14 md:py-20">
         <Reveal>

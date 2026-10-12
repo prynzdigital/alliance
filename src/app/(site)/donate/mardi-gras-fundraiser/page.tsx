@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { ArrowPillLink, CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
-import { StatTiles } from "@/components/StatTiles";
+import { StatBand } from "@/components/StatBand";
 import { getEvents } from "@/lib/cms/content";
 import { formatEventDate, getEventStatus } from "@/lib/events";
 
@@ -126,22 +126,16 @@ export default async function MardiGrasPage() {
         </div>
       </Container>
 
-      <section className="bg-surface py-14 md:py-20">
-        <Container>
-          <Reveal>
-            <SectionHeading eyebrow="By the Numbers" title="A Tradition of Giving" />
-          </Reveal>
-          <Reveal delay={75} className="mt-8">
-            <StatTiles
-              items={[
-                { value: "$100,000+", label: "raised in scholarships, cumulatively" },
-                { value: "21", label: "annual editions, as of 2026" },
-                { value: "$500", label: "sponsorships start here" },
-              ]}
-            />
-          </Reveal>
-        </Container>
-      </section>
+      <StatBand
+        eyebrow="By the Numbers"
+        title="A Tradition of Giving"
+        image="/omega-gras.jpg"
+        items={[
+          { value: "$100K+", label: "Raised in scholarships, cumulatively", icon: "scholarship" },
+          { value: "21", label: "Annual editions, as of 2026", icon: "calendar" },
+          { value: "$500", label: "Sponsorships start here", icon: "handshake" },
+        ]}
+      />
 
       <Container className="py-14 md:py-20">
         <Reveal>
