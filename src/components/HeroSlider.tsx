@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { SocialIcon } from "@/components/icons/SocialIcons";
@@ -111,7 +112,7 @@ export function HeroSlider({ socialLinks }: { socialLinks: SocialLink[] }) {
                     {pillar.name}
                   </h2>
                   <p className="mx-auto mt-5 max-w-xl text-lg text-white/85">{pillar.summary}</p>
-                  <div className="mt-8">
+                  <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                     <Button
                       href={`/programs/${pillar.slug}`}
                       variant="outlineInverse"
@@ -127,6 +128,16 @@ export function HeroSlider({ socialLinks }: { socialLinks: SocialLink[] }) {
                         </svg>
                       </span>
                     </Button>
+                    <Link
+                      href="/donate"
+                      tabIndex={isActive ? 0 : -1}
+                      className="inline-flex items-center gap-2 rounded-full bg-secondary px-5 py-2 text-sm font-bold text-text shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-secondary-dark"
+                    >
+                      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+                        <path d="M12 20.5s-7.5-4.6-9.6-9.4A5.2 5.2 0 0 1 12 6.2a5.2 5.2 0 0 1 9.6 4.9c-2.1 4.8-9.6 9.4-9.6 9.4Z" />
+                      </svg>
+                      Donate
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -143,10 +154,19 @@ export function HeroSlider({ socialLinks }: { socialLinks: SocialLink[] }) {
             onClick={() => goTo(i)}
             aria-label={`Go to slide ${i + 1}: ${pillar.name}`}
             aria-current={i === index}
-            className={`w-2.5 rounded-full transition-all ${
-              i === index ? "h-8 bg-white" : "h-2.5 bg-white/50 hover:bg-white/80"
+            className={`relative w-2.5 overflow-hidden rounded-full transition-all ${
+              i === index ? "h-10 bg-white/35" : "h-2.5 bg-white/50 hover:bg-white/80"
             }`}
-          />
+          >
+            {i === index && (
+              <span
+                key={`progress-${index}-${isPaused}`}
+                aria-hidden
+                className={`absolute inset-0 rounded-full bg-white ${isPaused ? "" : "slide-progress"}`}
+                style={{ animationDuration: `${AUTO_ADVANCE_MS}ms` }}
+              />
+            )}
+          </button>
         ))}
         <button
           type="button"

@@ -15,42 +15,17 @@ export type CarouselSlide = {
   color: string;
 };
 
-// Image/content carousel — originally built for the homepage "Support Our
-// Work" section, reused wherever a set of items needs one-at-a-time,
+// Image/content carousel (homepage "Latest Stories"): one-at-a-time,
 // image-bled cards. Each slide carries its own accent color, applied to the
 // image's duotone tint, its glow, and its CTA, so items read as visually
-// distinct rather than a single wall of text. Defaults to the Support Our
-// Work slides when no `slides` prop is supplied.
-const DEFAULT_SLIDES: CarouselSlide[] = [
-  {
-    image: "/help.jpg",
-    imageAlt: "Two people shaking hands, with a third person smiling in the background",
-    eyebrow: "Get Involved",
-    title: "Lend a Hand",
-    body: "Give your time across scholarship, economic development, community, and health programs. Every volunteer hour reaches a neighbor directly.",
-    cta: "Volunteer",
-    href: "/get-involved#volunteer",
-    color: "var(--color-accent)",
-  },
-  {
-    image: "/donate-photo.jpg",
-    imageAlt: "A raised fist held by another hand, among a group of people with arms raised together",
-    eyebrow: "Support Our Work",
-    title: "Fuel Our Mission",
-    body: "Every gift funds scholarships, economic development, community safety, and health programs across Chicago’s South Side. Since SOC Alliance runs entirely on volunteers, more of it reaches the community directly.",
-    cta: "Donate Now",
-    href: "/donate",
-    color: "var(--color-secondary-dark)",
-  },
-];
-
+// distinct rather than a single wall of text.
 const AUTO_ADVANCE_MS = 7000;
 
 export function SupportCarousel({
-  slides = DEFAULT_SLIDES,
+  slides,
   imageSize = "md",
 }: {
-  slides?: CarouselSlide[];
+  slides: CarouselSlide[];
   /** "lg" makes the image panel wider and taller — for columns with room to
       spare, without changing the default Support Our Work sizing. */
   imageSize?: "md" | "lg";

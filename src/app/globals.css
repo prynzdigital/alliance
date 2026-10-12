@@ -259,4 +259,52 @@
   .glass-panel-dark:hover {
     background-color: color-mix(in srgb, var(--color-text) 40%, transparent);
   }
+
+  /* Infinite horizontal ticker (homepage partners). The track holds the list
+     twice; sliding it by exactly half makes the loop seamless. Pauses on
+     hover/focus, and becomes a static wrapped list for reduced motion. */
+  .marquee-track {
+    animation: marquee 40s linear infinite;
+  }
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Fills the active hero-slider dot over the slide's display time. */
+  .slide-progress {
+    animation: slide-progress linear forwards;
+    transform-origin: top;
+  }
+  @keyframes slide-progress {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none !important;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: auto !important;
+    }
+    .marquee-duplicate {
+      display: none !important;
+    }
+    .slide-progress {
+      display: none;
+    }
+  }
 }
