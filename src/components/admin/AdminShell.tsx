@@ -20,6 +20,7 @@ import {
   ShareIcon,
   ShieldIcon,
   SlidersIcon,
+  NewspaperIcon,
   StoryIcon,
   UserIcon,
   UsersIcon,
@@ -54,6 +55,7 @@ export function AdminShell({
       links: [
         { href: "/admin/events", label: "Events & News", icon: CalendarIcon },
         { href: "/admin/stories", label: "Community Stories", icon: StoryIcon },
+        { href: "/admin/newsletters", label: "Newsletters", icon: NewspaperIcon },
         { href: "/admin/board", label: "Leadership & Board", icon: UsersIcon },
         { href: "/admin/partners", label: "Partners", icon: HandshakeIcon },
         { href: "/admin/careers", label: "Careers", icon: BriefcaseIcon },

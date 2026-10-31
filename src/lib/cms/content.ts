@@ -6,11 +6,13 @@ import { defaultEvents, PILLAR_IMAGE, PILLAR_NEON, type EventPillar, type SocEve
 import {
   defaultBoard,
   defaultCareerRoles,
+  defaultNewsletters,
   defaultPartners,
   defaultStories,
   type BoardMember,
   type CareerRole,
   type CommunityStory,
+  type Newsletter,
   type Partner,
 } from "./defaults";
 import { DEFAULT_SETTINGS, SETTING_KEYS, type SiteSettings } from "./settings";
@@ -163,4 +165,42 @@ export const getStories = cmsQuery(
     }));
   },
   defaultStories
+);
+
+/** Splits the admin's one-item-per-line "In this issue" text into a list. */
+export function splitLines(text: string | null): string[] {
+  return (text ?? "")
+    .split(/\r?\n/)
+    .map((line) => line.replace(/^[-•*]\s*/, "").trim())
+    .filter(Boolean);
+}
+
+export const getNewsletters = cmsQuery(
+  "newsletters",
+  async (): Promise<Newsletter[]> => {
+    const rows = await sql<{
+      id: number;
+      title: string;
+      issue_label: string;
+      summary: string | null;
+      highlights: string | null;
+      pdf_url: string;
+      cover_url: string | null;
+      cover_alt: string | null;
+    }>`
+      SELECT id, title, issue_label, summary, highlights, pdf_url, cover_url, cover_alt FROM newsletters
+      WHERE published = true ORDER BY sort_order ASC, id DESC
+    `;
+    return rows.map((r) => ({
+      id: r.id,
+      title: r.title,
+      issueLabel: r.issue_label,
+      summary: r.summary,
+      highlights: splitLines(r.highlights),
+      pdf: r.pdf_url,
+      cover: r.cover_url,
+      coverAlt: r.cover_alt,
+    }));
+  },
+  defaultNewsletters
 );

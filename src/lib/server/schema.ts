@@ -116,6 +116,22 @@ export const SCHEMA_STATEMENTS: string[] = [
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
   )`,
 
+  // Newsletter issues (PDFs), listed on News & Events, newest first.
+  `CREATE TABLE IF NOT EXISTS newsletters (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    issue_label TEXT NOT NULL,
+    summary TEXT,
+    highlights TEXT,
+    pdf_url TEXT NOT NULL,
+    cover_url TEXT,
+    cover_alt TEXT,
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    published BOOLEAN NOT NULL DEFAULT true,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  )`,
+
   // Public form submissions (contact, volunteer, mentoring, newsletter).
   `CREATE TABLE IF NOT EXISTS submissions (
     id SERIAL PRIMARY KEY,

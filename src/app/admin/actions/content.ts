@@ -10,7 +10,7 @@ import { logAudit } from "@/lib/server/audit";
 import { assertUser, AuthError, type SessionUser } from "@/lib/server/auth";
 import { query, sql } from "@/lib/server/db";
 import { recordMedia } from "@/lib/server/media";
-import { storeImage } from "@/lib/server/storage";
+import { storeDocument, storeImage } from "@/lib/server/storage";
 
 /** Push an admin edit to the live site: drop cached CMS reads and re-render pages. */
 async function refreshPublicSite() {
@@ -68,6 +68,22 @@ async function readField(
       return SAFE_IMAGE.test(text)
         ? { value: text.slice(0, 2000) }
         : { value: null, error: "Image must be an uploaded file, a /path, or an https:// link." };
+    }
+    case "file": {
+      const file = formData.get(`${field.name}__file`);
+      if (file instanceof File && file.size > 0) {
+        try {
+          const stored = await storeDocument(file, folder);
+          await recordMedia(user, stored);
+          return { value: stored.url };
+        } catch (err) {
+          return { value: null, error: (err as Error).message };
+        }
+      }
+      if (!text) return { value: null, error: field.required ? "Upload a PDF or paste a link to one." : undefined };
+      return SAFE_IMAGE.test(text)
+        ? { value: text.slice(0, 2000) }
+        : { value: null, error: "The PDF must be an uploaded file, a /path, or an https:// link." };
     }
     case "url":
       if (!text) return { value: null, error: field.required ? "This field is required." : undefined };

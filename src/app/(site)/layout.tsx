@@ -1,7 +1,7 @@
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { TopBar } from "@/components/layout/TopBar";
-import { getEvents, getSettings, getSocialLinks } from "@/lib/cms/content";
+import { getEvents, getNewsletters, getSettings, getSocialLinks } from "@/lib/cms/content";
 import { getUpcomingEvents } from "@/lib/events";
 
 // Re-render public pages at least hourly so anything date-derived (an event
@@ -10,7 +10,12 @@ import { getUpcomingEvents } from "@/lib/events";
 export const revalidate = 3600;
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
-  const [settings, events, socialLinks] = await Promise.all([getSettings(), getEvents(), getSocialLinks()]);
+  const [settings, events, socialLinks, newsletters] = await Promise.all([
+    getSettings(),
+    getEvents(),
+    getSocialLinks(),
+    getNewsletters(),
+  ]);
   const [nextEvent] = getUpcomingEvents(events);
 
   // Verified organization facts for search engines — see
@@ -52,7 +57,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <main id="main-content" className="flex-1 pt-[7.25rem]">
         {children}
       </main>
-      <SiteFooter settings={settings} socialLinks={socialLinks} />
+      <SiteFooter settings={settings} socialLinks={socialLinks} latestNewsletter={newsletters[0]} />
     </>
   );
 }

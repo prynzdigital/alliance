@@ -16,6 +16,42 @@ export type Partner = { id?: number; name: string; url: string | null };
 
 export type CareerRole = { id?: number; title: string; description: string | null };
 
+export type Newsletter = {
+  id?: number;
+  title: string;
+  issueLabel: string;
+  summary: string | null;
+  /** "In this issue" items. */
+  highlights: string[];
+  pdf: string;
+  cover: string | null;
+  coverAlt: string | null;
+};
+
+// The Fall 2026 issue was supplied by the client on 2026-10-31
+// (public/newsletters/soc-fall-2026-newsletter.pdf).
+export const defaultNewsletters: Newsletter[] = [
+  {
+    title: "Fall 2026 Newsletter",
+    issueLabel: "Fall 2026",
+    summary:
+      "Messages from our Board Chair and Executive Director, a look back at the 21st Annual Mardi Gras Scholarship Fundraiser, our 2026 scholarship recipients, and a save-the-date for Omega Mardi Gras 2027.",
+    highlights: [
+      "A Message from the Board Chair",
+      "Message from the Executive Director",
+      "A Night to Remember: the 21st Annual Mardi Gras Scholarship Fundraiser",
+      "Our 2026 Mardi Gras Sponsors",
+      "Five Young Men, Five Bright Futures",
+      "Mardi Gras Moments",
+      "Save the Date: Omega Mardi Gras 2027",
+    ],
+    pdf: "/newsletters/soc-fall-2026-newsletter.pdf",
+    cover: "/newsletters/fall-2026-cover.webp",
+    coverAlt:
+      "Cover of the SOC Alliance Fall 2026 Newsletter, headlined “Empowering Chicago communities, one pillar at a time.”",
+  },
+];
+
 export type CommunityStory = {
   id?: number;
   title: string;
@@ -59,7 +95,29 @@ export const defaultCareerRoles: CareerRole[] = [
   { title: "Victim Services Facilitator", description: null },
 ];
 
+// From the Fall 2026 Newsletter (client-supplied, 2026-10-31).
+export const fall2026Stories: CommunityStory[] = [
+  {
+    title: "Five Young Men, Five Bright Futures",
+    dateLocation: "July 25, 2026 · Ray and Joan Kroc Center, Chicago",
+    body: "The Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc., in conjunction with SOC Alliance, presented scholarships to five young men from the Chicagoland area. Each student received $2,000, for a total of $10,000 in scholarship awards, and the chapter’s brothers are committed to staying in touch as mentors and bridge builders as the recipients begin college.",
+    image: "/scholarship-2026-recipients.webp",
+    imageAlt:
+      "The five 2026 scholarship recipients with Sigma Omega Chapter brothers, holding a $10,000 ceremonial check",
+    href: "/programs/scholarship#recipients-2026",
+  },
+  {
+    title: "A Night to Remember at the 21st Annual Mardi Gras",
+    dateLocation: "March 14, 2026 · Stadium Club at Rate Field, Chicago",
+    body: "Close to 250 guests joined SOC Alliance and the Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc. for music by DJ Phokiss, a live performance by Soul Street Collective, a casino experience, and a full buffet. More than 30 corporate, civic, and community sponsors made the evening possible, and their support directly funds scholarships for Chicagoland students.",
+    image: "/mardi-gras-2026-entertainment.webp",
+    imageAlt: "Three vocalists performing live with a band at the 21st Annual Mardi Gras Scholarship Fundraiser",
+    href: "/donate/mardi-gras-fundraiser#recap-2026",
+  },
+];
+
 export const defaultStories: CommunityStory[] = [
+  ...fall2026Stories,
   {
     title: "Strengthening Violence Prevention Initiative Partners With Fuller Park Advisory Council",
     dateLocation: "August 20, 2025 · Fuller Park Fieldhouse, Chicago",

@@ -126,6 +126,102 @@ export default async function MardiGrasPage() {
         </div>
       </Container>
 
+      <section id="recap-2026" className="scroll-mt-32 bg-surface py-14 md:py-20">
+        <Container>
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-14">
+            <Reveal>
+              <SectionHeading eyebrow="2026 Recap" title="A Night to Remember" />
+              <p className="mt-5 text-base leading-relaxed text-text-muted">
+                On March 14, 2026, SOC Alliance and the Sigma Omega Chapter of Omega Psi Phi Fraternity,
+                Inc. hosted the 21st Annual Mardi Gras Scholarship Fundraiser. Close to 250 guests filled
+                the Stadium Club at Rate Field for an evening that paired celebration with purpose.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-text-muted">
+                The night had something for everyone: music by DJ Phokiss, a live performance by Soul
+                Street Collective, a lively casino experience, and a full buffet. More than 30 corporate,
+                civic, and community sponsors made it possible, and their investment directly funds
+                scholarships for students across Chicagoland.
+              </p>
+              <ul className="mt-8 grid grid-cols-3 gap-3">
+                {[
+                  { value: "~250", label: "Guests" },
+                  { value: "30+", label: "Sponsors" },
+                  { value: "21st", label: "Annual gala" },
+                ].map((s) => (
+                  <li key={s.label} className="rounded-2xl bg-background p-4 text-center shadow-sm ring-1 ring-black/5">
+                    <p className="text-2xl font-extrabold text-primary sm:text-3xl" style={{ fontFamily: "var(--font-heading)" }}>
+                      {s.value}
+                    </p>
+                    <p className="mt-1 text-xs font-semibold text-text-muted">{s.label}</p>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 text-sm text-text-muted">
+                See the{" "}
+                <Link href="/programs/scholarship#recipients-2026" className="font-semibold text-primary hover:underline">
+                  2026 scholarship recipients
+                </Link>{" "}
+                this night helped support.
+              </p>
+            </Reveal>
+
+            <Reveal delay={75} className="flex flex-col gap-6">
+              <figure>
+                <div className="relative aspect-[3/2] overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5">
+                  <Image
+                    src="/mardi-gras-2026-leadership.webp"
+                    alt="Four men in suits and Mardi Gras beads posing together at the 2026 gala"
+                    fill
+                    sizes="(min-width: 1024px) 45vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <figcaption className="mt-3 text-xs text-text-muted">
+                  Left to right: Dana O&rsquo;Banion (Fundraising Chair), Ron Hughes (Executive Director),
+                  Theodore Davis (Board Chair), and Dathon O&rsquo;Banion (Basileus, Sigma Omega Chapter).
+                </figcaption>
+              </figure>
+              <figure>
+                <div className="relative aspect-[3/2] overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5">
+                  <Image
+                    src="/mardi-gras-2026-entertainment.webp"
+                    alt="Three vocalists performing live with a band at the 2026 gala"
+                    fill
+                    sizes="(min-width: 1024px) 45vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <figcaption className="mt-3 text-xs text-text-muted">Live entertainment at the 21st Annual gala.</figcaption>
+              </figure>
+            </Reveal>
+          </div>
+
+          <div className="mt-16 grid grid-cols-1 items-center gap-10 rounded-3xl bg-text p-6 text-white shadow-2xl sm:p-10 lg:grid-cols-[1fr_minmax(0,380px)]">
+            <Reveal>
+              <SectionHeading eyebrow="Thank You" title="Our 2026 Sponsors" light />
+              <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/80">
+                Thank you to our 2026 Confetti, Krewe, Second Line, and Patron sponsors. Their support
+                elevated one night and expands educational access for deserving students across
+                Chicagoland.
+              </p>
+              <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                <ArrowPillLink label="Become a Sponsor" href="/get-involved#partner-with-us" />
+              </div>
+            </Reveal>
+            <Reveal delay={75}>
+              <Image
+                src="/mardi-gras-2026-sponsors.webp"
+                alt="Omega Mardi Gras 2026 Event Sponsors poster. Confetti Sponsors: Bro. Glenn Brewer and Karen Haskins-Brewer; Bro. Dana Keone O'Banion. Krewe Sponsors: Bro. Ernest Edwards; Bro. Ronald and Santha Hughes. Second Line Sponsors: Bro. Zaid Abdul Aleem and Family; Jeannie L. Adams; Bro. Sean Armstead, Phenomenal Fitness; Bro. Theodore Davis, DJ Chip Davis; Ron Lewis, Real Digital; Angela O'Banion, AFO Technology Group; Bro. Daniel T. Parker; Bro. Charles Alexander. Patron Sponsors: Duane Akin, DJ Duane Akin; Michelle Blakely, PhD; Bro. Dr. Steve Bowman; Bro. Jeff Cade, Healthy Lifestyle Specialist; Tony Coates, Ja' Grill; Bro. Ken Dickerson, Christian Brothers Automotive Aurora; Bro. Robert E. Fox Jr., Rush Solutions; Bro. William Greer; Dr. Karen Lever, 28 To Brush; Daria McDowell, Favors Décor and More; Bro. Pastor Mike Neal, Timothy Community Corporation; Neighborhood Housing Services; Bro. Lionel Pittman Sr., Pittman Plumbing; Providence Bank; Bro. Craig Richardson, Batter and Berries; Lori Hayes Shaw, State Farm; Sigma Omega Spring 2020 Line; Bro. Anthony Thomas, LATSC; Bro. Gregory Vanduan; Bro. Kalvin Watson, Massively OWT Products."
+                width={1100}
+                height={1651}
+                sizes="(min-width: 1024px) 380px, 100vw"
+                className="mx-auto h-auto w-full max-w-sm rounded-2xl shadow-2xl ring-1 ring-white/10"
+              />
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
       <StatBand
         eyebrow="By the Numbers"
         title="A Tradition of Giving"

@@ -5,7 +5,10 @@ import { sql } from "./db";
 /** Recent Media Library uploads, offered as quick picks on image fields. */
 export async function getMediaOptions(): Promise<MediaOption[]> {
   try {
-    return await sql<MediaOption>`SELECT url, filename FROM media ORDER BY created_at DESC LIMIT 60`;
+    return await sql<MediaOption>`
+      SELECT url, filename FROM media
+      WHERE content_type IS NULL OR content_type LIKE 'image/%'
+      ORDER BY created_at DESC LIMIT 60`;
   } catch {
     return [];
   }

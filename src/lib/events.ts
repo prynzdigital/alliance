@@ -59,7 +59,6 @@ function theme(pillar: EventPillar) {
 
 const SCHOLARSHIP_ALT = "A graduate in a cap and gown embracing a loved one";
 const COMMUNITY_ALT = "Community members gathered together at a neighborhood event";
-const OMEGA_GRAS_ALT = "A gold Mardi Gras mask surrounded by festive confetti and ribbon";
 
 // The following real event photos/flyers (Fuller Park meeting, grant award,
 // law enforcement session, blood drive, Talent Hunt, 20th Annual Mardi Gras,
@@ -74,6 +73,11 @@ const OMEGA_GRAS_ALT = "A gold Mardi Gras mask surrounded by festive confetti an
 // These are the built-in defaults: they seed the CMS database on first run and
 // are what the public site shows if the database is ever unreachable. Day-to-day
 // edits happen in the admin dashboard (/admin/events), not here.
+export const MARDI_GRAS_2026_DESCRIPTION =
+  "Close to 250 guests and more than 30 sponsors joined SOC Alliance and the Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc. at the Stadium Club at Rate Field for our flagship scholarship gala.";
+export const MARDI_GRAS_2026_ALT =
+  "Fundraising Chair Dana O'Banion, Executive Director Ron Hughes, Board Chair Theodore Davis, and Sigma Omega Chapter Basileus Dathon O'Banion at the 2026 gala";
+
 export const defaultEvents: SocEvent[] = [
   {
     // Save-the-date flyer supplied by the client on 2026-10-10. The flyer gives
@@ -102,6 +106,19 @@ export const defaultEvents: SocEvent[] = [
     ...theme("community"),
   },
   {
+    // From the Fall 2026 Newsletter (client-supplied, 2026-10-31).
+    title: "2026 Scholarship Presentation",
+    date: "2026-07-25",
+    location: "Ray and Joan Kroc Center, Chicago",
+    description:
+      "The Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc. and SOC Alliance presented $2,000 scholarships to five college-bound young men from the Chicagoland area, $10,000 in all.",
+    href: "/programs/scholarship#recipients-2026",
+    cta: "Meet the Recipients",
+    image: "/scholarship-2026-recipients.webp",
+    imageAlt: "The five 2026 scholarship recipients with Sigma Omega Chapter brothers, holding a $10,000 ceremonial check",
+    ...theme("scholarship"),
+  },
+  {
     title: "Happy Labor Day",
     date: "2026-09-07",
     description:
@@ -115,13 +132,12 @@ export const defaultEvents: SocEvent[] = [
   {
     title: "21st Annual Omega Mardi Gras Scholarship Fundraiser",
     date: "2026-03-14",
-    location: "Rate Field, Chicago",
-    description:
-      "SOC Alliance's flagship annual gala, co-hosted with the Sigma Omega Chapter of Omega Psi Phi Fraternity, Inc.",
-    href: "/donate/mardi-gras-fundraiser",
-    cta: "Learn More",
-    image: "/omega-gras.jpg",
-    imageAlt: OMEGA_GRAS_ALT,
+    location: "Stadium Club at Rate Field, Chicago",
+    description: MARDI_GRAS_2026_DESCRIPTION,
+    href: "/donate/mardi-gras-fundraiser#recap-2026",
+    cta: "See the Recap",
+    image: "/mardi-gras-2026-leadership.webp",
+    imageAlt: MARDI_GRAS_2026_ALT,
     ...theme("scholarship"),
   },
   {

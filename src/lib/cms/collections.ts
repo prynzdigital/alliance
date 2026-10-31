@@ -6,7 +6,8 @@ import { SOCIAL_PLATFORMS } from "./social";
 // driven from this config, so a field only has to be described once. Table and
 // column names here are constants — user input never reaches SQL identifiers.
 
-export type FieldType = "text" | "textarea" | "date" | "url" | "image" | "select" | "checkbox" | "number";
+/** "file" is a PDF document (upload, or a /path or https:// link). */
+export type FieldType = "text" | "textarea" | "date" | "url" | "image" | "file" | "select" | "checkbox" | "number";
 
 export type CollectionField = {
   /** Database column. */
@@ -113,6 +114,40 @@ export const COLLECTIONS: CollectionDef[] = [
       { name: "image_alt", label: "Photo description (alt text)", type: "text" },
       { name: "link_href", label: "Learn More link", type: "text", placeholder: "/programs/community" },
       sortOrderField,
+      publishedField,
+    ],
+  },
+  {
+    slug: "newsletters",
+    table: "newsletters",
+    title: "Newsletters",
+    singular: "Newsletter Issue",
+    description:
+      "Newsletter issues (PDFs). The issue at the top of the list is featured on News & Events and linked from the footer.",
+    orderBy: "sort_order ASC, id DESC",
+    titleColumn: "title",
+    subtitleColumns: ["issue_label"],
+    imageColumn: "cover_url",
+    appearsOn: "News & Events and the footer",
+    fields: [
+      { name: "title", label: "Title", type: "text", required: true, placeholder: "Fall 2026 Newsletter" },
+      { name: "issue_label", label: "Issue", type: "text", required: true, placeholder: "Fall 2026" },
+      { name: "summary", label: "Short summary", type: "textarea", help: "One or two sentences about this issue." },
+      {
+        name: "highlights",
+        label: "In this issue",
+        type: "textarea",
+        help: "One item per line, e.g. “A Message from the Board Chair”.",
+      },
+      { name: "pdf_url", label: "Newsletter PDF", type: "file", required: true },
+      {
+        name: "cover_url",
+        label: "Cover image",
+        type: "image",
+        help: "A picture of the first page works best (portrait).",
+      },
+      { name: "cover_alt", label: "Cover description (alt text)", type: "text" },
+      { ...sortOrderField, help: "Lower numbers appear first. New issues with the same number appear first." },
       publishedField,
     ],
   },

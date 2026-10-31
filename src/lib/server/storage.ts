@@ -48,12 +48,7 @@ export type StoredFile = { url: string; pathname: string; filename: string; cont
 // Uploads go to Vercel Blob in production. In local development without a
 // Blob token they're written to public/uploads/ (git-ignored) so the admin can
 // be tried out without any cloud setup.
-export async function storeImage(file: File, folder: string): Promise<StoredFile> {
-  const ext = ALLOWED_IMAGE_TYPES[file.type];
-  if (!ext) throw new Error("Please upload a JPG, PNG, WebP, or GIF image.");
-  if (file.size === 0) throw new Error("That file is empty.");
-  if (file.size > MAX_UPLOAD_BYTES) throw new Error("Images must be under 4 MB.");
-
+async function storeFile(file: File, folder: string, ext: string): Promise<StoredFile> {
   const safeFolder = folder.replace(/[^a-z0-9-]/gi, "") || "uploads";
   const key = `${safeFolder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
   const auth = blobAuth();
@@ -70,7 +65,27 @@ export async function storeImage(file: File, folder: string): Promise<StoredFile
     await writeFile(dest, Buffer.from(await file.arrayBuffer()));
     return { url: `/uploads/${key}`, pathname: key, filename: file.name, contentType: file.type, size: file.size };
   }
-  throw new Error("Image storage isn't configured yet. Connect a Vercel Blob store to this project.");
+  throw new Error("File storage isn't configured yet. Connect a Vercel Blob store to this project.");
+}
+
+export async function storeImage(file: File, folder: string): Promise<StoredFile> {
+  const ext = ALLOWED_IMAGE_TYPES[file.type];
+  if (!ext) throw new Error("Please upload a JPG, PNG, WebP, or GIF image.");
+  if (file.size === 0) throw new Error("That file is empty.");
+  if (file.size > MAX_UPLOAD_BYTES) throw new Error("Images must be under 4 MB.");
+  return storeFile(file, folder, ext);
+}
+
+export async function storeDocument(file: File, folder: string): Promise<StoredFile> {
+  if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+    throw new Error("Please upload a PDF file.");
+  }
+  if (file.size === 0) throw new Error("That file is empty.");
+  if (file.size > MAX_UPLOAD_BYTES) {
+    throw new Error("PDFs uploaded here must be under 4 MB. For a larger file, compress it first or paste a link to it instead.");
+  }
+  const pdf = new File([file], file.name, { type: "application/pdf" });
+  return storeFile(pdf, folder, "pdf");
 }
 
 export async function deleteStoredFile(url: string): Promise<void> {

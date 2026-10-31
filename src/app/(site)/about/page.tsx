@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { Reveal } from "@/components/Reveal";
+import { SectionHeading } from "@/components/SectionHeading";
 import { Card, CardImage } from "@/components/ui/Card";
 
 export const metadata: Metadata = {
@@ -22,6 +25,23 @@ const sections = [
     href: "/about/financials-transparency",
     image: "/economic-2.jpg",
     imageAlt: "Rising stacks of gold coins in front of a blurred financial growth chart",
+  },
+];
+
+// Excerpts from the leadership letters in the Fall 2026 Newsletter
+// (client-supplied, 2026-10-31).
+const leadershipNotes = [
+  {
+    quote:
+      "Our name, Strengthening Our Community Alliance, continues to reflect what we believe: stronger communities are created when people and organizations come together, build relationships, and work toward a shared vision.",
+    name: "Theodore Davis",
+    title: "Board Chair",
+  },
+  {
+    quote:
+      "It has been a purposeful and productive year. Strengthening Our Community Alliance continues to be impactful throughout the Chicagoland area.",
+    name: "Ronald J. Hughes",
+    title: "Executive Director",
   },
 ];
 
@@ -49,6 +69,47 @@ export default function AboutPage() {
         ))}
       </div>
       </Container>
+
+      <section className="bg-surface py-16 md:py-24">
+        <Container>
+          <Reveal>
+            <SectionHeading eyebrow="Fall 2026" title="From Our Leadership" />
+          </Reveal>
+          <ul className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {leadershipNotes.map((note, i) => (
+              <li key={note.name}>
+                <Reveal delay={i * 75} className="h-full">
+                  <figure className="relative flex h-full flex-col rounded-3xl bg-background p-8 shadow-md ring-1 ring-black/5 sm:p-10">
+                    <span
+                      aria-hidden
+                      className="absolute -top-5 left-8 flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary text-3xl font-extrabold leading-none text-text shadow-lg"
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      &ldquo;
+                    </span>
+                    <blockquote className="flex-1 text-lg leading-relaxed text-text">
+                      <p>{note.quote}</p>
+                    </blockquote>
+                    <figcaption className="mt-6 border-t border-black/5 pt-5">
+                      <p className="font-bold text-text">{note.name}</p>
+                      <p className="text-sm text-text-muted">{note.title}</p>
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+          <Reveal delay={150}>
+            <p className="mt-8 text-sm text-text-muted">
+              Read both letters in full in our{" "}
+              <Link href="/news-events#newsletter" className="font-semibold text-primary hover:underline">
+                Fall 2026 Newsletter
+              </Link>
+              .
+            </p>
+          </Reveal>
+        </Container>
+      </section>
     </>
   );
 }

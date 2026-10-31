@@ -83,13 +83,14 @@ export async function uploadMediaAction(_prev: ActionState, formData: FormData):
 
 export async function deleteMediaAction(id: number): Promise<void> {
   const user = await assertUser();
-  // Refuse while any page still shows this image, so a delete can't leave a
-  // broken image on the live site.
+  // Refuse while any page still uses this file, so a delete can't leave a
+  // broken image or link on the live site.
   const rows = await sql<{ url: string; filename: string | null }>`
     DELETE FROM media m WHERE m.id = ${id}
       AND NOT EXISTS (SELECT 1 FROM events e WHERE e.image_url = m.url)
       AND NOT EXISTS (SELECT 1 FROM stories s WHERE s.image_url = m.url)
       AND NOT EXISTS (SELECT 1 FROM board_members b WHERE b.photo_url = m.url)
+      AND NOT EXISTS (SELECT 1 FROM newsletters n WHERE n.pdf_url = m.url OR n.cover_url = m.url)
     RETURNING url, filename
   `;
   if (rows.length > 0) {

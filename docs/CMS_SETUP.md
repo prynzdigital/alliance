@@ -9,6 +9,7 @@ The site has a built-in admin dashboard at **`/admin`**, modeled on the e-cleanp
 | **Inbox** | Every Contact, Volunteer, Mentoring & Life Coaching, and Newsletter form submission. Includes status, internal notes, reply-by-email, and CSV export. |
 | **Events & News** | Homepage carousels, the announcement bar, News & Events, and the Mardi Gras page. Upcoming/Past is worked out from each date automatically. |
 | **Community Stories** | The homepage's "Stories From Our Community" section. |
+| **Newsletters** | Newsletter issues (PDF upload, up to 4 MB). The top issue is featured on News & Events and linked from the footer. |
 | **Leadership & Board** | The roster on Our Story, including photos, titles, Officer/Director grouping, order, and optional bios. |
 | **Partners** | The homepage's Our Partners band. |
 | **Careers** | Role list on Get Involved → Careers. |

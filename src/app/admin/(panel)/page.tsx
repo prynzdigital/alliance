@@ -18,6 +18,7 @@ import {
   PencilIcon,
   PlusIcon,
   ShareIcon,
+  NewspaperIcon,
   StoryIcon,
   UploadIcon,
   UsersIcon,
@@ -44,6 +45,7 @@ const typeLabel = (t: string) => SUBMISSION_TYPES.find((s) => s.value === t)?.la
 const COLLECTION_ICONS: Record<string, Icon> = {
   events: CalendarIcon,
   stories: StoryIcon,
+  newsletters: NewspaperIcon,
   board: UsersIcon,
   partners: HandshakeIcon,
   careers: BriefcaseIcon,
@@ -444,7 +446,7 @@ export default async function DashboardPage() {
 
       {/* Content at a glance */}
       <Card title="Your website at a glance" action={<CardLink href="/admin/media">Media library</CardLink>}>
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4 xl:grid-cols-7">
           {COLLECTIONS.map((c) => {
             const TileIcon = COLLECTION_ICONS[c.slug] ?? LayersIcon;
             const n = counts[c.slug];

@@ -1,6 +1,13 @@
 import "server-only";
-import { defaultEvents } from "@/lib/events";
-import { defaultBoard, defaultCareerRoles, defaultPartners, defaultStories } from "@/lib/cms/defaults";
+import { defaultEvents, MARDI_GRAS_2026_ALT, MARDI_GRAS_2026_DESCRIPTION } from "@/lib/events";
+import {
+  defaultBoard,
+  defaultCareerRoles,
+  defaultNewsletters,
+  defaultPartners,
+  defaultStories,
+  fall2026Stories,
+} from "@/lib/cms/defaults";
 import { defaultSocialLinks } from "@/lib/cms/social";
 
 type Exec = (text: string, params: unknown[]) => Promise<Record<string, unknown>[]>;
@@ -55,6 +62,8 @@ export async function seedDatabase(exec: Exec): Promise<void> {
   }
 
   await seedSocialLinks(exec);
+  await seedNewsletters(exec);
+  await seedFall2026Content(exec, claimed.length > 0);
   await bootstrapOwner(exec);
 }
 
@@ -89,6 +98,66 @@ async function seedSocialLinks(exec: Exec): Promise<void> {
       (i + 1) * 10,
     ]);
   }
+}
+
+// Newsletters got their own table after launch; add the built-in issue(s) once.
+async function seedNewsletters(exec: Exec): Promise<void> {
+  const claimed = await exec(
+    `INSERT INTO meta (key, value) VALUES ('seeded_newsletters_v1', $1) ON CONFLICT (key) DO NOTHING RETURNING key`,
+    [new Date().toISOString()]
+  );
+  if (claimed.length === 0) return;
+  for (const n of defaultNewsletters) {
+    await exec(
+      `INSERT INTO newsletters (title, issue_label, summary, highlights, pdf_url, cover_url, cover_alt, sort_order)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, 0)`,
+      [n.title, n.issueLabel, n.summary, n.highlights.join("\n"), n.pdf, n.cover, n.coverAlt]
+    );
+  }
+}
+
+// One-time update with news from the Fall 2026 Newsletter, for databases
+// seeded before it arrived (a fresh database already gets it from the
+// defaults). Edits already made in the admin are left alone: the 2026 gala
+// is only updated if it still has its original location.
+async function seedFall2026Content(exec: Exec, freshDatabase: boolean): Promise<void> {
+  const claimed = await exec(
+    `INSERT INTO meta (key, value) VALUES ('seeded_fall_2026_v1', $1) ON CONFLICT (key) DO NOTHING RETURNING key`,
+    [new Date().toISOString()]
+  );
+  if (claimed.length === 0 || freshDatabase) return;
+
+  for (const [i, s] of fall2026Stories.entries()) {
+    await exec(
+      `INSERT INTO stories (title, date_location, body, image_url, image_alt, link_href, sort_order)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+      [s.title, s.dateLocation, s.body, s.image, s.imageAlt, s.href, i + 1]
+    );
+  }
+
+  const presentation = defaultEvents.find((e) => e.title === "2026 Scholarship Presentation");
+  if (presentation) {
+    const e = presentation;
+    await exec(
+      `INSERT INTO events (title, event_date, location, description, link_href, link_label, image_url, image_alt, pillar)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+      [e.title, e.date, e.location ?? null, e.description, e.href, e.cta, e.image, e.imageAlt, e.pillar]
+    );
+  }
+
+  await exec(
+    `UPDATE events
+     SET location = 'Stadium Club at Rate Field, Chicago', description = $1, image_url = $2, image_alt = $3,
+         link_href = $4, link_label = $5, updated_at = now()
+     WHERE title = '21st Annual Omega Mardi Gras Scholarship Fundraiser' AND location = 'Rate Field, Chicago'`,
+    [
+      MARDI_GRAS_2026_DESCRIPTION,
+      "/mardi-gras-2026-leadership.webp",
+      MARDI_GRAS_2026_ALT,
+      "/donate/mardi-gras-fundraiser#recap-2026",
+      "See the Recap",
+    ]
+  );
 }
 
 const BCRYPT_HASH = /^\$2[aby]\$\d{2}\$[./A-Za-z0-9]{53}$/;

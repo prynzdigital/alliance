@@ -4,6 +4,7 @@ import { footerLegal, primaryNav } from "@/lib/navigation";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { SocialIcon } from "@/components/icons/SocialIcons";
 import { telHref, type SiteSettings } from "@/lib/cms/settings";
+import type { Newsletter } from "@/lib/cms/defaults";
 import { socialName, type SocialLink } from "@/lib/cms/social";
 
 const STATENEXT_URL = "https://www.gostatenext.com/";
@@ -27,7 +28,15 @@ const ICONS = {
   external: "M14 5h5v5M19 5l-8 8M18 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4",
 };
 
-export function SiteFooter({ settings, socialLinks }: { settings: SiteSettings; socialLinks: SocialLink[] }) {
+export function SiteFooter({
+  settings,
+  socialLinks,
+  latestNewsletter,
+}: {
+  settings: SiteSettings;
+  socialLinks: SocialLink[];
+  latestNewsletter?: Newsletter;
+}) {
   const ORG = {
     name: settings.org_name,
     fullName: settings.org_full_name,
@@ -87,6 +96,15 @@ export function SiteFooter({ settings, socialLinks }: { settings: SiteSettings; 
                 <p className="mt-2 text-sm text-white/70">
                   Get occasional updates on programs, events, and ways to help.
                 </p>
+                {latestNewsletter && (
+                  <Link
+                    href="/news-events#newsletter"
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-secondary underline-offset-2 hover:underline"
+                  >
+                    Read the latest issue: {latestNewsletter.title}
+                    <span aria-hidden>&rarr;</span>
+                  </Link>
+                )}
               </div>
             </div>
             <NewsletterForm idPrefix="footer" dark buttonVariant="secondary" />

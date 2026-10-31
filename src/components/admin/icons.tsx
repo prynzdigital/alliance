@@ -44,6 +44,12 @@ export const StoryIcon = (p: IconProps) => (
     <path d="M4 19.5V4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
   </Svg>
 );
+export const NewspaperIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
+    <path d="M18 14h-8M15 18h-5M10 6h8v4h-8z" />
+  </Svg>
+);
 export const UsersIcon = (p: IconProps) => (
   <Svg {...p}>
     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />

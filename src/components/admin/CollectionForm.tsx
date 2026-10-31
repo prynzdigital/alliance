@@ -124,6 +124,65 @@ function ImageInput({
   );
 }
 
+function FileInput({ field, value, error }: { field: CollectionField; value: string; error?: string }) {
+  const [url, setUrl] = useState(value);
+  const [picked, setPicked] = useState<string | null>(null);
+  const id = `f-${field.name}`;
+
+  return (
+    <fieldset aria-describedby={`${id}-help`}>
+      <legend className={fieldCls.label}>
+        {field.label}
+        {field.required && <span className="text-red-700"> *</span>}
+      </legend>
+      <div className="mt-2 flex flex-col gap-3 rounded-xl border border-black/10 bg-[#f8f8fd] p-4">
+        <div className="flex items-center gap-3">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-red-50 text-xs font-extrabold text-red-700">
+            PDF
+          </span>
+          <div className="min-w-0 text-sm">
+            {picked ? (
+              <p className="truncate font-semibold text-text">{picked} (uploads when you save)</p>
+            ) : url ? (
+              <a href={url} target="_blank" rel="noopener noreferrer" className="block truncate font-semibold text-primary hover:underline">
+                {url.split("/").pop()}
+              </a>
+            ) : (
+              <p className="text-text-muted">No file yet</p>
+            )}
+          </div>
+        </div>
+        <label className="block">
+          <span className="text-xs font-semibold text-text">Upload a PDF</span>
+          <input
+            type="file"
+            name={`${field.name}__file`}
+            accept="application/pdf,.pdf"
+            onChange={(e) => setPicked(e.target.files?.[0]?.name ?? null)}
+            className="mt-1 block w-full text-sm text-text-muted file:mr-3 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-primary-dark"
+          />
+        </label>
+        <label className="block">
+          <span className="text-xs font-semibold text-text">…or file path / link</span>
+          <input
+            type="text"
+            name={field.name}
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="/newsletters/issue.pdf or https://…"
+            className={fieldCls.input}
+            aria-invalid={Boolean(error)}
+          />
+        </label>
+      </div>
+      <p id={`${id}-help`} className={fieldCls.help}>
+        PDF up to 4 MB. For a bigger file, compress it first or paste a link to it. {field.help}
+      </p>
+      {error && <p className={fieldCls.error}>{error}</p>}
+    </fieldset>
+  );
+}
+
 function FieldInput({
   field,
   value,
@@ -148,6 +207,7 @@ function FieldInput({
   const str = value == null ? "" : String(value);
 
   if (field.type === "image") return <ImageInput field={field} value={str} error={error} media={media} />;
+  if (field.type === "file") return <FileInput field={field} value={str} error={error} />;
 
   if (field.type === "checkbox") {
     return (

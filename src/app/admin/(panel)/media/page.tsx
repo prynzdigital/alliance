@@ -15,6 +15,7 @@ type MediaRow = {
   id: number;
   url: string;
   filename: string | null;
+  content_type: string | null;
   size_bytes: number | null;
   uploaded_by: string | null;
   created_at: string;
@@ -28,13 +29,14 @@ function formatSize(bytes: number | null) {
 
 export default async function MediaPage() {
   await requireUser();
-  // "In use" = referenced by any event, story, or board member, so deleting
-  // it would leave a broken image on the site.
+  // "In use" = referenced by any event, story, board member, or newsletter, so
+  // deleting it would leave a broken image or link on the site.
   const rows = await sql<MediaRow>`
-    SELECT m.id, m.url, m.filename, m.size_bytes, m.uploaded_by, m.created_at,
+    SELECT m.id, m.url, m.filename, m.content_type, m.size_bytes, m.uploaded_by, m.created_at,
       (EXISTS (SELECT 1 FROM events e WHERE e.image_url = m.url)
         OR EXISTS (SELECT 1 FROM stories s WHERE s.image_url = m.url)
-        OR EXISTS (SELECT 1 FROM board_members b WHERE b.photo_url = m.url)) AS in_use
+        OR EXISTS (SELECT 1 FROM board_members b WHERE b.photo_url = m.url)
+        OR EXISTS (SELECT 1 FROM newsletters n WHERE n.pdf_url = m.url OR n.cover_url = m.url)) AS in_use
     FROM media m ORDER BY m.created_at DESC
   `;
   const storage = storageMode();
@@ -43,7 +45,7 @@ export default async function MediaPage() {
     <>
       <AdminPageHeader
         title="Media Library"
-        description="Photos and flyers uploaded for the website. Images uploaded while editing an event, story, or board member also appear here."
+        description="Photos, flyers, and newsletter PDFs uploaded for the website. Files uploaded while editing an event, story, board member, or newsletter also appear here."
       />
       {storage !== "blob" && (
         <Flash tone="info">
@@ -64,7 +66,19 @@ export default async function MediaPage() {
           {rows.map((m) => (
             <li key={m.id} className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm">
               <div className="relative aspect-[4/3] bg-[#f4f5fb]">
-                <Image src={m.url} alt={m.filename ?? "Uploaded image"} fill sizes="(min-width: 1024px) 22vw, 45vw" className="object-cover" />
+                {m.content_type === "application/pdf" ? (
+                  <a
+                    href={m.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-full flex-col items-center justify-center gap-2 text-red-700 hover:bg-red-50"
+                  >
+                    <span className="rounded-lg bg-red-100 px-3 py-2 text-sm font-extrabold">PDF</span>
+                    <span className="text-xs font-semibold">Open document</span>
+                  </a>
+                ) : (
+                  <Image src={m.url} alt={m.filename ?? "Uploaded image"} fill sizes="(min-width: 1024px) 22vw, 45vw" className="object-cover" />
+                )}
                 {m.in_use && (
                   <span className="absolute left-2 top-2">
                     <Badge tone="green">In use</Badge>
@@ -87,7 +101,7 @@ export default async function MediaPage() {
                   ) : (
                     <ConfirmForm
                       action={deleteMediaAction.bind(null, m.id)}
-                      confirm="Delete this image permanently?"
+                      confirm="Delete this file permanently?"
                       className="rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-50"
                     >
                       Delete
